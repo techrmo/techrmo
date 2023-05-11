@@ -1,0 +1,20 @@
+$color-primary: #3ec863;
+$color-primary-300: #64b684;
+$color-secondary: #b858b4;
+$color-secondary-300: #b879cc;
+$color-secondary-500: #bb9ae3;
+$color-secondary-800: #cfc9f9;
+$color-secondary-transparent-300: rgba(#cfc9f9, 0.6);
+$color-secondary-transparent-900: rgba(#b858b4, 0.3);
+$color-black: #1c1c1c;
+$color-gray-1: #2b2b2b;
+$color-gray-2: #212121;
+$color-gray-transparent-100: rgba(#cfc9f9, 0.3);
+
+$breakpoints: (
+  "small": 320px,
+  "medium": 768px,
+  "large": 1024px,
+) !default;
+
+$text-font-stack: "Poppins", "Arial", sans-serif !default;

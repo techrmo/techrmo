@@ -1,0 +1,12 @@
+name: WorkFlow Main
+on: 
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    secrets: inherit
+    uses: ./.github/workflows/deploy-prod.yaml
+   
+     
