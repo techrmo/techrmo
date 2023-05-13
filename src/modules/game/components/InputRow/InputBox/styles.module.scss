@@ -1,0 +1,35 @@
+@use "abstracts" as *;
+
+.container {
+  background-color: $color-pink-200;
+
+  &:not([data-variant='active']) {
+    cursor: not-allowed;
+  }
+  
+  &[data-variant='disabled'] {
+    background-color: $color-pink-transparent-900;
+  }
+
+  &[data-variant='incorrect'] {
+    background-color: $color-pink-transparent-300;
+  }
+
+  &[data-variant='correct'] {
+    background-color: $color-green-900;
+  }
+
+  &[data-variant='bad-position'] {
+    background-color: $color-pink-900;
+  }
+
+  width: 4.5rem;
+  height: 4.5rem;
+  padding: 1rem;
+  font-size: 2rem;
+  text-align: center;
+
+  border-radius: 4px;
+  border: none;
+  outline: none;
+}

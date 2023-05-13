@@ -1,18 +1,30 @@
-import { useRef, KeyboardEvent } from 'react';
+import { KeyboardEvent } from 'react';
 
+import { useFormContext } from 'react-hook-form';
 import { getAllowedElement } from '@/shared/helpers/hasElement';
 
 import styles from './styles.module.scss';
 
-export const InputBox = () => {
-  const ref = useRef<HTMLInputElement | null>(null);
+export type InputBoxVariant = 'disabled' | 'active' | 'incorrect' | 'correct' | 'bad-position'
+
+interface InputBoxProps {
+  variant: InputBoxVariant;
+  index: number;
+}
+
+const InputBox = ({ variant, index, handleTry }: InputBoxProps) => {
+  const { register, setValue, handleSubmit } = useFormContext();
+  const inputName = `inputs.${index}.value`;
 
   const handleKeyUp = (event: KeyboardEvent<HTMLInputElement>) => {
-    event.preventDefault();
-
-    if (!ref.current) {
+    if (event.key === 'Enter') {
+      handleSubmit(handleTry)();
       return;
     }
+
+    event.preventDefault();
+
+    // event.
 
     const { key } = event;
     const { previousElementSibling, nextElementSibling } = event.currentTarget;
@@ -25,11 +37,10 @@ export const InputBox = () => {
     const nextInput = getAllowedElement(nextElementSibling, 'INPUT');
 
     if (isLetterKey) {
-      ref.current.value = key.toLocaleUpperCase();
+      setValue(inputName, key.toLocaleUpperCase());
     }
-
     if (isBackSpaceKey) {
-      ref.current.value = '';
+      setValue(inputName, '');
     }
 
     if (isLetterKey || isArrowRightKey) {
@@ -45,8 +56,12 @@ export const InputBox = () => {
     <input
       type='text'
       className={styles.container}
-      ref={ref}
+      disabled={variant !== 'active'}
+      data-variant={variant}
       onKeyDown={(event) => handleKeyUp(event)}
+      {...register(inputName)}
     />
   );
 };
+
+export default InputBox;
