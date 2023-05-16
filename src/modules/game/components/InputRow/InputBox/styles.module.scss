@@ -2,6 +2,7 @@
 
 .container {
   background-color: $color-pink-200;
+  cursor: text;
 
   &:not([data-variant="active"]) {
     cursor: not-allowed;
@@ -25,6 +26,7 @@
 
   width: 4.5rem;
   height: 4.5rem;
+  
   padding: 1rem;
   font-size: 2rem;
   text-align: center;
