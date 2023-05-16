@@ -11,7 +11,7 @@ interface UseVariantParams {
 const useVariant = ({
   isSubmitted, value, word, index, isActiveRow,
 }: UseVariantParams): InputBoxVariant => {
-  if (!isActiveRow) {
+  if (!isActiveRow && !value) {
     return 'inactive';
   }
 

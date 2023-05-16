@@ -1,5 +1,3 @@
-'use client';
-
 import {
   Dispatch, ReactNode, SetStateAction,
 } from 'react';
@@ -20,10 +18,7 @@ const InputRow = ({ children, setAttemptNumber }: InputRowProps) => {
   });
 
   const handleAttempt = ({ value }: Pick<FormFields, 'value'>) => {
-    console.log('value', value);
     setAttemptNumber((previousAttempt) => previousAttempt + 1);
-    // methods.setValue('value.0', 'A');
-    // // const attempt = value.join('');
   };
 
   return (

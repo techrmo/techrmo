@@ -1,5 +1,3 @@
-'use client';
-
 import { KeyboardEvent } from 'react';
 
 import { useFormContext } from 'react-hook-form';
@@ -20,17 +18,15 @@ interface InputBoxProps {
   isActiveRow: boolean;
 }
 
-const InputBox = ({ index, word }: InputBoxProps) => {
+const InputBox = ({ index, word, isActiveRow }: InputBoxProps) => {
   const inputName = `value.${index}` as const;
   const {
     register, setValue, getValues, formState: { isSubmitted },
   } = useFormContext<FormFields>();
 
-  console.log(inputName, 't');
-
   const variant = useVariant({
     isSubmitted,
-    isActiveRow: true,
+    isActiveRow,
     index,
     value: getValues(inputName),
     word,

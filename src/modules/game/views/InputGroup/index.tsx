@@ -17,7 +17,7 @@ const InputGroup = () => {
     .map((_, index) => (
       <InputBox
         isActiveRow={isActiveRow}
-        key={crypto.randomUUID()}
+        key={index}
         index={index as InputBoxIndex}
         word={word}
       />
@@ -27,7 +27,7 @@ const InputGroup = () => {
     .from({ length: numberOfRows })
     .map((_, index) => (
       <InputRow
-        key={crypto.randomUUID()}
+        key={index}
         setAttemptNumber={setAttemptNumber}
       >
         {inputsBox(attemptNumber === index)}
