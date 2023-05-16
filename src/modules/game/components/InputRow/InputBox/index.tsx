@@ -1,3 +1,5 @@
+'use client';
+
 import { KeyboardEvent } from 'react';
 
 import { useFormContext } from 'react-hook-form';
@@ -14,7 +16,8 @@ export type InputBoxIndex = 0 | 1 | 2 | 3 | 4;
 
 interface InputBoxProps {
   index: InputBoxIndex;
-  word: string
+  word: string;
+  isActiveRow: boolean;
 }
 
 const InputBox = ({ index, word }: InputBoxProps) => {
@@ -23,8 +26,11 @@ const InputBox = ({ index, word }: InputBoxProps) => {
     register, setValue, getValues, formState: { isSubmitted },
   } = useFormContext<FormFields>();
 
+  console.log(inputName, 't');
+
   const variant = useVariant({
     isSubmitted,
+    isActiveRow: true,
     index,
     value: getValues(inputName),
     word,
@@ -62,7 +68,6 @@ const InputBox = ({ index, word }: InputBoxProps) => {
     <input
       className={styles.container}
       type='text'
-      value=''
       data-variant={variant}
       disabled={variant !== 'active'}
       onKeyUp={handleKeyUp}

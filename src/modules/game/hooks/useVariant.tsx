@@ -5,11 +5,16 @@ interface UseVariantParams {
   value: `${string}`;
   word: string;
   index: InputBoxIndex,
+  isActiveRow: boolean;
 }
 
 const useVariant = ({
-  isSubmitted, value, word, index,
+  isSubmitted, value, word, index, isActiveRow,
 }: UseVariantParams): InputBoxVariant => {
+  if (!isActiveRow) {
+    return 'inactive';
+  }
+
   if (!isSubmitted) {
     return 'active';
   }

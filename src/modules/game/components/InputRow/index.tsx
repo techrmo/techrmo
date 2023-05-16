@@ -1,35 +1,30 @@
+'use client';
+
+import {
+  Dispatch, ReactNode, SetStateAction,
+} from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-
-import InputBox, { InputBoxIndex } from './InputBox';
 
 import styles from './styles.module.scss';
 import { type FormFields, inputSchema } from '../../validators/input';
 
-const InputRow = () => {
-  const word = 'ALVES';
+interface InputRowProps {
+  setAttemptNumber: Dispatch<SetStateAction<number>>;
+  children: ReactNode;
+}
 
-  const numberOfInputs = 5;
+const InputRow = ({ children, setAttemptNumber }: InputRowProps) => {
   const methods = useForm<FormFields>({
     resolver: zodResolver(inputSchema),
   });
 
   const handleAttempt = ({ value }: Pick<FormFields, 'value'>) => {
     console.log('value', value);
+    setAttemptNumber((previousAttempt) => previousAttempt + 1);
+    // methods.setValue('value.0', 'A');
     // // const attempt = value.join('');
-
-    // setVariant(attempt === word ? 'correct' : 'incorrect');
   };
-
-  const inputsBox = Array
-    .from({ length: numberOfInputs })
-    .map((_, index) => (
-      <InputBox
-        key={crypto.randomUUID()}
-        index={index as InputBoxIndex}
-        word={word}
-      />
-    ));
 
   return (
     <FormProvider {...methods}>
@@ -37,7 +32,7 @@ const InputRow = () => {
         className={styles.container}
         onSubmit={methods.handleSubmit(handleAttempt)}
       >
-        {inputsBox}
+        {children}
         <input type='submit' />
       </form>
     </FormProvider>
