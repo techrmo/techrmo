@@ -1,0 +1,10 @@
+@use "abstracts" as *;
+
+.container {
+  display: flex;
+  gap: 1rem;
+
+  input:last-of-type {
+   display: none;
+  }
+}
