@@ -63,6 +63,7 @@ const InputBox = ({ index, word, isActiveRow }: InputBoxProps) => {
   return (
     <input
       className={styles.container}
+      autoComplete='off'
       type='text'
       data-variant={variant}
       disabled={variant !== 'active'}

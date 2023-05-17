@@ -7,9 +7,9 @@ import InputRow from '../../components/InputRow';
 
 const InputGroup = () => {
   const numberOfRows = 5;
+  const numberOfInputs = 5;
   const word = 'ALVES';
 
-  const numberOfInputs = 5;
   const [attemptNumber, setAttemptNumber] = useState(0);
 
   const inputsBox = (isActiveRow: boolean) => Array
@@ -28,6 +28,7 @@ const InputGroup = () => {
     .map((_, index) => (
       <InputRow
         key={index}
+        attemptNumber={attemptNumber}
         setAttemptNumber={setAttemptNumber}
       >
         {inputsBox(attemptNumber === index)}
