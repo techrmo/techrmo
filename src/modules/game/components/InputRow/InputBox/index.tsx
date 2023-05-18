@@ -4,8 +4,9 @@ import { useFormContext } from 'react-hook-form';
 
 import { getAllowedElement } from '@/shared/helpers/hasElement';
 
+import useFocus from '@/modules/game/hooks/useFocus';
+import useVariant from '@/modules/game/hooks/useVariant';
 import styles from './styles.module.scss';
-import useVariant from '../../../hooks/useVariant';
 import type { FormFields } from '@/modules/game/validators/input';
 
 export type InputBoxVariant = 'inactive' | 'active' | 'incorrect' | 'correct' | 'bad-position'
@@ -23,7 +24,7 @@ const InputBox = ({ index, word, isActiveRow }: InputBoxProps) => {
   const {
     register, setValue, getValues, formState: { isSubmitted },
   } = useFormContext<FormFields>();
-
+  const handleFocus = useFocus(index);
   const variant = useVariant({
     isSubmitted,
     isActiveRow,
@@ -67,6 +68,7 @@ const InputBox = ({ index, word, isActiveRow }: InputBoxProps) => {
       type='text'
       data-variant={variant}
       disabled={variant !== 'active'}
+      onFocus={handleFocus}
       onKeyUp={handleKeyUp}
       {...register(inputName)}
     />
