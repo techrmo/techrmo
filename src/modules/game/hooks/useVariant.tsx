@@ -1,7 +1,7 @@
 import type { InputBoxIndex, InputBoxVariant } from '../components/InputRow/InputBox';
 
 interface UseVariantParams {
-  isSubmitted: boolean;
+  isSubmitSuccessful: boolean;
   value: `${string}`;
   word: string;
   index: InputBoxIndex,
@@ -9,13 +9,13 @@ interface UseVariantParams {
 }
 
 const useVariant = ({
-  isSubmitted, value, word, index, isActiveRow,
+  isSubmitSuccessful, value, word, index, isActiveRow,
 }: UseVariantParams): InputBoxVariant => {
   if (!isActiveRow && !value) {
     return 'inactive';
   }
 
-  if (!isSubmitted) {
+  if (!isSubmitSuccessful) {
     return 'active';
   }
 

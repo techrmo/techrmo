@@ -20,13 +20,13 @@ const InputBox = ({ index, word, isActiveRow }: InputBoxProps) => {
   const inputName = `value.${index}` as const;
 
   const {
-    register, getValues, formState: { isSubmitted },
+    register, getValues, formState: { isSubmitSuccessful },
   } = useFormContext<FormFields>();
 
   const handleFocus = useFocus(index);
 
   const variant = useVariant({
-    isSubmitted,
+    isSubmitSuccessful,
     isActiveRow,
     index,
     value: getValues(inputName),

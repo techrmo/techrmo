@@ -6,13 +6,7 @@ const stringValidation = z
   .transform((string) => string.toLocaleUpperCase());
 
 export const inputSchema = z.object({
-  value: z.tuple([
-    stringValidation,
-    stringValidation,
-    stringValidation,
-    stringValidation,
-    stringValidation,
-  ]),
+  value: z.array(stringValidation).length(5),
 });
 
 export type FormFields = z.infer<typeof inputSchema>
