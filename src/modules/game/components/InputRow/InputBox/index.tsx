@@ -1,11 +1,8 @@
-import { KeyboardEvent } from 'react';
-
 import { useFormContext } from 'react-hook-form';
-
-import { getAllowedElement } from '@/shared/helpers/hasElement';
 
 import useFocus from '@/modules/game/hooks/useFocus';
 import useVariant from '@/modules/game/hooks/useVariant';
+import useKeyEvents from '@/modules/game/hooks/useKeyEvents';
 import styles from './styles.module.scss';
 import type { FormFields } from '@/modules/game/validators/input';
 
@@ -21,10 +18,13 @@ interface InputBoxProps {
 
 const InputBox = ({ index, word, isActiveRow }: InputBoxProps) => {
   const inputName = `value.${index}` as const;
+
   const {
-    register, setValue, getValues, formState: { isSubmitted },
+    register, getValues, formState: { isSubmitted },
   } = useFormContext<FormFields>();
+
   const handleFocus = useFocus(index);
+
   const variant = useVariant({
     isSubmitted,
     isActiveRow,
@@ -33,33 +33,7 @@ const InputBox = ({ index, word, isActiveRow }: InputBoxProps) => {
     word,
   });
 
-  const handleKeyUp = (event: KeyboardEvent<HTMLInputElement>) => {
-    const { key } = event;
-    const { previousElementSibling, nextElementSibling } = event.currentTarget;
-
-    const isLetterKey = /^[a-zA-Z]$/.test(key);
-    const isArrowLeftKey = key === 'ArrowLeft';
-    const isArrowRightKey = key === 'ArrowRight';
-    const isBackSpaceKey = key === 'Backspace';
-    const previousInput = getAllowedElement(previousElementSibling, 'INPUT');
-    const nextInput = getAllowedElement(nextElementSibling, 'INPUT');
-
-    if (isLetterKey) {
-      setValue(inputName, key.toLocaleUpperCase());
-    }
-
-    if (isBackSpaceKey) {
-      setValue(inputName, '');
-    }
-
-    if (isLetterKey || isArrowRightKey) {
-      nextInput?.focus();
-    }
-
-    if (isBackSpaceKey || isArrowLeftKey) {
-      previousInput?.focus();
-    }
-  };
+  const { handleKeyDown, handleKeyUp } = useKeyEvents(inputName);
 
   return (
     <input
@@ -70,6 +44,7 @@ const InputBox = ({ index, word, isActiveRow }: InputBoxProps) => {
       disabled={variant !== 'active'}
       onFocus={handleFocus}
       onKeyUp={handleKeyUp}
+      onKeyDown={handleKeyDown}
       {...register(inputName)}
     />
   );
