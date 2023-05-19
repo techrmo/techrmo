@@ -2,7 +2,7 @@ import type { InputBoxIndex, InputBoxVariant } from '../components/InputRow/Inpu
 
 interface UseVariantParams {
   isSubmitted: boolean;
-  value: `${string}`;
+  value: string;
   word: string;
   index: InputBoxIndex,
   isActiveRow: boolean;
