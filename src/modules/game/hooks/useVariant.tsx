@@ -1,16 +1,17 @@
+import { CheckStringHaveOneChar } from '@/shared/helpers/limitStringLength';
 import type { InputBoxIndex, InputBoxVariant } from '../components/InputRow/InputBox';
 
-interface UseVariantParams {
+interface UseVariantParams<T extends string> {
   isSubmitSuccessful: boolean;
-  value: `${string}`;
+  value: CheckStringHaveOneChar<T> | '';
   word: string;
   index: InputBoxIndex,
   isActiveRow: boolean;
 }
 
-const useVariant = ({
+const useVariant = <T extends string>({
   isSubmitSuccessful, value, word, index, isActiveRow,
-}: UseVariantParams): InputBoxVariant => {
+}: UseVariantParams<T>): InputBoxVariant => {
   if (!isActiveRow && !value) {
     return 'inactive';
   }
