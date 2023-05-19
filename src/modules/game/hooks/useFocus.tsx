@@ -1,7 +1,7 @@
 import { FocusEvent, useEffect } from 'react';
 import { useFormContext } from 'react-hook-form';
 
-import { useInputStore } from '@/modules/stores/InputStore';
+import { useInputStore } from '@/modules/game/stores/InputStore';
 import { type InputBoxIndex } from '../components/InputRow/InputBox';
 import { type FormFields } from '../validators/input';
 

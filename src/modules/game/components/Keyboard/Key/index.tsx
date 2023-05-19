@@ -1,6 +1,6 @@
 'use client';
 
-import { useInputStore } from '@/modules/stores/InputStore';
+import { useInputStore } from '@/modules/game/stores/InputStore';
 import styles from './styles.module.scss';
 
 interface KeyProps {
