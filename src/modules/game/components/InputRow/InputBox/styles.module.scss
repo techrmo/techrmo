@@ -8,7 +8,7 @@
     cursor: not-allowed;
   }
 
-  &[data-variant="disabled"] {
+  &[data-variant="inactive"] {
     background-color: $color-pink-transparent-900;
   }
 
