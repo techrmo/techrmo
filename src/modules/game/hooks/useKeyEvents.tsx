@@ -23,7 +23,7 @@ const useKeyEvents = (
 
   const handleKeyUp = (event: KeyboardEvent<HTMLInputElement>) => {
     const { key } = event;
-    const { previousElementSibling, nextElementSibling } = event.currentTarget;
+    const { previousElementSibling, nextElementSibling, value } = event.currentTarget;
 
     const isLetterKey = /^[a-zA-Z]$/.test(key);
     const isArrowLeftKey = key === 'ArrowLeft';
@@ -43,8 +43,7 @@ const useKeyEvents = (
     if (isLetterKey || isArrowRightKey) {
       nextInput?.focus();
     }
-
-    if (isBackSpaceKey || isArrowLeftKey) {
+    if (isArrowLeftKey || (isBackSpaceKey && !value)) {
       previousInput?.focus();
     }
   };

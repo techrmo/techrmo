@@ -6,21 +6,29 @@ import { zodResolver } from '@hookform/resolvers/zod';
 
 import { getAllowedElement } from '@/shared/helpers/hasElement';
 import styles from './styles.module.scss';
+
+import { type InputBoxIndex } from './InputBox';
 import { type FormFields, inputSchema } from '../../validators/input';
+import { useInputStore } from '../../stores/InputStore';
 
 interface InputRowProps {
   setAttemptNumber: Dispatch<SetStateAction<number>>;
   attemptNumber: number;
+  index: InputBoxIndex;
   children: ReactNode;
 }
 
-const InputRow = ({ children, setAttemptNumber, attemptNumber }: InputRowProps) => {
+const InputRow = ({
+  children, setAttemptNumber, attemptNumber, index,
+}: InputRowProps) => {
+  const setCurrentForm = useInputStore((state) => state.setCurrentForm);
   const formRef = useRef<HTMLFormElement>(null);
   const methods = useForm<FormFields>({
     resolver: zodResolver(inputSchema),
   });
 
   useEffect(() => {
+    setCurrentForm(`form-${attemptNumber}`);
     if (!formRef.current) {
       return;
     }
@@ -33,7 +41,7 @@ const InputRow = ({ children, setAttemptNumber, attemptNumber }: InputRowProps) 
     const input = getAllowedElement(firstInputInForm, 'INPUT');
 
     input?.focus();
-  }, [attemptNumber]);
+  }, [attemptNumber, setCurrentForm]);
 
   const handleAttempt = ({ value }: Pick<FormFields, 'value'>) => {
     console.info(value);
@@ -43,6 +51,7 @@ const InputRow = ({ children, setAttemptNumber, attemptNumber }: InputRowProps) 
   return (
     <FormProvider {...methods}>
       <form
+        id={`form-${index}`}
         ref={formRef}
         className={styles.container}
         onSubmit={methods.handleSubmit(handleAttempt)}

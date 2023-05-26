@@ -1,11 +1,13 @@
-import Key from '@/modules/game/components/Keyboard/Key';
+import Keyboard from '@/modules/game/components/Keyboard';
 import InputGroup from '@/modules/game/views/InputGroup';
 
-export default function Home() {
-  return (
-    <>
-      <InputGroup />
-      <Key value='K' />
-    </>
-  );
-}
+import styles from './styles.module.scss';
+
+const Home = () => (
+  <main className={styles.container}>
+    <InputGroup />
+    <Keyboard />
+  </main>
+);
+
+export default Home;

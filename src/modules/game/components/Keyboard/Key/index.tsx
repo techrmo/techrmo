@@ -8,18 +8,23 @@ interface KeyProps {
 }
 
 const Key = ({ value }: KeyProps) => {
-  const currentInput = useInputStore((state) => state.currentInput);
+  const { currentInput, currentForm } = useInputStore((state) => state);
+  const formReference = value === 'ENTER' ? currentForm : undefined;
+  const buttonType = value === 'ENTER' ? 'submit' : 'button';
 
   const handleClick = () => {
     currentInput?.focus();
 
-    currentInput?.dispatchEvent(new KeyboardEvent('keyup', { key: value, bubbles: true }));
+    const keyToPress = value === '<' ? 'Backspace' : value;
+
+    currentInput?.dispatchEvent(new KeyboardEvent('keyup', { key: keyToPress, bubbles: true }));
   };
 
   return (
     <button
       className={styles.container}
-      type='button'
+      form={formReference}
+      type={buttonType}
       onClick={handleClick}
     >
       {value}

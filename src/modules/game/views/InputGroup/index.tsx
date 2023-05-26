@@ -28,6 +28,7 @@ const InputGroup = () => {
     .map((_, index) => (
       <InputRow
         key={index}
+        index={index as InputBoxIndex}
         attemptNumber={attemptNumber}
         setAttemptNumber={setAttemptNumber}
       >

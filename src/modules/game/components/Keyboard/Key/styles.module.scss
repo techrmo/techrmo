@@ -1,4 +1,17 @@
+@use "abstracts" as *;
+
 .container {
-  width: 3rem;
   height: 6rem;
+  min-width: 3rem;
+  padding: 1.2rem;
+
+  background-color: $color-gray-900;
+
+  border: none;
+  border-radius: 0.5rem;
+
+  font-size: 2rem;
+  color: $color-pink-200;
+
+  margin: 0.3rem;
 }
