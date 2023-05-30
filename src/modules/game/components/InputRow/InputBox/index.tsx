@@ -1,61 +1,50 @@
-import { KeyboardEvent } from 'react';
-
 import { useFormContext } from 'react-hook-form';
 
-import { getAllowedElement } from '@/shared/helpers/hasElement';
-
+import useFocus from '@/modules/game/hooks/useFocus';
+import useVariant from '@/modules/game/hooks/useVariant';
+import useKeyEvents from '@/modules/game/hooks/useKeyEvents';
 import styles from './styles.module.scss';
 import type { FormFields } from '@/modules/game/validators/input';
 
-export type InputBoxVariant = 'disabled' | 'active' | 'incorrect' | 'correct' | 'bad-position'
+export type InputBoxVariant = 'inactive' | 'active' | 'incorrect' | 'correct' | 'bad-position'
 
 export type InputBoxIndex = 0 | 1 | 2 | 3 | 4;
 
 interface InputBoxProps {
-  variant: InputBoxVariant;
   index: InputBoxIndex;
+  word: string;
+  isActiveRow: boolean;
 }
 
-const InputBox = ({ variant, index }: InputBoxProps) => {
-  const { register, setValue } = useFormContext<FormFields>();
+const InputBox = ({ index, word, isActiveRow }: InputBoxProps) => {
   const inputName = `value.${index}` as const;
 
-  const handleKeyUp = (event: KeyboardEvent<HTMLInputElement>) => {
-    const { key } = event;
-    const { previousElementSibling, nextElementSibling } = event.currentTarget;
+  const {
+    register, getValues, formState: { isSubmitSuccessful },
+  } = useFormContext<FormFields>();
 
-    const isLetterKey = /^[a-zA-Z]$/.test(key);
-    const isArrowLeftKey = key === 'ArrowLeft';
-    const isArrowRightKey = key === 'ArrowRight';
-    const isBackSpaceKey = key === 'Backspace';
-    const previousInput = getAllowedElement(previousElementSibling, 'INPUT');
-    const nextInput = getAllowedElement(nextElementSibling, 'INPUT');
+  const handleFocus = useFocus(index);
 
-    if (isLetterKey) {
-      setValue(inputName, key.toLocaleUpperCase());
-    }
+  const variant = useVariant({
+    isSubmitSuccessful,
+    isActiveRow,
+    index,
+    value: getValues(inputName),
+    word,
+  });
 
-    if (isBackSpaceKey) {
-      setValue(inputName, '');
-    }
-
-    if (isLetterKey || isArrowRightKey) {
-      nextInput?.focus();
-    }
-
-    if (isBackSpaceKey || isArrowLeftKey) {
-      previousInput?.focus();
-    }
-  };
+  const { handleKeyDown, handleKeyUp } = useKeyEvents(inputName);
 
   return (
     <input
       className={styles.container}
       type='text'
-      value=''
-      data-variant={variant}
+      autoComplete='off'
       disabled={variant !== 'active'}
+      onFocus={handleFocus}
+      data-variant={variant}
       onKeyUp={handleKeyUp}
+      onKeyDown={handleKeyDown}
       {...register(inputName)}
     />
   );

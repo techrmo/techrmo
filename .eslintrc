@@ -18,6 +18,7 @@
   },
   "plugins": ["react", "@typescript-eslint"],
   "rules": {
+    "react/button-has-type": "off",
     "react/no-array-index-key": "warn",
     "import/no-extraneous-dependencies": [
       "error",
@@ -80,6 +81,12 @@
         "jsx": "never",
         "ts": "never",
         "tsx": "never"
+      }
+    ],
+    "@typescript-eslint/no-unused-vars": [
+      2,
+      {
+        "args": "none"
       }
     ]
   },

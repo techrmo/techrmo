@@ -1,0 +1,13 @@
+@use "abstracts" as *;
+
+.container div {
+  margin: 0.4rem;
+
+  $sizes: (1:0px, 2:12px, 3:24px);
+
+  @each $item, $size in $sizes {
+    &:nth-child(#{$item}) {
+      margin-left: #{$size};
+    }
+  }
+}
