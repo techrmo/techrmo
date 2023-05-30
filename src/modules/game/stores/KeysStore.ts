@@ -8,7 +8,6 @@ interface KeyResult {
 interface KeysStore {
   usedKeys: KeyResult[];
   setUsedKeys: (values: KeyResult[]) => void;
-
 }
 
 export const useKeysStore = create<KeysStore>((set, get) => ({
