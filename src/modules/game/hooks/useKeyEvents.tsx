@@ -13,7 +13,6 @@ interface UseKeyEventsReturn {
   handleKeyDown: HandleKeyEvent;
 }
 
-// @todo melhorar nome do hook
 const useKeyEvents = (
   inputName: AllowedInputNames,
 ): UseKeyEventsReturn => {

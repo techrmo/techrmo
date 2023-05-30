@@ -14,8 +14,6 @@ const Key = ({ value }: KeyProps) => {
   const formReference = value === 'ENTER' ? currentForm : undefined;
   const buttonType = value === 'ENTER' ? 'submit' : 'button';
 
-  const key = usedKeys.find((keyToFind) => keyToFind.value === value);
-
   const handleClick = () => {
     currentInput?.focus();
 
@@ -30,7 +28,7 @@ const Key = ({ value }: KeyProps) => {
       form={formReference}
       type={buttonType}
       onClick={handleClick}
-      data-variant={key?.result}
+      data-variant={usedKeys[value]}
     >
       {value}
     </button>

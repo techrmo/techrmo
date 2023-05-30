@@ -6,26 +6,19 @@ interface KeyResult {
 }
 
 interface KeysStore {
-  usedKeys: KeyResult[];
+  usedKeys: { [key: string]: string };
   setUsedKeys: (values: KeyResult[]) => void;
 }
 
 export const useKeysStore = create<KeysStore>((set, get) => ({
-  usedKeys: [],
+  usedKeys: {},
   setUsedKeys: (values: KeyResult[]) => {
     const { usedKeys } = get();
 
-    const usedKeysParsed = values.reduce((previous, current) => {
-      const keyFoundIndex = usedKeys.findIndex((key) => key.value === current.value);
-
-      if (keyFoundIndex > -1) {
-        const newValue = previous;
-        newValue[keyFoundIndex] = current;
-        return previous;
-      }
-
-      return [...previous, current];
-    }, usedKeys);
+    const usedKeysParsed = values.reduce(
+      (previous, current) => ({ ...previous, [current.value]: current.result }),
+      usedKeys,
+    );
 
     set(() => ({ usedKeys: usedKeysParsed }));
   },
