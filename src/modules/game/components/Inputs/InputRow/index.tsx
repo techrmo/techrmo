@@ -41,7 +41,12 @@ const InputRow = ({
     const { nextElementSibling } = formRef.current;
 
     const nextForm = getAllowedElement(nextElementSibling, 'FORM');
-    const firstInputInForm = nextForm?.children?.item(0);
+
+    if (!nextForm?.children) {
+      return;
+    }
+
+    const firstInputInForm = nextForm.children.item(0);
 
     const input = getAllowedElement(firstInputInForm, 'INPUT');
 

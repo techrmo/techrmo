@@ -36,11 +36,11 @@ const InputBox = ({ index, isActiveRow, result }: InputBoxProps) => {
   return (
     <input
       className={styles.container}
-      autoComplete='off'
       type='text'
-      data-variant={variant}
+      autoComplete='off'
       disabled={variant !== 'active'}
       onFocus={handleFocus}
+      data-variant={variant}
       onKeyUp={handleKeyUp}
       onKeyDown={handleKeyDown}
       {...register(inputName)}
