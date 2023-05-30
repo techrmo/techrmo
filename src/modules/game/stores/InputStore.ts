@@ -9,7 +9,10 @@ interface InputStore {
 
 export const useInputStore = create<InputStore>((set) => ({
   currentInput: null,
-  setCurrentInput: (input: HTMLInputElement | null) => set(() => ({ currentInput: input })),
+  currentResults: [],
   currentForm: '',
-  setCurrentForm: (value: string) => set(() => ({ currentForm: value })),
+  setCurrentInput:
+    (input: HTMLInputElement | null) => set(() => ({ currentInput: input })),
+  setCurrentForm:
+    (value: string) => set(() => ({ currentForm: value })),
 }));

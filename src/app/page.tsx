@@ -1,5 +1,5 @@
 import Keyboard from '@/modules/game/components/Keyboard';
-import InputGroup from '@/modules/game/views/InputGroup';
+import InputGroup from '@/modules/game/components/Inputs/InputGroup';
 
 import styles from './styles.module.scss';
 

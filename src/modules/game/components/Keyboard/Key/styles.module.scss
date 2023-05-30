@@ -11,7 +11,22 @@
   border-radius: 0.5rem;
 
   font-size: 2rem;
+  font-weight: 500;
   color: $color-pink-200;
 
   margin: 0.3rem;
+
+  $items: (
+    incorrect: $color-gray-transparent-100, 
+    correct: $color-green-900, 
+    bad-position: $color-pink-900
+  );
+
+  @each $item, $color in $items {
+    &[data-variant="#{$item}"]  {
+      background-color: #{$color};
+      color: $color-gray-700;
+    
+    }
+  }
 }
