@@ -2,12 +2,19 @@
 
 .container div {
   margin: 0.4rem;
+  display: flex;
 
-  $sizes: (1:0px, 2:12px, 3:24px);
+  $sizes: (1:8px, 2:14px, 3:22px);
 
   @each $item, $size in $sizes {
     &:nth-child(#{$item}) {
       margin-left: #{$size};
+    }
+  }
+
+  &:last-of-type {
+    button:last-of-type {
+     max-width: fit-content;
     }
   }
 }

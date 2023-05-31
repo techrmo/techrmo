@@ -5,20 +5,22 @@ import styles from './styles.module.scss';
 import InputBox, { type InputBoxIndex } from '../InputBox';
 import InputRow from '../InputRow';
 
+export type InputRowIndex = 0 | 1 | 2 | 3 | 4;
+
 const InputGroup = () => {
   const numberOfRows = 5;
   const numberOfInputs = 5;
 
   const [attemptNumber, setAttemptNumber] = useState(0);
 
-  const inputsBox = (isActiveRow: boolean, results) => Array
+  const inputsBox = (isActiveRow: boolean, indexRow: InputRowIndex) => Array
     .from({ length: numberOfInputs })
     .map((_, index) => (
       <InputBox
         isActiveRow={isActiveRow}
         key={index}
         index={index as InputBoxIndex}
-        result={results[index]}
+        indexRow={indexRow}
       />
     ));
 
@@ -28,10 +30,9 @@ const InputGroup = () => {
       <InputRow
         key={index}
         index={index as InputBoxIndex}
-        attemptNumber={attemptNumber}
         setAttemptNumber={setAttemptNumber}
       >
-        {(results) => inputsBox(attemptNumber === index, results)}
+        {inputsBox(attemptNumber === index, index as InputRowIndex)}
       </InputRow>
     ));
 

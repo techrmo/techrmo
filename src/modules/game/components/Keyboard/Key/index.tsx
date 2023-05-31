@@ -9,17 +9,17 @@ interface KeyProps {
 }
 
 const Key = ({ value }: KeyProps) => {
-  const { currentInput, currentForm } = useInputStore((state) => state);
-  const usedKeys = useKeysStore((state) => state.usedKeys);
-  const formReference = value === 'ENTER' ? currentForm : undefined;
+  const { currentInputElement, currentFormIndex } = useInputStore((state) => state);
+  const usedKey = useKeysStore((state) => state.usedKeys[value]);
+  const formReference = value === 'ENTER' ? `form-${currentFormIndex}` : undefined;
   const buttonType = value === 'ENTER' ? 'submit' : 'button';
 
   const handleClick = () => {
-    currentInput?.focus();
+    currentInputElement?.focus();
 
     const keyToPress = value === '<' ? 'Backspace' : value;
 
-    currentInput?.dispatchEvent(new KeyboardEvent('keyup', { key: keyToPress, bubbles: true }));
+    currentInputElement?.dispatchEvent(new KeyboardEvent('keyup', { key: keyToPress, bubbles: true }));
   };
 
   return (
@@ -28,7 +28,7 @@ const Key = ({ value }: KeyProps) => {
       form={formReference}
       type={buttonType}
       onClick={handleClick}
-      data-variant={usedKeys[value]}
+      data-variant={usedKey}
     >
       {value}
     </button>

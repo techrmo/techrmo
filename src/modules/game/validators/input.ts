@@ -1,6 +1,6 @@
 import { z } from 'zod';
 
-const stringValidation = z
+export const stringValidation = z
   .string()
   .length(1)
   .transform((string) => string.toLocaleUpperCase());

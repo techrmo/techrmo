@@ -1,14 +1,16 @@
 import { z } from 'zod';
+import { stringValidation } from './input';
 
-const stringValidation = z.object({
-  value: z.string()
-    .length(1)
-    .transform((string) => string.toLocaleUpperCase()),
-  result: z.enum(['correct', 'incorrect', 'bad-position']),
+const letterResult = z.enum(['correct', 'incorrect', 'bad-position']);
+
+const resultsValidation = z.object({
+  value: stringValidation,
+  result: letterResult,
 });
 
-export const responseWords = z.object({
-  results: z.array(stringValidation).length(5),
+export const responseWord = z.object({
+  results: z.array(resultsValidation).length(5),
 });
 
-export type ResponseWords = z.infer<typeof responseWords>
+export type LetterResult = z.infer<typeof letterResult>
+export type ResponseWord = z.infer<typeof responseWord>

@@ -9,20 +9,21 @@ type UseFocusReturn = (event: FocusEvent<HTMLInputElement, Element>) => void;
 
 const useFocus = (
   index: InputBoxIndex,
+  isActiveRow: boolean,
 ): UseFocusReturn => {
   const {
     setFocus,
   } = useFormContext<FormFields>();
-  const setCurrentInput = useInputStore((state) => state.setCurrentInput);
+  const setCurrentInputElement = useInputStore((state) => state.setCurrentInputElement);
 
   useEffect(() => {
     if (index === 0) {
       setFocus(`value.${index}`);
     }
-  }, [index, setFocus]);
+  }, [index, setFocus, isActiveRow]);
 
   const handleFocus = (event: FocusEvent<HTMLInputElement, Element>) => {
-    setCurrentInput(event.target);
+    setCurrentInputElement(event.target);
   };
 
   return handleFocus;
