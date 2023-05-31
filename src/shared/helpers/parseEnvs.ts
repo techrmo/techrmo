@@ -9,4 +9,7 @@ const schema = z.object({
   NEXT_PUBLIC_API_URL: withDevDefault(z.string().url(), 'http://localhost:3000/api'),
 });
 
-export const envs = schema.parse(process.env);
+export const envs = schema.parse(
+  // eslint-disable-next-line dot-notation
+  { NEXT_PUBLIC_API_URL: process.env['NEXT_PUBLIC_API_URL'] },
+);
