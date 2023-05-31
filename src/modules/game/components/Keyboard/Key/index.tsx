@@ -20,8 +20,8 @@ const Key = ({ value }: KeyProps) => {
     const keyToPress = value === '<' ? 'Backspace' : value;
 
     currentInputElement?.dispatchEvent(new KeyboardEvent('keyup', { key: keyToPress, bubbles: true }));
+    // return false;
   };
-
   return (
     <button
       className={styles.container}

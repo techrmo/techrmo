@@ -1,6 +1,8 @@
 @use "abstracts" as *;
 
 .container {
+  -ms-touch-action: manipulation;
+touch-action: manipulation;
   height: 6rem;
   max-width: 6px;
   // width: clamp(2rem, 5vw, 3rem);
