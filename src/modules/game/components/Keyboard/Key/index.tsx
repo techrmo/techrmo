@@ -2,7 +2,6 @@
 
 import { useInputStore } from '@/modules/game/stores/InputStore';
 import { useKeysStore } from '@/modules/game/stores/KeysStore';
-import { getAllowedElement } from '@/shared/helpers/hasElement';
 import styles from './styles.module.scss';
 
 interface KeyProps {
@@ -16,35 +15,11 @@ const Key = ({ value }: KeyProps) => {
   const buttonType = value === 'ENTER' ? 'submit' : 'button';
 
   const handleClick = () => {
-    if (!currentInputElement) {
-      return;
-    }
-
-    currentInputElement.focus();
-    const { previousElementSibling, nextElementSibling } = currentInputElement;
+    currentInputElement?.focus();
 
     const keyToPress = value === '<' ? 'Backspace' : value;
 
-    const isLetterKey = /^[a-zA-Z]$/.test(keyToPress);
-    const isArrowLeftKey = keyToPress === 'ArrowLeft';
-    const isArrowRightKey = keyToPress === 'ArrowRight';
-    const isBackSpaceKey = keyToPress === 'Backspace';
-    const previousInput = getAllowedElement(previousElementSibling, 'INPUT');
-    const nextInput = getAllowedElement(nextElementSibling, 'INPUT');
-
-    if (isLetterKey || isArrowRightKey) {
-      nextInput?.focus();
-    }
-    if (isArrowLeftKey || isBackSpaceKey) {
-      previousInput?.focus();
-    }
-    if (isLetterKey) {
-      currentInputElement.value = keyToPress;
-    }
-
-    if (isBackSpaceKey) {
-      currentInputElement.value = '';
-    }
+    currentInputElement?.dispatchEvent(new KeyboardEvent('keyup', { key: keyToPress, bubbles: true }));
   };
 
   return (
