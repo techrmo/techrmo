@@ -1,6 +1,7 @@
 @use "abstracts" as *;
 
 .container {
+  user-select: none;
   -ms-touch-action: manipulation;
 touch-action: manipulation;
   height: 6rem;
