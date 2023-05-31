@@ -29,6 +29,7 @@ const InputBox = ({
     <input
       className={styles.container}
       type='text'
+      inputMode='none'
       autoComplete='off'
       disabled={variant !== 'active'}
       data-variant={variant}
