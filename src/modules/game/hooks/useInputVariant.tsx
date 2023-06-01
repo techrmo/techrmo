@@ -1,6 +1,4 @@
-import { useFormContext } from 'react-hook-form';
 import { useInputStore } from '../stores/InputStore';
-import { FormFields } from '../validators/input';
 import { type InputBoxIndex } from '../components/Inputs/InputBox';
 import { type InputRowIndex } from '../components/Inputs/InputGroup';
 
@@ -14,7 +12,6 @@ interface UseInputVariantProps {
 
 const useInputVariant = ({ index, indexRow, isActiveRow }:
   UseInputVariantProps): InputBoxVariant => {
-  const { getValues } = useFormContext<FormFields>();
   const resultOfAttempt = useInputStore((state) => state.resultsOfAttempts);
   const currentRow = resultOfAttempt.at(indexRow);
   const currentBox = currentRow?.at(index);
@@ -23,7 +20,8 @@ const useInputVariant = ({ index, indexRow, isActiveRow }:
     return currentBox;
   }
 
-  if (!isActiveRow && !getValues(`value.${index}`)) {
+  // @todo verificar se o input atual tbm é vazio
+  if (!isActiveRow) {
     return 'inactive';
   }
 

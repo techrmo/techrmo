@@ -1,14 +1,7 @@
-import { KeyboardEvent, useCallback, useEffect } from 'react';
+import { useCallback, useEffect } from 'react';
 
 import { getAllowedElement } from '@/shared/helpers/hasElement';
 import { useInputStore } from '../stores/InputStore';
-
-type HandleKeyEvent = (event: KeyboardEvent<HTMLInputElement>) => void;
-
-interface UseKeyEventsReturn {
-  handleKeyUp: HandleKeyEvent;
-  handleKeyDown: HandleKeyEvent;
-}
 
 const useKeyEvents = () => {
   const {
@@ -24,6 +17,11 @@ const useKeyEvents = () => {
     const { key } = event;
     const { previousElementSibling, nextElementSibling } = currentInputElement;
 
+    console.log(key);
+    if (key === 'Enter') {
+      event.preventDefault();
+      return;
+    }
     const isLetterKey = /^[a-zA-Z]$/.test(key);
     const isArrowLeftKey = key === 'ArrowLeft';
     const isArrowRightKey = key === 'ArrowRight';

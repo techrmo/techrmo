@@ -25,6 +25,12 @@ const Key = ({ value }: KeyProps) => {
     }
     const { previousElementSibling, nextElementSibling } = currentInputElement;
 
+    console.log(value);
+    if (value === 'ENTER') {
+      return;
+    }
+    console.log('value');
+
     const isLetterKey = /^[a-zA-Z]$/.test(value);
     const isArrowLeftKey = value === 'ArrowLeft';
     const isArrowRightKey = value === 'ArrowRight';
