@@ -1,9 +1,9 @@
 import { useFormContext } from 'react-hook-form';
 
-import { useEffect, useRef } from 'react';
+import { useEffect } from 'react';
 import useFocus from '@/modules/game/hooks/useFocus';
-import useKeyEvents from '@/modules/game/hooks/useKeyEvents';
 import useInputVariant from '@/modules/game/hooks/useInputVariant';
+import { getAllowedElement } from '@/shared/helpers/hasElement';
 import { useInputStore } from '@/modules/game/stores/InputStore';
 import styles from './styles.module.scss';
 import { type InputRowIndex } from '../InputGroup';
@@ -21,24 +21,23 @@ const InputBox = ({
   index, isActiveRow, indexRow,
 }: InputBoxProps) => {
   const inputName = `value.${index}` as const;
-  const ref = useRef();
-  const setCurrentInputElement = useInputStore((state) => state.setCurrentInputElement);
-
+  const {
+    setCurrentInputElement,
+  } = useInputStore((state) => state);
   const { register } = useFormContext<FormFields>();
-  useEffect(() => {
-    if (index === 0) {
-      console.log(ref.current, register(inputName));
-      setCurrentInputElement(ref.current);
-    }
-  }, []);
 
-  const { handleKeyDown, handleKeyUp } = useKeyEvents(inputName);
   const handleFocus = useFocus(index, isActiveRow);
   const variant = useInputVariant({ index, indexRow, isActiveRow });
 
+  useEffect(() => {
+    if (index === 0 && indexRow === 0) {
+      console.log('oi');
+      setCurrentInputElement(register(inputName).ref);
+    }
+  }, [setCurrentInputElement, index, indexRow, register, inputName]);
+
   return (
-    <div
-      ref={ref}
+    <input
       className={styles.container}
       type='text'
       inputMode='none'
@@ -46,9 +45,7 @@ const InputBox = ({
       disabled={variant !== 'active'}
       data-variant={variant}
       onFocus={handleFocus}
-      onKeyUp={handleKeyUp}
-      onKeyDown={handleKeyDown}
-      // {...register(inputName)}
+      {...register(inputName)}
     />
   );
 };

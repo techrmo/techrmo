@@ -16,17 +16,17 @@ const useFocus = (
   } = useFormContext<FormFields>();
   const setCurrentInputElement = useInputStore((state) => state.setCurrentInputElement);
 
-  useEffect(() => {
-    if (index === 0) {
-      setFocus(`value.${index}`);
-    }
-  }, [index, setFocus, isActiveRow]);
+  // useEffect(() => {
+  //   if (index === 0) {
+  //     setFocus(`value.${index}`);
+  //   }
+  // }, [index, setFocus, isActiveRow]);
 
-  const handleFocus = (event: FocusEvent<HTMLInputElement, Element>) => {
-    setCurrentInputElement(event.target);
-  };
+  // const handleFocus = (event: FocusEvent<HTMLInputElement, Element>) => {
+  //   setCurrentInputElement(event.target);
+  // };
 
-  return handleFocus;
+  // return handleFocus;
 };
 
 export default useFocus;

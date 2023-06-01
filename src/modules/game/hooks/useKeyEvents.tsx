@@ -1,10 +1,7 @@
-import { KeyboardEvent } from 'react';
+import { KeyboardEvent, useCallback, useEffect } from 'react';
 
-import { useFormContext } from 'react-hook-form';
 import { getAllowedElement } from '@/shared/helpers/hasElement';
-import { FormFields } from '../validators/input';
-
-type AllowedInputNames = 'value.0' | 'value.1' | 'value.2' | 'value.3' | 'value.4';
+import { useInputStore } from '../stores/InputStore';
 
 type HandleKeyEvent = (event: KeyboardEvent<HTMLInputElement>) => void;
 
@@ -13,16 +10,19 @@ interface UseKeyEventsReturn {
   handleKeyDown: HandleKeyEvent;
 }
 
-const useKeyEvents = (
-  inputName: AllowedInputNames,
-): UseKeyEventsReturn => {
+const useKeyEvents = () => {
   const {
-    setValue,
-  } = useFormContext<FormFields>();
+    currentInputElement,
+    setCurrentInputElement,
+  } = useInputStore((state) => state);
 
-  const handleKeyUp = (event: KeyboardEvent<HTMLInputElement>) => {
+  const handleKeyUp = useCallback((event: globalThis.KeyboardEvent) => {
+    if (!currentInputElement) {
+      return;
+    }
+
     const { key } = event;
-    const { previousElementSibling, nextElementSibling } = event.currentTarget;
+    const { previousElementSibling, nextElementSibling } = currentInputElement;
 
     const isLetterKey = /^[a-zA-Z]$/.test(key);
     const isArrowLeftKey = key === 'ArrowLeft';
@@ -32,45 +32,26 @@ const useKeyEvents = (
     const nextInput = getAllowedElement(nextElementSibling, 'INPUT');
 
     if (isLetterKey) {
-      setValue(inputName, key.toLocaleUpperCase());
+      currentInputElement.value = key;
     }
 
     if (isBackSpaceKey) {
-      setValue(inputName, '');
+      currentInputElement.value = '';
     }
 
     if (isLetterKey || isArrowRightKey) {
-      nextInput?.focus();
+      setCurrentInputElement(nextInput);
     }
     if (isArrowLeftKey || isBackSpaceKey) {
-      previousInput?.focus();
+      setCurrentInputElement(previousInput);
     }
-  };
+  }, [currentInputElement, setCurrentInputElement]);
 
-  /**
-   * @description Para evitar que teclas mortas, como ~`,
-   * apareçam no campo de entrada, foi necessário executar
-   * um processo de "blur" e "focus" rapidamente ao pressionar
-   * essa tecla. Essa abordagem permite obter o efeito desejado,
-   * removendo a tecla morta e garantindo que apenas o caractere
-   * desejado seja exibido no campo de entrada.
-   */
-  const handleKeyDown = (event: KeyboardEvent<HTMLInputElement>) => {
-    if (event.key !== 'Enter') {
-      event.preventDefault();
-    }
+  useEffect(() => {
+    document.addEventListener('keyup', handleKeyUp);
 
-    if (event.key !== 'Dead') {
-      return;
-    }
-
-    const input = getAllowedElement(event.currentTarget, 'INPUT');
-
-    input?.blur();
-    setTimeout(() => input?.focus());
-  };
-
-  return { handleKeyDown, handleKeyUp };
+    return () => document.removeEventListener('keyup', handleKeyUp);
+  }, [handleKeyUp]);
 };
 
 export default useKeyEvents;

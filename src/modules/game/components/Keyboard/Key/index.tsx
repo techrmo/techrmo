@@ -10,46 +10,42 @@ interface KeyProps {
 }
 
 const Key = ({ value }: KeyProps) => {
-  const { currentInputElement, currentFormIndex, setCurrentInputElement } = useInputStore((state) => state);
+  const {
+    currentInputElement,
+    currentFormIndex,
+    setCurrentInputElement,
+  } = useInputStore((state) => state);
   const usedKey = useKeysStore((state) => state.usedKeys[value]);
   const formReference = value === 'ENTER' ? `form-${currentFormIndex}` : undefined;
   const buttonType = value === 'ENTER' ? 'submit' : 'button';
 
-  const handleClick = (event) => {
-    console.log(currentInputElement);
+  const handleClick = () => {
     if (!currentInputElement) {
       return;
     }
-    // currentInputElement.focus();
     const { previousElementSibling, nextElementSibling } = currentInputElement;
 
     const isLetterKey = /^[a-zA-Z]$/.test(value);
     const isArrowLeftKey = value === 'ArrowLeft';
     const isArrowRightKey = value === 'ArrowRight';
     const isBackSpaceKey = value === '<';
-    // const previousInput = getAllowedElement(previousElementSibling, 'INPUT');
-    // const nextInput = getAllowedElement(nextElementSibling, 'DIV');
+    const previousInput = getAllowedElement(previousElementSibling, 'INPUT');
+    const nextInput = getAllowedElement(nextElementSibling, 'INPUT');
 
     if (isLetterKey) {
-      currentInputElement.innerHTML = value;
+      currentInputElement.value = value;
     }
 
     if (isBackSpaceKey) {
-      previousElementSibling.innerHTML = '';
+      currentInputElement.value = '';
     }
-    // console.log(nextInput, previousInput);
+
     if (isLetterKey || isArrowRightKey) {
-      setCurrentInputElement(nextElementSibling);
-      // nextInput?.focus();
+      setCurrentInputElement(nextInput);
     }
     if (isArrowLeftKey || isBackSpaceKey) {
-      setCurrentInputElement(previousElementSibling);
+      setCurrentInputElement(previousInput);
     }
-
-    // const keyToPress = value === '<' ? 'Backspace' : value;
-
-    // currentInputElement?.dispatchEvent(new KeyboardEvent('keyup', { key: keyToPress, bubbles: true }));
-    // // return false;
   };
 
   return (

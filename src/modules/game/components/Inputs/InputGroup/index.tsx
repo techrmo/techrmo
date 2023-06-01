@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import useKeyEvents from '@/modules/game/hooks/useKeyEvents';
 import styles from './styles.module.scss';
 import InputBox, { type InputBoxIndex } from '../InputBox';
 import InputRow from '../InputRow';
@@ -8,6 +9,7 @@ import InputRow from '../InputRow';
 export type InputRowIndex = 0 | 1 | 2 | 3 | 4;
 
 const InputGroup = () => {
+  useKeyEvents();
   const numberOfRows = 5;
   const numberOfInputs = 5;
 
