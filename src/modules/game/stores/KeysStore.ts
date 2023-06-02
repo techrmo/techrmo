@@ -1,12 +1,16 @@
 import { create } from 'zustand';
 
-interface KeyResult {
-  value: string;
-  result: string;
-}
+import { firstLineKeys, secondLineKeys, thirdLineKeys } from '../components/Keyboard';
 
+import type { LetterResult } from '../validators/responseWords';
+
+export type Keys = typeof firstLineKeys[number] | typeof secondLineKeys[number] | typeof thirdLineKeys[number]
+interface KeyResult {
+  value: Keys;
+  result: LetterResult;
+}
 interface KeysStore {
-  usedKeys: { [key: string]: string };
+  usedKeys: Partial<Record<Keys, LetterResult>>;
   setUsedKeys: (values: KeyResult[]) => void;
 }
 

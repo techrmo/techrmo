@@ -1,12 +1,12 @@
 'use client';
 
 import { useInputStore } from '@/modules/game/stores/InputStore';
-import { useKeysStore } from '@/modules/game/stores/KeysStore';
+import { Keys, useKeysStore } from '@/modules/game/stores/KeysStore';
 import { getAllowedElement } from '@/shared/helpers/hasElement';
 import styles from './styles.module.scss';
 
 interface KeyProps {
-  value: string;
+  value: Keys;
 }
 
 const Key = ({ value }: KeyProps) => {
@@ -32,8 +32,6 @@ const Key = ({ value }: KeyProps) => {
     console.log('value');
 
     const isLetterKey = /^[a-zA-Z]$/.test(value);
-    const isArrowLeftKey = value === 'ArrowLeft';
-    const isArrowRightKey = value === 'ArrowRight';
     const isBackSpaceKey = value === '<';
     const previousInput = getAllowedElement(previousElementSibling, 'INPUT');
     const nextInput = getAllowedElement(nextElementSibling, 'INPUT');
@@ -46,10 +44,10 @@ const Key = ({ value }: KeyProps) => {
       currentInputElement.value = '';
     }
 
-    if (isLetterKey || isArrowRightKey) {
+    if (isLetterKey) {
       setCurrentInputElement(nextInput);
     }
-    if (isArrowLeftKey || isBackSpaceKey) {
+    if (isBackSpaceKey) {
       setCurrentInputElement(previousInput);
     }
   };

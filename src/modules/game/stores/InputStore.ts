@@ -1,8 +1,8 @@
 import { create } from 'zustand';
-import { LetterResult, ResponseWord } from '../validators/responseWords';
+
+import type { LetterResult, ResponseWord } from '../validators/responseWords';
 
 type FormIndex = 0 | 1 | 2 | 3 | 4;
-
 interface InputStore {
   currentInputElement: HTMLInputElement | null;
   currentFormIndex: FormIndex;
@@ -22,6 +22,7 @@ export const useInputStore = create<InputStore>((set, get) => ({
     (value: FormIndex) => set(() => ({ currentFormIndex: value })),
   setResultsOfAttempts:
     (resultOfAttempt: ResponseWord['results']) => {
+      
       const { resultsOfAttempts, currentFormIndex } = get();
       const mappedResult = resultOfAttempt.map((letter) => letter.result);
 

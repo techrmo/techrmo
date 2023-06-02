@@ -1,10 +1,18 @@
 import { z } from 'zod';
-import { stringValidation } from './input';
+
+import { firstLineKeys, secondLineKeys, thirdLineKeys } from '../components/Keyboard';
+
+import { removeItemFromArray } from '@/shared/helpers/removeItemFromArray';
+
+const secondLineValidKeys = removeItemFromArray(secondLineKeys, '<')
+
+const thirdLineValidKeys = removeItemFromArray(thirdLineKeys, 'ENTER')
 
 const letterResult = z.enum(['correct', 'incorrect', 'bad-position']);
+const valueValidation = z.enum([...firstLineKeys, ...secondLineValidKeys, ...thirdLineValidKeys])
 
 const resultsValidation = z.object({
-  value: stringValidation,
+  value: valueValidation,
   result: letterResult,
 });
 

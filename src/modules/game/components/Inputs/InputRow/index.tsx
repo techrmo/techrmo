@@ -1,15 +1,14 @@
 import {
-  Dispatch, ReactNode, SetStateAction, useRef,
+  Dispatch, FormEvent, ReactNode, SetStateAction, useRef,
 } from 'react';
 
 import { useKeysStore } from '@/modules/game/stores/KeysStore';
 import { useInputStore } from '@/modules/game/stores/InputStore';
-import { type FormFields } from '@/modules/game/validators/input';
 import { verifyWord } from '@/modules/game/services/wordsService';
-import styles from './styles.module.scss';
 
 import { type InputBoxIndex } from '../InputBox';
 
+import styles from './styles.module.scss';
 interface InputRowProps {
   setAttemptNumber: Dispatch<SetStateAction<number>>;
   index: InputBoxIndex;
@@ -24,9 +23,9 @@ const InputRow = ({
 
   const formRef = useRef<HTMLFormElement>(null);
 
-  const handleAttempt = async (event) => {
+  const handleAttempt = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    const resultOfAttempt = await verifyWord(value);
+    const resultOfAttempt = await verifyWord(['A']);
 
     if (!resultOfAttempt) {
       return;
