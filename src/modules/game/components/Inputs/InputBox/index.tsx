@@ -35,7 +35,7 @@ const InputBox = ({
       autoComplete='off'
       disabled={variant !== 'active'}
       data-variant={variant}
-
+      maxLength={1}
     />
   );
 };
