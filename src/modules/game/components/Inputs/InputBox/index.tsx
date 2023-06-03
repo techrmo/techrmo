@@ -1,7 +1,8 @@
 import { useEffect, useRef } from 'react';
+import { shallow } from 'zustand/shallow'
 
 import useInputVariant from '@/modules/game/hooks/useInputVariant';
-import { useInputStore } from '@/modules/game/stores/InputStore';
+import { useForm } from '@/modules/game/stores/Form';
 import styles from './styles.module.scss';
 import { type InputRowIndex } from '../InputGroup';
 
@@ -17,7 +18,8 @@ const InputBox = ({
   index, isActiveRow, indexRow,
 }: InputBoxProps) => {
   const inputRef = useRef<HTMLInputElement | null>(null);
-  const { setCurrentInputElement } = useInputStore((state) => state);
+  const [currentInputElement, setCurrentInputElement] = useForm(
+    (state) => [state.currentInputElement, state.setCurrentInputElement], shallow);
   const variant = useInputVariant({ index, indexRow, isActiveRow });
 
   useEffect(() => {

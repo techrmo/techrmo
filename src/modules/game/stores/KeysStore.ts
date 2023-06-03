@@ -1,10 +1,9 @@
 import { create } from 'zustand';
 
-import { firstLineKeys, secondLineKeys, thirdLineKeys } from '../components/Keyboard';
+import type { Keys } from '../components/Keyboard';
 
 import type { LetterResult } from '../validators/responseWords';
 
-export type Keys = typeof firstLineKeys[number] | typeof secondLineKeys[number] | typeof thirdLineKeys[number]
 interface KeyResult {
   value: Keys;
   result: LetterResult;
