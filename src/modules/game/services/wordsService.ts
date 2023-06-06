@@ -1,7 +1,7 @@
 import { api } from '@/shared/services/api';
 
+import type { Keys } from '../components/Keyboard';
 import { responseWord } from '../validators/responseWords';
-import { Keys } from '../stores/KeysStore';
 
 export const verifyWord = async (value: Keys[]) => {
   try {

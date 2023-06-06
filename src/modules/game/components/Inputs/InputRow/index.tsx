@@ -11,6 +11,7 @@ import { inputSchema } from '@/modules/game/validators/input';
 import type { RowColumnIndex } from '@/modules/game/stores/Form/FormStore';
 
 import styles from './styles.module.scss';
+import { Keys } from '../../Keyboard';
 
 interface InputRowProps {
   setAttemptNumber: Dispatch<SetStateAction<number>>;
@@ -28,9 +29,9 @@ const InputRow = ({
 
   const handleAttempt = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    console.log(values);
+
     const teste = inputSchema.parse(values[currentRowIndex]);
-    const resultOfAttempt = await verifyWord(teste);
+    const resultOfAttempt = await verifyWord(teste.value as Keys[]);
 
     if (!resultOfAttempt) {
       return;

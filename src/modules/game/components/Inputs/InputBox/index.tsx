@@ -1,5 +1,4 @@
 import { useEffect, useRef } from 'react';
-import { shallow } from 'zustand/shallow';
 
 import useInputVariant from '@/modules/game/hooks/useInputVariant';
 import { useFormStore } from '@/modules/game/stores/Form';
