@@ -1,55 +1,80 @@
 import { useCallback, useEffect } from 'react';
 
 import { getAllowedElement } from '@/shared/helpers/hasElement';
-import { useInputStore } from '../stores/InputStore';
+import { useFormStore } from '../stores/Form';
 
 const useKeyEvents = () => {
   const {
     currentInputElement,
     setCurrentInputElement,
-  } = useInputStore((state) => state);
+  } = useFormStore((state) => state);
 
-  const handleKeyUp = useCallback((event: globalThis.KeyboardEvent) => {
+  const handleInput = useCallback((
+    key: string,
+    previousElementSibling: Element | null,
+    nextElementSibling: Element | null,
+  ) => {
     if (!currentInputElement) {
       return;
     }
 
-    const { key } = event;
-    const { previousElementSibling, nextElementSibling } = currentInputElement;
-
-    console.log(key);
-    if (key === 'Enter') {
-      event.preventDefault();
-      return;
-    }
     const isLetterKey = /^[a-zA-Z]$/.test(key);
-    const isArrowLeftKey = key === 'ArrowLeft';
-    const isArrowRightKey = key === 'ArrowRight';
-    const isBackSpaceKey = key === 'Backspace';
+    const isBackSpaceKey = ['Backspace', '<'].includes(key);
     const previousInput = getAllowedElement(previousElementSibling, 'INPUT');
     const nextInput = getAllowedElement(nextElementSibling, 'INPUT');
 
     if (isLetterKey) {
       currentInputElement.value = key;
+      setCurrentInputElement(nextInput);
+      return;
     }
 
     if (isBackSpaceKey) {
       currentInputElement.value = '';
-    }
-
-    if (isLetterKey || isArrowRightKey) {
-      setCurrentInputElement(nextInput);
-    }
-    if (isArrowLeftKey || isBackSpaceKey) {
       setCurrentInputElement(previousInput);
     }
   }, [currentInputElement, setCurrentInputElement]);
 
   useEffect(() => {
+    const navigateWithArrow = (
+      key: string,
+      previousElementSibling: Element | null,
+      nextElementSibling: Element | null,
+    ) => {
+      const isArrowLeftKey = key === 'ArrowLeft';
+      const isArrowRightKey = key === 'ArrowRight';
+
+      const previousInput = getAllowedElement(previousElementSibling, 'INPUT');
+      const nextInput = getAllowedElement(nextElementSibling, 'INPUT');
+
+      if (isArrowRightKey) {
+        setCurrentInputElement(nextInput);
+        return;
+      }
+
+      if (isArrowLeftKey) {
+        setCurrentInputElement(previousInput);
+      }
+    };
+
+    const handleKeyUp = (event: globalThis.KeyboardEvent) => {
+      if (!currentInputElement) {
+        return;
+      }
+
+      const { key } = event;
+      const { previousElementSibling, nextElementSibling } = currentInputElement;
+
+      navigateWithArrow(key, previousElementSibling, nextElementSibling);
+      handleInput(key, previousElementSibling, nextElementSibling);
+    };
+
     document.addEventListener('keyup', handleKeyUp);
 
     return () => document.removeEventListener('keyup', handleKeyUp);
-  }, [handleKeyUp]);
+  }, [currentInputElement, setCurrentInputElement, handleInput]);
+
+  return { handleInput };
 };
 
 export default useKeyEvents;

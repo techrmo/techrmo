@@ -3,12 +3,13 @@ import {
 } from 'react';
 
 import { useKeysStore } from '@/modules/game/stores/KeysStore';
-import { useInputStore } from '@/modules/game/stores/InputStore';
 import { verifyWord } from '@/modules/game/services/wordsService';
+
+import { useFormStore } from '@/modules/game/stores/Form';
+import styles from './styles.module.scss';
 
 import { type InputBoxIndex } from '../InputBox';
 
-import styles from './styles.module.scss';
 interface InputRowProps {
   setAttemptNumber: Dispatch<SetStateAction<number>>;
   index: InputBoxIndex;
@@ -18,7 +19,7 @@ interface InputRowProps {
 const InputRow = ({
   children, setAttemptNumber, index,
 }: InputRowProps) => {
-  const { setResultsOfAttempts } = useInputStore((state) => state);
+  const { setResultsOfAttempts } = useFormStore((state) => state);
   const setUsedKeys = useKeysStore((state) => state.setUsedKeys);
 
   const formRef = useRef<HTMLFormElement>(null);

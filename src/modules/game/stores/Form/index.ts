@@ -8,7 +8,7 @@ type UseForm = InputStore & FormStore & AttemptStore;
 export type SetFormState = StoreApi<UseForm>['setState'];
 export type GetFormState = StoreApi<UseForm>['getState'];
 
-export const useForm = create<UseForm>((set, get) => ({
+export const useFormStore = create<UseForm>((set, get) => ({
   ...createInputStore(set),
   ...createFormStore(set),
   ...createAttemptStore(set, get),

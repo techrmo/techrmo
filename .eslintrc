@@ -38,11 +38,11 @@
           "external",
           "internal",
           "index",
+          "type",
           "sibling",
           "parent",
           "builtin",
-          "object",
-          "type"
+          "object"
         ]
       }
     ],

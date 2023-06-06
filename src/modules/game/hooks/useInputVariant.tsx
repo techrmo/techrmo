@@ -1,6 +1,6 @@
-import { useInputStore } from '../stores/InputStore';
 import { type InputBoxIndex } from '../components/Inputs/InputBox';
 import { type InputRowIndex } from '../components/Inputs/InputGroup';
+import { useFormStore } from '../stores/Form';
 
 export type InputBoxVariant = 'inactive' | 'active' | 'incorrect' | 'correct' | 'bad-position'
 
@@ -12,7 +12,7 @@ interface UseInputVariantProps {
 
 const useInputVariant = ({ index, indexRow, isActiveRow }:
   UseInputVariantProps): InputBoxVariant => {
-  const resultOfAttempt = useInputStore((state) => state.resultsOfAttempts);
+  const resultOfAttempt = useFormStore((state) => state.resultsOfAttempts);
   const currentRow = resultOfAttempt.at(indexRow);
   const currentBox = currentRow?.at(index);
 

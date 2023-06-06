@@ -1,11 +1,12 @@
 'use client';
 
 import { useKeysStore } from '@/modules/game/stores/KeysStore';
-import { getAllowedElement } from '@/shared/helpers/hasElement';
-import { useForm } from '@/modules/game/stores/Form';
+import { useFormStore } from '@/modules/game/stores/Form';
+import useKeyEvents from '@/modules/game/hooks/useKeyEvents';
+
+import type { Keys } from '..';
 
 import styles from './styles.module.scss';
-import { type Keys } from '..';
 
 interface KeyProps {
   value: Keys;
@@ -15,9 +16,10 @@ const Key = ({ value }: KeyProps) => {
   const {
     currentInputElement,
     currentFormIndex,
-    setCurrentInputElement,
-  } = useForm((state) => state);
+  } = useFormStore((state) => state);
   const usedKey = useKeysStore((state) => state.usedKeys[value]);
+  const { handleInput } = useKeyEvents();
+
   const formReference = value === 'ENTER' ? `form-${currentFormIndex}` : undefined;
   const buttonType = value === 'ENTER' ? 'submit' : 'button';
 
@@ -25,33 +27,10 @@ const Key = ({ value }: KeyProps) => {
     if (!currentInputElement) {
       return;
     }
+
     const { previousElementSibling, nextElementSibling } = currentInputElement;
 
-    console.log(value);
-    if (value === 'ENTER') {
-      return;
-    }
-    console.log('value');
-
-    const isLetterKey = /^[a-zA-Z]$/.test(value);
-    const isBackSpaceKey = value === '<';
-    const previousInput = getAllowedElement(previousElementSibling, 'INPUT');
-    const nextInput = getAllowedElement(nextElementSibling, 'INPUT');
-
-    if (isLetterKey) {
-      currentInputElement.value = value;
-    }
-
-    if (isBackSpaceKey) {
-      currentInputElement.value = '';
-    }
-
-    if (isLetterKey) {
-      setCurrentInputElement(nextInput);
-    }
-    if (isBackSpaceKey) {
-      setCurrentInputElement(previousInput);
-    }
+    handleInput(value, previousElementSibling, nextElementSibling);
   };
 
   return (
