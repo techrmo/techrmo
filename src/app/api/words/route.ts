@@ -4,27 +4,29 @@ import { inputSchema } from '../../../modules/game/validators/input';
 
 export async function POST(request: NextRequest) {
   const secretWord = getTodayWord();
-  const { value } = inputSchema.parse(await request.json());
+  const parsedValues = inputSchema.parse((await request.json()).values);
 
-  const secretWordArray = secretWord.toLocaleUpperCase().split('');
+  const secretWordArray = secretWord.toUpperCase().split('');
 
-  const results = value.map((letter, index) => {
-    if (letter === secretWordArray[index]) {
+  const results = parsedValues.map((letter, index) => {
+    const letterUpperCase = letter.toUpperCase();
+
+    if (letterUpperCase === secretWordArray[index]) {
       return {
-        value: letter,
+        value: letterUpperCase,
         result: 'correct',
       };
     }
 
-    if (secretWordArray.includes(letter)) {
+    if (secretWordArray.includes(letterUpperCase)) {
       return {
-        value: letter,
+        value: letterUpperCase,
         result: 'bad-position',
       };
     }
 
     return {
-      value: letter,
+      value: letterUpperCase,
       result: 'incorrect',
     };
   });

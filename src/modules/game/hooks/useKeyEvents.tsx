@@ -1,10 +1,9 @@
 import { useCallback, useEffect } from 'react';
 
 import { getAllowedElement } from '@/shared/helpers/hasElement';
-import type { Keys } from '../components/Keyboard';
-import { useFormStore } from '../stores/Form';
 
-const isLetterKey = (key: string): key is Keys => /^[a-zA-Z]$/.test(key);
+import { verifyIsLetterKey } from '@/shared/helpers/verifyIsLetterKey';
+import { useFormStore } from '../stores/Form';
 
 const useKeyEvents = () => {
   const {
@@ -26,7 +25,7 @@ const useKeyEvents = () => {
     const previousInput = getAllowedElement(previousElementSibling, 'INPUT');
     const nextInput = getAllowedElement(nextElementSibling, 'INPUT');
 
-    if (isLetterKey(key)) {
+    if (verifyIsLetterKey(key)) {
       currentInputElement.value = key;
       setValues(key);
       setCurrentInputElement(nextInput);

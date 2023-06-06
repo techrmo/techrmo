@@ -6,8 +6,10 @@ import { firstLineKeys, secondLineKeys, thirdLineKeys } from '../components/Keyb
 const secondLineValidKeys = removeItemFromArray(secondLineKeys, '<');
 const thirdLineValidKeys = removeItemFromArray(thirdLineKeys, 'ENTER');
 
+export const valueValidation = z
+  .enum([...firstLineKeys, ...secondLineValidKeys, ...thirdLineValidKeys]);
+
 const letterResult = z.enum(['correct', 'incorrect', 'bad-position']);
-const valueValidation = z.enum([...firstLineKeys, ...secondLineValidKeys, ...thirdLineValidKeys]);
 
 const resultsValidation = z.object({
   value: valueValidation,

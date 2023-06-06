@@ -1,7 +1,6 @@
 import { create } from 'zustand';
 
 import type { Keys } from '../components/Keyboard';
-
 import type { LetterResult } from '../validators/responseWords';
 
 interface KeyResult {
