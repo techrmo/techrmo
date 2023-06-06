@@ -6,27 +6,31 @@ import { useKeysStore } from '@/modules/game/stores/KeysStore';
 import { verifyWord } from '@/modules/game/services/wordsService';
 
 import { useFormStore } from '@/modules/game/stores/Form';
-import styles from './styles.module.scss';
 
-import { type InputBoxIndex } from '../InputBox';
+import { inputSchema } from '@/modules/game/validators/input';
+import type { RowColumnIndex } from '@/modules/game/stores/Form/FormStore';
+
+import styles from './styles.module.scss';
 
 interface InputRowProps {
   setAttemptNumber: Dispatch<SetStateAction<number>>;
-  index: InputBoxIndex;
+  index: RowColumnIndex;
   children: ReactNode;
 }
 
 const InputRow = ({
   children, setAttemptNumber, index,
 }: InputRowProps) => {
-  const { setResultsOfAttempts } = useFormStore((state) => state);
+  const { setResultsOfAttempts, values, currentRowIndex } = useFormStore((state) => state);
   const setUsedKeys = useKeysStore((state) => state.setUsedKeys);
 
   const formRef = useRef<HTMLFormElement>(null);
 
   const handleAttempt = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    const resultOfAttempt = await verifyWord(['A']);
+    console.log(values);
+    const teste = inputSchema.parse(values[currentRowIndex]);
+    const resultOfAttempt = await verifyWord(teste);
 
     if (!resultOfAttempt) {
       return;

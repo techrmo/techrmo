@@ -15,12 +15,12 @@ interface KeyProps {
 const Key = ({ value }: KeyProps) => {
   const {
     currentInputElement,
-    currentFormIndex,
+    currentRowIndex,
   } = useFormStore((state) => state);
   const usedKey = useKeysStore((state) => state.usedKeys[value]);
   const { handleInput } = useKeyEvents();
 
-  const formReference = value === 'ENTER' ? `form-${currentFormIndex}` : undefined;
+  const formReference = value === 'ENTER' ? `form-${currentRowIndex}` : undefined;
   const buttonType = value === 'ENTER' ? 'submit' : 'button';
 
   const handleClick = () => {

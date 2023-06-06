@@ -10,6 +10,6 @@ export type GetFormState = StoreApi<UseForm>['getState'];
 
 export const useFormStore = create<UseForm>((set, get) => ({
   ...createInputStore(set),
-  ...createFormStore(set),
+  ...createFormStore(set, get),
   ...createAttemptStore(set, get),
 }));

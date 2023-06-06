@@ -3,32 +3,29 @@ import { shallow } from 'zustand/shallow';
 
 import useInputVariant from '@/modules/game/hooks/useInputVariant';
 import { useFormStore } from '@/modules/game/stores/Form';
-import styles from './styles.module.scss';
-import { type InputRowIndex } from '../InputGroup';
 
-export type InputBoxIndex = 0 | 1 | 2 | 3 | 4;
+import type { RowColumnIndex } from '@/modules/game/stores/Form/FormStore';
+
+import styles from './styles.module.scss';
 
 interface InputBoxProps {
-  index: InputBoxIndex;
-  indexRow: InputRowIndex;
+  columnIndex: RowColumnIndex;
+  rowIndex: RowColumnIndex;
   isActiveRow: boolean;
 }
 
 const InputBox = ({
-  index, isActiveRow, indexRow,
+  columnIndex, rowIndex, isActiveRow,
 }: InputBoxProps) => {
   const inputRef = useRef<HTMLInputElement | null>(null);
-  const [currentInputElement, setCurrentInputElement] = useFormStore(
-    (state) => [state.currentInputElement, state.setCurrentInputElement],
-    shallow,
-  );
-  const variant = useInputVariant({ index, indexRow, isActiveRow });
+  const { setCurrentInputElement, currentRowIndex } = useFormStore((state) => state);
+  const variant = useInputVariant({ columnIndex, rowIndex, isActiveRow });
 
   useEffect(() => {
-    if (index === 0 && indexRow === 0) {
+    if (columnIndex === 0 && currentRowIndex === rowIndex) {
       setCurrentInputElement(inputRef.current);
     }
-  }, [setCurrentInputElement, index, indexRow]);
+  }, [setCurrentInputElement, currentRowIndex, columnIndex, rowIndex]);
 
   return (
     <input

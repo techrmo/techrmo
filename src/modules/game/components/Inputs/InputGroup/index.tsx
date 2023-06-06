@@ -1,11 +1,10 @@
 'use client';
 
 import { useState } from 'react';
+import type { RowColumnIndex } from '@/modules/game/stores/Form/FormStore';
 import styles from './styles.module.scss';
-import InputBox, { type InputBoxIndex } from '../InputBox';
+import InputBox from '../InputBox';
 import InputRow from '../InputRow';
-
-export type InputRowIndex = 0 | 1 | 2 | 3 | 4;
 
 const InputGroup = () => {
   const numberOfRows = 5;
@@ -13,14 +12,14 @@ const InputGroup = () => {
 
   const [attemptNumber, setAttemptNumber] = useState(0);
 
-  const inputsBox = (isActiveRow: boolean, indexRow: InputRowIndex) => Array
+  const inputsBox = (isActiveRow: boolean, rowIndex: RowColumnIndex) => Array
     .from({ length: numberOfInputs })
     .map((_, index) => (
       <InputBox
         isActiveRow={isActiveRow}
         key={index}
-        index={index as InputBoxIndex}
-        indexRow={indexRow}
+        columnIndex={index as RowColumnIndex}
+        rowIndex={rowIndex}
       />
     ));
 
@@ -29,10 +28,10 @@ const InputGroup = () => {
     .map((_, index) => (
       <InputRow
         key={index}
-        index={index as InputBoxIndex}
+        index={index as RowColumnIndex}
         setAttemptNumber={setAttemptNumber}
       >
-        {inputsBox(attemptNumber === index, index as InputRowIndex)}
+        {inputsBox(attemptNumber === index, index as RowColumnIndex)}
       </InputRow>
     ));
 

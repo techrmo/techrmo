@@ -1,6 +1,6 @@
 import type { LetterResult, ResponseWord } from '../../validators/responseWords';
 import type { GetFormState, SetFormState } from '.';
-import type { FormIndex } from './FormStore';
+import type { RowColumnIndex } from './FormStore';
 
 type Results = ResponseWord['results']
 
@@ -13,12 +13,14 @@ export const createAttemptStore = (
   (set: SetFormState, get: GetFormState): AttemptStore => ({
     resultsOfAttempts: [],
     setResultsOfAttempts: (resultOfAttempt: Results) => {
-      const { resultsOfAttempts, currentFormIndex } = get();
+      const { resultsOfAttempts, currentRowIndex, values } = get();
       const mappedResult = resultOfAttempt.map((letter) => letter.result);
 
       set(() => ({
+        currentRowIndex: currentRowIndex + 1 as RowColumnIndex,
+        currentColumnIndex: 0,
+        values: [...values, []],
         resultsOfAttempts: [...resultsOfAttempts, mappedResult],
-        currentFormIndex: currentFormIndex + 1 as FormIndex,
       }));
     },
   })
