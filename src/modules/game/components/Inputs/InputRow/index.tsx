@@ -1,6 +1,4 @@
-import {
-  Dispatch, FormEvent, ReactNode, SetStateAction, useRef,
-} from 'react';
+import { FormEvent, ReactNode, useRef } from 'react';
 
 import { useKeysStore } from '@/modules/game/stores/KeysStore';
 import { verifyWord } from '@/modules/game/services/wordsService';
@@ -13,13 +11,12 @@ import type { RowColumnIndex } from '@/modules/game/stores/Form/FormStore';
 import styles from './styles.module.scss';
 
 interface InputRowProps {
-  setAttemptNumber: Dispatch<SetStateAction<number>>;
   index: RowColumnIndex;
   children: ReactNode;
 }
 
 const InputRow = ({
-  children, setAttemptNumber, index,
+  children, index,
 }: InputRowProps) => {
   const { setResultsOfAttempts, values, currentRowIndex } = useFormStore((state) => state);
   const setUsedKeys = useKeysStore((state) => state.setUsedKeys);
@@ -35,7 +32,6 @@ const InputRow = ({
 
       setUsedKeys(resultOfAttempt);
       setResultsOfAttempts(resultOfAttempt);
-      setAttemptNumber((previousAttempt) => previousAttempt + 1);
     } catch (error) {
       console.error(error);
     }
@@ -49,7 +45,6 @@ const InputRow = ({
       onSubmit={handleAttempt}
     >
       {children}
-      <input type='submit' />
     </form>
   );
 };

@@ -10,19 +10,24 @@ import styles from './styles.module.scss';
 interface InputBoxProps {
   columnIndex: RowColumnIndex;
   rowIndex: RowColumnIndex;
-  isActiveRow: boolean;
 }
 
 const InputBox = ({
-  columnIndex, rowIndex, isActiveRow,
+  columnIndex, rowIndex,
 }: InputBoxProps) => {
   const inputRef = useRef<HTMLInputElement | null>(null);
   const { setCurrentInputElement, currentRowIndex } = useFormStore((state) => state);
-  const variant = useInputVariant({ columnIndex, rowIndex, isActiveRow });
+  const variant = useInputVariant({
+    columnIndex,
+    rowIndex,
+    isActiveRow: rowIndex === currentRowIndex,
+  });
 
   useEffect(() => {
     if (columnIndex === 0 && currentRowIndex === rowIndex) {
+      console.log(inputRef.current);
       setCurrentInputElement(inputRef.current);
+      inputRef.current?.focus();
     }
   }, [setCurrentInputElement, currentRowIndex, columnIndex, rowIndex]);
 
