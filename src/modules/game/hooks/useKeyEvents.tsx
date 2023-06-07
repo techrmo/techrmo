@@ -50,14 +50,15 @@ const useKeyEvents = () => {
 
       const previousInput = getAllowedElement(previousElementSibling, 'INPUT');
       const nextInput = getAllowedElement(nextElementSibling, 'INPUT');
-
+      console.log(isArrowLeftKey, previousInput, isArrowRightKey);
       if (isArrowRightKey) {
-        setCurrentInputElement(nextInput);
+        nextInput?.focus();
+
         return;
       }
 
       if (isArrowLeftKey) {
-        setCurrentInputElement(previousInput);
+        previousInput?.focus();
       }
     };
 
@@ -68,6 +69,8 @@ const useKeyEvents = () => {
 
       const { key } = event;
       const { previousElementSibling, nextElementSibling } = currentInputElement;
+
+      currentInputElement.blur();
 
       navigateWithArrow(key, previousElementSibling, nextElementSibling);
       handleInput(key, previousElementSibling, nextElementSibling);

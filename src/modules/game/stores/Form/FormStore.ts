@@ -7,6 +7,7 @@ export interface FormStore {
   currentRowIndex: RowColumnIndex,
   currentColumnIndex: RowColumnIndex,
   setCurrentRowIndex: (value: RowColumnIndex) => void;
+  setCurrentColumnIndex: (value: RowColumnIndex) => void;
   setValues: (value: Keys | '') => void;
   values: (Keys | '')[][]
 }
@@ -34,4 +35,6 @@ export const createFormStore = ((set: SetFormState, get: GetFormState): FormStor
   ),
   setCurrentRowIndex:
     (value: RowColumnIndex) => set(() => ({ currentRowIndex: value })),
+  setCurrentColumnIndex:
+    (value: RowColumnIndex) => set(() => ({ currentColumnIndex: value })),
 }));

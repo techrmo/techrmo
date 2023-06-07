@@ -1,8 +1,5 @@
-'use client';
-
 import { useKeysStore } from '@/modules/game/stores/KeysStore';
 import { useFormStore } from '@/modules/game/stores/Form';
-import useKeyEvents from '@/modules/game/hooks/useKeyEvents';
 
 import type { Keys } from '..';
 
@@ -10,15 +7,19 @@ import styles from './styles.module.scss';
 
 interface KeyProps {
   value: Keys;
+  handleInput: (
+    key: string,
+    previousElementSibling: Element | null,
+    nextElementSibling: Element | null
+  ) => void;
 }
 
-const Key = ({ value }: KeyProps) => {
+const Key = ({ value, handleInput }: KeyProps) => {
   const {
     currentInputElement,
     currentRowIndex,
   } = useFormStore((state) => state);
   const usedKey = useKeysStore((state) => state.usedKeys[value]);
-  const { handleInput } = useKeyEvents();
 
   const formReference = value === 'ENTER' ? `form-${currentRowIndex}` : undefined;
   const buttonType = value === 'ENTER' ? 'submit' : 'button';

@@ -16,20 +16,34 @@ const InputBox = ({
   columnIndex, rowIndex,
 }: InputBoxProps) => {
   const inputRef = useRef<HTMLInputElement | null>(null);
-  const { setCurrentInputElement, currentRowIndex } = useFormStore((state) => state);
+  const {
+    setCurrentInputElement,
+    setCurrentColumnIndex,
+    currentRowIndex,
+    currentColumnIndex,
+  } = useFormStore((state) => state);
+
+  const isActiveRow = currentRowIndex === rowIndex;
+  const isActiveColumn = currentColumnIndex === columnIndex;
+  const isFocusedInput = isActiveRow && isActiveColumn;
+
   const variant = useInputVariant({
     columnIndex,
     rowIndex,
-    isActiveRow: rowIndex === currentRowIndex,
+    isActiveRow,
   });
 
   useEffect(() => {
-    if (columnIndex === 0 && currentRowIndex === rowIndex) {
-      console.log(inputRef.current);
-      setCurrentInputElement(inputRef.current);
+    const isFirstInput = columnIndex === 0;
+    if (isFirstInput && isActiveRow) {
       inputRef.current?.focus();
     }
-  }, [setCurrentInputElement, currentRowIndex, columnIndex, rowIndex]);
+  }, [isActiveRow, columnIndex]);
+
+  const handleFocus = () => {
+    setCurrentColumnIndex(columnIndex);
+    setCurrentInputElement(inputRef.current);
+  };
 
   return (
     <input
@@ -40,6 +54,8 @@ const InputBox = ({
       autoComplete='off'
       disabled={variant !== 'active'}
       data-variant={variant}
+      data-focused={isFocusedInput}
+      onFocus={handleFocus}
       maxLength={1}
     />
   );
