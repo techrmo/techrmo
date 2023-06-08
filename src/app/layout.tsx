@@ -24,12 +24,6 @@ export default function RootLayout({
 }: {
   children: React.ReactNode
 }) {
-  // attachFastClick(document.body);
-  // if ('addEventListener' in document) {
-  //   document.addEventListener('DOMContentLoaded', () => {
-  //   }, false);
-  // }
-
   return (
     <html lang='en'>
       <body className={poppins.className}>

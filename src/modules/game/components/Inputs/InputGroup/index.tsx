@@ -1,6 +1,6 @@
 'use client';
 
-import type { RowColumnIndex } from '@/modules/game/stores/Form/FormStore';
+import type { RowColumnIndex } from '@/modules/game/stores/Form/FormSlice';
 import styles from './styles.module.scss';
 import InputBox from '../InputBox';
 import InputRow from '../InputRow';
@@ -8,6 +8,8 @@ import InputRow from '../InputRow';
 const InputGroup = () => {
   const numberOfRows = 5;
   const numberOfInputs = 5;
+
+  console.log('Input Group');
 
   const inputsBox = (rowIndex: RowColumnIndex) => Array
     .from({ length: numberOfInputs })

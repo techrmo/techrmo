@@ -5,11 +5,11 @@ import { getAllowedElement } from '@/shared/helpers/hasElement';
 import { verifyIsLetterKey } from '@/shared/helpers/verifyIsLetterKey';
 import { useFormStore } from '../stores/Form';
 
-const useKeyEvents = () => {
+const useKeyboard = () => {
   const {
     currentInputElement,
     setCurrentInputElement,
-    setValues,
+    updateCurrentInputAndValues,
   } = useFormStore((state) => state);
 
   const handleInput = useCallback((
@@ -27,17 +27,23 @@ const useKeyEvents = () => {
 
     if (verifyIsLetterKey(key)) {
       currentInputElement.value = key;
-      setValues(key);
-      setCurrentInputElement(nextInput);
+      if (nextInput) {
+        currentInputElement?.removeAttribute('data-focused');
+        nextInput.setAttribute('data-focused', 'true');
+      }
+      updateCurrentInputAndValues(nextInput, key, 'NEXT');
       return;
     }
 
     if (isBackSpaceKey) {
       currentInputElement.value = '';
-      setValues('');
-      setCurrentInputElement(previousInput);
+      if (previousInput) {
+        currentInputElement.removeAttribute('data-focused');
+        previousInput.setAttribute('data-focused', 'true');
+      }
+      updateCurrentInputAndValues(previousInput, '', 'NEXT');
     }
-  }, [currentInputElement, setCurrentInputElement, setValues]);
+  }, [currentInputElement, updateCurrentInputAndValues]);
 
   useEffect(() => {
     const navigateWithArrow = (
@@ -50,15 +56,25 @@ const useKeyEvents = () => {
 
       const previousInput = getAllowedElement(previousElementSibling, 'INPUT');
       const nextInput = getAllowedElement(nextElementSibling, 'INPUT');
-      console.log(isArrowLeftKey, previousInput, isArrowRightKey);
+
       if (isArrowRightKey) {
         nextInput?.focus();
+
+        if (nextInput) {
+          currentInputElement?.removeAttribute('data-focused');
+          nextInput.setAttribute('data-focused', 'true');
+        }
 
         return;
       }
 
       if (isArrowLeftKey) {
         previousInput?.focus();
+
+        if (previousInput) {
+          currentInputElement?.removeAttribute('data-focused');
+          previousInput.setAttribute('data-focused', 'true');
+        }
       }
     };
 
@@ -84,4 +100,4 @@ const useKeyEvents = () => {
   return { handleInput };
 };
 
-export default useKeyEvents;
+export default useKeyboard;

@@ -1,5 +1,5 @@
 import { useFormStore } from '../stores/Form';
-import { RowColumnIndex } from '../stores/Form/FormStore';
+import { RowColumnIndex } from '../stores/Form/FormSlice';
 
 export type InputBoxVariant = 'inactive' | 'active' | 'incorrect' | 'correct' | 'bad-position'
 

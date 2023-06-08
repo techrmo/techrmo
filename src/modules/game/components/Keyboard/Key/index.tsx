@@ -15,10 +15,8 @@ interface KeyProps {
 }
 
 const Key = ({ value, handleInput }: KeyProps) => {
-  const {
-    currentInputElement,
-    currentRowIndex,
-  } = useFormStore((state) => state);
+  const currentInputElement = useFormStore((state) => state.currentInputElement);
+  const currentRowIndex = useFormStore((state) => state.currentRowIndex);
   const usedKey = useKeysStore((state) => state.usedKeys[value]);
 
   const formReference = value === 'ENTER' ? `form-${currentRowIndex}` : undefined;

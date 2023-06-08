@@ -3,7 +3,7 @@
 import Key from './Key';
 
 import styles from './styles.module.scss';
-import useKeyEvents from '../../hooks/useKeyEvents';
+import useKeyBoard from '../../hooks/useKeyboard';
 
 export const firstLineKeys = ['Q', 'W', 'E', 'R', 'T', 'Y', 'U', 'I', 'O', 'P'] as const;
 export const secondLineKeys = ['A', 'S', 'D', 'F', 'G', 'H', 'J', 'K', 'L', '<'] as const;
@@ -13,7 +13,7 @@ export type Keys =
   typeof firstLineKeys[number] | typeof secondLineKeys[number] | typeof thirdLineKeys[number]
 
 const Keyboard = () => {
-  const { handleInput } = useKeyEvents();
+  const { handleInput } = useKeyBoard();
 
   return (
     <div className={styles.container}>

@@ -15,7 +15,7 @@
   border: none;
   outline: none;
   opacity: 1;
-  caret-color: transparent;
+  // caret-color: transparent;
   
   &:not([data-variant="active"]) {
     cursor: not-allowed;

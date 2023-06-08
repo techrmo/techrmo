@@ -1,16 +1,16 @@
 import type { LetterResult, ResponseWord } from '../../validators/responseWords';
 import type { GetFormState, SetFormState } from '.';
-import type { RowColumnIndex } from './FormStore';
+import type { RowColumnIndex } from './FormSlice';
 
 type Results = ResponseWord['results']
 
-export interface AttemptStore {
+export interface AttemptSlice {
   resultsOfAttempts: LetterResult[][];
   setResultsOfAttempts: (resultOfAttempt: Results) => void;
 }
 
-export const createAttemptStore = (
-  (set: SetFormState, get: GetFormState): AttemptStore => ({
+export const createAttemptSlice = (
+  (set: SetFormState, get: GetFormState): AttemptSlice => ({
     resultsOfAttempts: [],
     setResultsOfAttempts: (resultOfAttempt: Results) => {
       const { resultsOfAttempts, currentRowIndex, values } = get();

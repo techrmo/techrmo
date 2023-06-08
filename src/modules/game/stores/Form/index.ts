@@ -1,15 +1,17 @@
 import { StoreApi, create } from 'zustand';
 
-import { type InputStore, createInputStore } from './InputStore';
-import { type FormStore, createFormStore } from './FormStore';
-import { type AttemptStore, createAttemptStore } from './AttemptStore';
+import { type InputSlice, createInputSlice } from './InputSlice';
+import { type FormSlice, createFormSlice } from './FormSlice';
+import { type AttemptSlice, createAttemptSlice } from './AttemptSlice';
+import { InputFormSlice, createInputFormSlice } from './InputFormSlice';
 
-type UseForm = InputStore & FormStore & AttemptStore;
+type UseForm = InputSlice & FormSlice & AttemptSlice & InputFormSlice;
 export type SetFormState = StoreApi<UseForm>['setState'];
 export type GetFormState = StoreApi<UseForm>['getState'];
 
 export const useFormStore = create<UseForm>((set, get) => ({
-  ...createInputStore(set),
-  ...createFormStore(set, get),
-  ...createAttemptStore(set, get),
+  ...createInputSlice(set),
+  ...createFormSlice(set, get),
+  ...createAttemptSlice(set, get),
+  ...createInputFormSlice(set, get),
 }));
