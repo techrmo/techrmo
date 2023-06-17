@@ -9,11 +9,11 @@
   }
 
   &[data-variant="disabled"] {
-    background-color: $color-pink-transparent-900;
+    background-color: $color-purple-900;
   }
 
   &[data-variant="incorrect"] {
-    background-color: $color-pink-transparent-300;
+    background-color: $color-purple-900;
   }
 
   &[data-variant="correct"] {
