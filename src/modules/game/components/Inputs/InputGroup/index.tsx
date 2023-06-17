@@ -9,8 +9,6 @@ const InputGroup = () => {
   const numberOfRows = 5;
   const numberOfInputs = 5;
 
-  console.log('Input Group');
-
   const inputsBox = (rowIndex: RowColumnIndex) => Array
     .from({ length: numberOfInputs })
     .map((_, index) => (

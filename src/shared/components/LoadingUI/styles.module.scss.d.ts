@@ -1,3 +1,4 @@
+export const container: string;
 export const displayC: string;
 export const displayH: string;
 export const firstLettersMove: string;

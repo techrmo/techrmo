@@ -36,6 +36,14 @@
     
     border-radius: 1rem;
   }
+
+  @include mobile-m {
+    transform: scale(0.8);
+  }
+
+  @include mobile-s {
+    transform: scale(0.6);
+  }
 }
 
 .logo {  
@@ -77,7 +85,7 @@
       margin-right: map.get($style,'margin-right');
       margin-left: map.get($style,'margin-left');
 
-      animation: display-#{$content} 6.8s;
+      animation: display-#{$content} 6.82s;
 
       &::before {
         content: $content;
