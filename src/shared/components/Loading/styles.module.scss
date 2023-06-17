@@ -1,0 +1,23 @@
+@use "abstracts" as *;
+@use "../Logo/styles.module.scss" as LogoStyle;
+
+.loading {
+  @include LogoStyle.logo-structure;
+
+  @for $item from 1 through 7 {
+    $delay: $item * 200ms;
+
+    & span:nth-child(#{$item}) {
+      animation: move-letter 1000ms ease-in-out $delay infinite;
+    }
+  }
+
+  @keyframes move-letter {
+    0%, 100% {
+      transform: translateY(0px);
+    }
+    50% {
+      transform: translateY(-20px) rotate(7deg);
+    }
+  }
+}

@@ -1,0 +1,13 @@
+@use "abstracts" as *;
+
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 100px;
+
+  width: 100vw;
+  height: 100vh;
+}
+
