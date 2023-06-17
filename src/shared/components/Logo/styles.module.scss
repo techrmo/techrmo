@@ -37,11 +37,7 @@
     border-radius: 1rem;
   }
 
-  @include mobile-m {
-    transform: scale(0.8);
-  }
-
-  @include mobile-s {
+  @include mobile-l {
     transform: scale(0.6);
   }
 }

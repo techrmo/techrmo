@@ -9,7 +9,7 @@ export async function POST(request: NextRequest) {
 
   const secretWordArray = secretWord.toUpperCase().split('');
 
-  await delay(3000);
+  await delay(5000);
 
   const results = parsedValues.map((letter, index) => {
     const letterUpperCase = letter.toUpperCase();

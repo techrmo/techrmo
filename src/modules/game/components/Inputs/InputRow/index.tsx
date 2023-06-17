@@ -1,5 +1,5 @@
 import {
-  FormEvent, ReactNode, useRef, useState,
+  FormEvent, ReactNode, useReducer, useRef,
 } from 'react';
 
 import { useKeysStore } from '@/modules/game/stores/KeysStore';
@@ -19,10 +19,38 @@ interface InputRowProps {
   children: ReactNode;
 }
 
+interface SubmitState {
+  isLoading: boolean,
+  isBlockSend: boolean,
+}
+
+interface FormStateAction {
+  type: 'block' | 'loading' | 'finished';
+  payload?: SubmitState;
+}
+
+const initialState = {
+  isLoading: false,
+  isBlockSend: false,
+};
+
+function reducer(state: SubmitState, action: FormStateAction) {
+  switch (action.type) {
+    case 'block':
+      return { ...state, isBlockSend: true };
+    case 'loading':
+      return { ...state, isLoading: true };
+    case 'finished':
+      return initialState;
+    default:
+      throw new Error();
+  }
+}
+
 const InputRow = ({
   children, index,
 }: InputRowProps) => {
-  const [loading, setLoading] = useState(false);
+  const [stateSubmit, dispatchSubmit] = useReducer(reducer, initialState);
   const currentValues = useFormStore((state) => state.currentValues);
   const setResultsOfAttempts = useFormStore((state) => state.setResultsOfAttempts);
   const setUsedKeys = useKeysStore((state) => state.setUsedKeys);
@@ -39,12 +67,17 @@ const InputRow = ({
     } catch (error) {
       console.error(error);
     } finally {
-      setLoading(false);
+      dispatchSubmit({ type: 'finished' });
     }
   };
 
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+    dispatchSubmit({ type: 'block' });
+
+    if (stateSubmit.isBlockSend) {
+      return;
+    }
 
     const raceWinner = await Promise.race([
       delay(1000),
@@ -52,13 +85,13 @@ const InputRow = ({
     ]);
 
     if (raceWinner === 'delay_finished') {
-      setLoading(true);
+      dispatchSubmit({ type: 'loading' });
     }
   };
 
   return (
     <>
-      <LoadingUI isLoading={loading} />
+      <LoadingUI isLoading={stateSubmit.isLoading} />
       <form
         id={`form-${index}`}
         ref={formRef}
