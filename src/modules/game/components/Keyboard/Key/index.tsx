@@ -1,23 +1,35 @@
-'use client';
+import { useKeysStore } from '@/modules/game/stores/KeysStore';
+import { useFormStore } from '@/modules/game/stores/Form';
 
-import { useInputStore } from '@/modules/game/stores/InputStore';
+import type { Keys } from '..';
+
 import styles from './styles.module.scss';
 
 interface KeyProps {
-  value: string;
+  value: Keys;
+  handleInput: (
+    key: string,
+    previousElementSibling: Element | null,
+    nextElementSibling: Element | null
+  ) => void;
 }
 
-const Key = ({ value }: KeyProps) => {
-  const { currentInput, currentForm } = useInputStore((state) => state);
-  const formReference = value === 'ENTER' ? currentForm : undefined;
+const Key = ({ value, handleInput }: KeyProps) => {
+  const currentInputElement = useFormStore((state) => state.currentInputElement);
+  const currentRowIndex = useFormStore((state) => state.currentRowIndex);
+  const usedKey = useKeysStore((state) => state.usedKeys[value]);
+
+  const formReference = value === 'ENTER' ? `form-${currentRowIndex}` : undefined;
   const buttonType = value === 'ENTER' ? 'submit' : 'button';
 
   const handleClick = () => {
-    currentInput?.focus();
+    if (!currentInputElement) {
+      return;
+    }
 
-    const keyToPress = value === '<' ? 'Backspace' : value;
+    const { previousElementSibling, nextElementSibling } = currentInputElement;
 
-    currentInput?.dispatchEvent(new KeyboardEvent('keyup', { key: keyToPress, bubbles: true }));
+    handleInput(value, previousElementSibling, nextElementSibling);
   };
 
   return (
@@ -25,6 +37,7 @@ const Key = ({ value }: KeyProps) => {
       className={styles.container}
       form={formReference}
       type={buttonType}
+      data-variant={usedKey}
       onClick={handleClick}
     >
       {value}

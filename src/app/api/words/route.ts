@@ -1,13 +1,35 @@
-import { NextResponse } from 'next/server';
+import { NextResponse, NextRequest } from 'next/server';
+import { getTodayWord } from './providers/wordsFakeRepository';
+import { inputSchema } from '../../../modules/game/validators/input';
 
-export function POST(req, res) {
-  const word = 'Oloquinho meu';
+export async function POST(request: NextRequest) {
+  const secretWord = getTodayWord();
+  const parsedValues = inputSchema.parse((await request.json()).values);
 
-  return NextResponse.json({ ok: true });
-}
+  const secretWordArray = secretWord.toUpperCase().split('');
 
-export function GET(req, res) {
-  console.log('opa');
+  const results = parsedValues.map((letter, index) => {
+    const letterUpperCase = letter.toUpperCase();
 
-  return NextResponse.json({ ok: true });
+    if (letterUpperCase === secretWordArray[index]) {
+      return {
+        value: letterUpperCase,
+        result: 'correct',
+      };
+    }
+
+    if (secretWordArray.includes(letterUpperCase)) {
+      return {
+        value: letterUpperCase,
+        result: 'bad-position',
+      };
+    }
+
+    return {
+      value: letterUpperCase,
+      result: 'incorrect',
+    };
+  });
+
+  return NextResponse.json({ results });
 }

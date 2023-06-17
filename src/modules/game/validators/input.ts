@@ -1,18 +1,21 @@
 import { z } from 'zod';
 
-// type UpperCaseCharacter = 'A' | 'B' | 'C' | 'D' | 'E' | 'F'
-// | 'G' | 'H' | 'I' | 'J' | 'K' | 'L' | 'M' | 'N'
-// | 'O' | 'P' | 'Q' | 'R' | 'S' | 'T' | 'U' | 'V'
-// | 'W' | 'X' | 'Y' | 'Z';
-// type Character = UpperCaseCharacter | Lowercase<UpperCaseCharacter> | '';
+import { verifyIsLetterKey } from '@/shared/helpers/verifyIsLetterKey';
+import { Keys } from '../components/Keyboard';
 
-const stringValidation = z
+export const stringValidation = z
   .string()
   .length(1)
-  .transform((string) => string.toLocaleUpperCase());
+  .transform<Keys>((string) => {
+    const letterUpperCase = string.toUpperCase();
 
-export const inputSchema = z.object({
-  value: z.array(stringValidation).length(5),
-});
+    if (verifyIsLetterKey(letterUpperCase)) {
+      return letterUpperCase;
+    }
+
+    throw new Error('Could not interpret value as valid key');
+  });
+
+export const inputSchema = z.array(stringValidation).length(5);
 
 export type FormFields = z.infer<typeof inputSchema>
