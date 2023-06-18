@@ -1,0 +1,36 @@
+@use "abstracts" as *;
+@use "../Logo/styles.module.scss" as LogoStyle;
+
+.container {
+  width: 100vw;
+  height: 100svh;
+  top: 0;
+  left: 0;
+  position: fixed;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  background-color: rgba(0, 0, 0, 0.1);
+}
+
+.loading {
+  @include LogoStyle.logo-structure;
+
+  @for $item from 1 through 7 {
+    $delay: $item * 200ms;
+
+    & span:nth-child(#{$item}) {
+      animation: move-letter 1000ms ease-in-out $delay infinite;
+    }
+  }
+
+  @keyframes move-letter {
+    0%, 100% {
+      transform: translateY(0px);
+    }
+    50% {
+      transform: translateY(-20px) rotate(7deg);
+    }
+  }
+}

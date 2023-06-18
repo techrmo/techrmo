@@ -1,0 +1,145 @@
+@use "sass:map";
+@use "abstracts" as *;
+
+@mixin logo-structure {
+  display: flex;
+  position: relative;
+  
+  font-size: 8rem;
+  font-weight: 700;
+  color: $color-green-900;
+
+  & span:nth-of-type(3) {
+    background-color: $color-pink-900;
+    transform: rotate(6deg);
+  }
+
+  & span:nth-of-type(4) {
+    background-color: $color-gray-200;
+    transform: rotate(6deg) translatey(10px);
+  }
+
+  span {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 6rem;
+  }
+  
+  & span:nth-of-type(3),
+  & span:nth-of-type(4) {
+    width: 6rem;
+    
+    font-size: 5.5rem;
+    font-weight: 400;
+    color: $color-gray-800;
+    
+    border-radius: 1rem;
+  }
+
+  @include mobile-l {
+    transform: scale(0.6);
+  }
+}
+
+.logo {  
+  @include logo-structure;
+  
+  $letters: (
+    'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 
+    'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 
+    'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'
+  );
+
+  $letter-C-style: (
+    child: 3,
+    content: 'C',
+    animation-delay: 0ms,
+    margin-right: 4px,
+    margin-left: -4px,
+    left-animation: 35px
+  );
+
+  $letter-H-style: (
+    child: 4,
+    content: 'H',
+    animation-delay: 200ms,
+    margin-right: -6px,
+    margin-left: 0px,
+    left-animation: 94px
+  );
+
+  $lettersCH: (
+    C: $letter-C-style,
+    H: $letter-H-style,
+  );
+
+  @each $letter, $style in $lettersCH {
+    $content: map.get($style,'content');
+
+    & span:nth-of-type(#{map.get($style,'child')}) {
+      margin-right: map.get($style,'margin-right');
+      margin-left: map.get($style,'margin-left');
+
+      animation: display-#{$content} 6.82s;
+
+      &::before {
+        content: $content;
+        position: relative;
+        animation: randomLetter 5s none map.get($style,'animation-delay');
+      }
+    }
+
+    @keyframes display-#{$content} {
+      0% {
+        position: absolute;
+        left: map.get($style,'left-animation');
+        opacity: 0;
+      }
+      100% {
+        opacity: 1;
+      }
+    }
+  }
+
+  @keyframes randomLetter {
+    @for $i from 1 through 100 {
+      $random-index: random(length($letters));
+      $percentage-step: $i * 5;
+
+      #{$percentage-step}% {
+        content: nth($letters, $random-index);
+      }
+    }
+  }
+  
+  & span:nth-of-type(1),
+  & span:nth-of-type(2) {
+    animation: firstLettersMove 2s;
+  }
+  
+  & span:nth-of-type(5),
+  & span:nth-of-type(6),
+  & span:nth-of-type(7), {
+    animation: lastLettersMove 2s;
+  }
+
+  @keyframes firstLettersMove {
+    from {
+      transform: translateX(0);
+    }
+    to {
+      transform: translateX(-57px);
+    }
+  }
+  
+  @keyframes lastLettersMove {
+    from {
+      transform: translateX(0);
+    }
+    to {
+      transform: translateX(57px);
+    }
+  }
+}
+
