@@ -16,6 +16,7 @@
   outline: none;
   opacity: 1;
   caret-color: transparent;
+  -webkit-text-fill-color: $color-gray-800;
   
   &:not([data-variant="active"]) {
     cursor: not-allowed;
