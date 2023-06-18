@@ -8,6 +8,7 @@ export interface FormSlice {
   currentRowIndex: RowColumnIndex,
   currentColumnIndex: RowColumnIndex,
   setCurrentRowIndex: (value: RowColumnIndex) => void;
+  setCurrentColumnIndex: (value: RowColumnIndex) => void;
   setValues: (value: Keys | '', directionInputToMove: DirectionInputToMove) => void;
   currentValues: () => void;
   values: (Keys | '')[][]
@@ -47,4 +48,6 @@ export const createFormSlice = ((set: SetFormState, get: GetFormState): FormSlic
   },
   setCurrentRowIndex:
     (value: RowColumnIndex) => set(() => ({ currentRowIndex: value })),
+  setCurrentColumnIndex:
+    (value: RowColumnIndex) => set(() => ({ currentColumnIndex: value })),
 }));
