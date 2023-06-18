@@ -1,13 +1,13 @@
 import { z } from 'zod';
 
 import { verifyIsLetterKey } from '@/shared/helpers/verifyIsLetterKey';
-import { Keys } from '../components/Keyboard';
+import type { Keys } from '../constants/Keys';
 
 export const stringValidation = z
   .string()
   .length(1)
-  .transform<Keys>((string) => {
-    const letterUpperCase = string.toUpperCase();
+  .transform<Keys>((arg) => {
+    const letterUpperCase = arg.toUpperCase();
 
     if (verifyIsLetterKey(letterUpperCase)) {
       return letterUpperCase;

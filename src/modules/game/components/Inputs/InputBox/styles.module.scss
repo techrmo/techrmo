@@ -15,13 +15,13 @@
   border: none;
   outline: none;
   opacity: 1;
-  // caret-color: transparent;
+  caret-color: transparent;
   
   &:not([data-variant="active"]) {
     cursor: not-allowed;
   }
   
-  &[data-focused="true"] {
+  &[data-focused="true"], &:focus {
     border: 3px solid $color-pink-900;
   }
   

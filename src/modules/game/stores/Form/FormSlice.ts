@@ -1,5 +1,5 @@
 import type { GetFormState, SetFormState } from '.';
-import type { Keys } from '../../components/Keyboard';
+import { Keys } from '../../constants/Keys';
 
 export type RowColumnIndex = 0 | 1 | 2 | 3 | 4;
 export type DirectionInputToMove = 'NEXT' | 'PREVIOUS';
@@ -8,7 +8,6 @@ export interface FormSlice {
   currentRowIndex: RowColumnIndex,
   currentColumnIndex: RowColumnIndex,
   setCurrentRowIndex: (value: RowColumnIndex) => void;
-  setCurrentColumnIndex: (value: RowColumnIndex) => void;
   setValues: (value: Keys | '', directionInputToMove: DirectionInputToMove) => void;
   currentValues: () => void;
   values: (Keys | '')[][]
@@ -48,6 +47,4 @@ export const createFormSlice = ((set: SetFormState, get: GetFormState): FormSlic
   },
   setCurrentRowIndex:
     (value: RowColumnIndex) => set(() => ({ currentRowIndex: value })),
-  setCurrentColumnIndex:
-    (value: RowColumnIndex) => set(() => ({ currentColumnIndex: value })),
 }));

@@ -1,7 +1,7 @@
 import { z } from 'zod';
 
 import { removeItemFromArray } from '@/shared/helpers/removeItemFromArray';
-import { firstLineKeys, secondLineKeys, thirdLineKeys } from '../components/Keyboard';
+import { firstLineKeys, secondLineKeys, thirdLineKeys } from '../constants/Keys';
 
 const secondLineValidKeys = removeItemFromArray(secondLineKeys, '<');
 const thirdLineValidKeys = removeItemFromArray(thirdLineKeys, 'ENTER');
