@@ -24,7 +24,6 @@ const InputGroup = () => {
     .map((_, index) => (
       <InputRow
         key={index}
-        index={index as RowColumnIndex}
       >
         {inputsBox(index as RowColumnIndex)}
       </InputRow>

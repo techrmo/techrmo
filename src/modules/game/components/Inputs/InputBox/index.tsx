@@ -17,9 +17,8 @@ const InputBox = ({
 }: InputBoxProps) => {
   const inputRef = useRef<HTMLInputElement | null>(null);
   const
-    setCurrentInputElement = useFormStore((state) => state.setCurrentInputElement);
+    updateCurrentInputAndPosition = useFormStore((state) => state.updateCurrentInputAndPosition);
   const currentRowIndex = useFormStore((state) => state.currentRowIndex);
-
   const isActiveRow = currentRowIndex === rowIndex;
 
   const variant = useInputVariant({
@@ -36,7 +35,7 @@ const InputBox = ({
   }, [columnIndex, isActiveRow]);
 
   const handleFocus = () => {
-    setCurrentInputElement(inputRef.current);
+    updateCurrentInputAndPosition(inputRef.current, columnIndex);
   };
 
   return (

@@ -1,5 +1,5 @@
 import type { GetFormState, SetFormState } from '.';
-import type { Keys } from '../../components/Keyboard';
+import { Keys } from '../../constants/Keys';
 
 export type RowColumnIndex = 0 | 1 | 2 | 3 | 4;
 export type DirectionInputToMove = 'NEXT' | 'PREVIOUS';
