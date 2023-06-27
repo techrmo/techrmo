@@ -1,15 +1,15 @@
 import { NextResponse, NextRequest } from 'next/server';
-import { delay } from '@/shared/helpers/delay';
-import { getTodayWord } from './providers/wordsFakeRepository';
+import { testGpt } from './providers/wordsFakeRepository';
 import { inputSchema } from '../../../modules/game/validators/input';
+import { getCurrentWord } from '../services/wordsService';
 
 export async function POST(request: NextRequest) {
-  const secretWord = getTodayWord();
+  const secretWord = await getCurrentWord();
   const parsedValues = inputSchema.parse((await request.json()).values);
 
-  const secretWordArray = secretWord.toUpperCase().split('');
+  const secretWordArray = secretWord.value.toUpperCase().split('');
 
-  await delay(5000);
+  // await delay(5000);
 
   const results = parsedValues.map((letter, index) => {
     const letterUpperCase = letter.toUpperCase();
@@ -33,6 +33,8 @@ export async function POST(request: NextRequest) {
       result: 'incorrect',
     };
   });
+
+  // const testes = await testGpt(secretWord.value);
 
   return NextResponse.json({ results });
 }
