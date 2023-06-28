@@ -1,9 +1,9 @@
-import InputBox from '.';
+import InputGroup from '.';
 import type { Meta, StoryObj } from '@storybook/react';
 
-const meta: Meta<typeof InputBox> = {
-  title: 'Components/InputBox',
-  component: InputBox,
+const meta: Meta<typeof InputGroup> = {
+  title: 'Components/InputGroup',
+  component: InputGroup,
   tags: ['autodocs'],
 };
 

@@ -13,7 +13,7 @@ const schema = z.object({
   OPENAI_API_TOKEN: z.string(),
 });
 
-export const envs = schema.parse({
+export const parsedEnvs = schema.parse({
   NEXT_PUBLIC_API_URL: process.env['NEXT_PUBLIC_API_URL'],
   NEXT_PUBLIC_GRAPHCMS_URL: process.env['NEXT_PUBLIC_GRAPHCMS_URL'],
   GRAPHCMS_MUTATION_TOKEN: process.env['GRAPHCMS_MUTATION_TOKEN'],

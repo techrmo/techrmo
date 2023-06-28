@@ -1,15 +1,15 @@
-import { AxiosError } from 'axios';
 import { Configuration, OpenAIApi } from 'openai';
+import { AxiosError } from 'axios';
 
-import { envs } from '@/shared/helpers/parseEnvs';
+import { parsedEnvs } from '@/shared/helpers/parseEnvs';
 
 const configuration = new Configuration({
-  apiKey: envs.OPENAI_API_TOKEN,
+  apiKey: parsedEnvs.OPENAI_API_TOKEN,
 });
 
 const openai = new OpenAIApi(configuration);
 
-export const testGpt = async (value: string) => {
+export const generateWordExplanation = async (value: string) => {
   try {
     const chatCompletion = await openai.createChatCompletion({
       model: 'gpt-3.5-turbo',

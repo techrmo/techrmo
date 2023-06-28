@@ -3,13 +3,16 @@ import {
   describe,
   it,
 } from 'vitest';
+import { render } from '@testing-library/react';
+
+import InputBox from '@/modules/game/components/Inputs/InputBox';
 
 describe('Input box component', () => {
   it('should be rendered', () => {
-    // const { container } = render(<InputBox />);
+    const { container } = render(<InputBox columnIndex={0} rowIndex={0} />);
 
-    // const input = container.firstElementChild;
+    const input = container.firstElementChild;
 
-    expect(1 + 1).toBe(2);
+    expect(input).toBeDefined();
   });
 });
