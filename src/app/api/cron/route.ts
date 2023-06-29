@@ -1,7 +1,17 @@
-import { NextResponse } from 'next/server';
+import { NextRequest, NextResponse } from 'next/server';
 import { getCurrentWord, getFirstWordHasNotBeenUsed, updateWordById } from '../_services/words';
+import { parsedEnvs } from '../_config/parseEnvs';
 
-export async function GET() {
+export async function POST(request: NextRequest) {
+  const requestHeaders = new Headers(request.headers);
+  const token = requestHeaders.get('authorization')?.split(' ')[1];
+
+  if (parsedEnvs.TOKEN_API !== token) {
+    return NextResponse.json({
+      message: 'Unathorized',
+    }, { status: 401 });
+  }
+
   const currentWord = await getCurrentWord();
 
   if (currentWord) {

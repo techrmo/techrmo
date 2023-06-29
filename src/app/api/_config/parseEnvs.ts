@@ -11,6 +11,7 @@ const schema = z.object({
   NEXT_PUBLIC_GRAPHCMS_URL: z.string().url(),
   GRAPHCMS_MUTATION_TOKEN: z.string(),
   OPENAI_API_TOKEN: z.string(),
+  TOKEN_API: z.string(),
 });
 
 export const parsedEnvs = schema.parse({
@@ -18,4 +19,5 @@ export const parsedEnvs = schema.parse({
   NEXT_PUBLIC_GRAPHCMS_URL: process.env['NEXT_PUBLIC_GRAPHCMS_URL'],
   GRAPHCMS_MUTATION_TOKEN: process.env['GRAPHCMS_MUTATION_TOKEN'],
   OPENAI_API_TOKEN: process.env['OPENAI_API_TOKEN'],
+  TOKEN_API: process.env['TOKEN_API'],
 });
