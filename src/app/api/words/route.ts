@@ -1,38 +1,39 @@
 import { NextResponse, NextRequest } from 'next/server';
-import { delay } from '@/shared/helpers/delay';
-import { getTodayWord } from './providers/wordsFakeRepository';
+
+import { getCurrentWord } from '../_services/words/getCurrentWord';
+
 import { inputSchema } from '../../../modules/game/validators/input';
 
 export async function POST(request: NextRequest) {
-  const secretWord = getTodayWord();
+  const secretWord = await getCurrentWord();
   const parsedValues = inputSchema.parse((await request.json()).values);
 
-  const secretWordArray = secretWord.toUpperCase().split('');
+  if (secretWord) {
+    const secretWordArray = secretWord.value.toUpperCase().split('');
 
-  await delay(5000);
+    const results = parsedValues.map((letter, index) => {
+      const letterUpperCase = letter.toUpperCase();
 
-  const results = parsedValues.map((letter, index) => {
-    const letterUpperCase = letter.toUpperCase();
+      if (letterUpperCase === secretWordArray[index]) {
+        return {
+          value: letterUpperCase,
+          result: 'correct',
+        };
+      }
 
-    if (letterUpperCase === secretWordArray[index]) {
+      if (secretWordArray.includes(letterUpperCase)) {
+        return {
+          value: letterUpperCase,
+          result: 'bad-position',
+        };
+      }
+
       return {
         value: letterUpperCase,
-        result: 'correct',
+        result: 'incorrect',
       };
-    }
+    });
 
-    if (secretWordArray.includes(letterUpperCase)) {
-      return {
-        value: letterUpperCase,
-        result: 'bad-position',
-      };
-    }
-
-    return {
-      value: letterUpperCase,
-      result: 'incorrect',
-    };
-  });
-
-  return NextResponse.json({ results });
+    return NextResponse.json({ results });
+  }
 }

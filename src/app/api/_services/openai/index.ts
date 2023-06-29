@@ -1,0 +1,1 @@
+export { generateWordExplanation } from './generateWordExplanation';
