@@ -1,6 +1,5 @@
 import { NextResponse, NextRequest } from 'next/server';
 
-import { generateWordExplanation } from '../_services/openai/generateWordExplanation';
 import { getCurrentWord } from '../_services/words/getCurrentWord';
 
 import { inputSchema } from '../../../modules/game/validators/input';
@@ -34,8 +33,6 @@ export async function POST(request: NextRequest) {
         result: 'incorrect',
       };
     });
-
-    // const testes = await generateWordExplanation(secretWord.value);
 
     return NextResponse.json({ results });
   }
