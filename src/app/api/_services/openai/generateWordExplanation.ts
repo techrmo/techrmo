@@ -1,7 +1,6 @@
 import { Configuration, OpenAIApi } from 'openai';
 import { AxiosError } from 'axios';
-
-import { parsedEnvs } from '@/shared/helpers/parseEnvs';
+import { parsedEnvs } from '../../_config/parseEnvs';
 
 const configuration = new Configuration({
   apiKey: parsedEnvs.OPENAI_API_TOKEN,
@@ -30,5 +29,6 @@ export const generateWordExplanation = async (value: string) => {
   } catch (error) {
     const errorAxios = error as AxiosError;
     console.error(errorAxios.response);
+    return null;
   }
 };

@@ -1,1 +1,0 @@
-export {generateWordExplanation} from "./generateWordExplanation"
