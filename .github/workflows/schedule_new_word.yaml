@@ -1,7 +1,7 @@
 name: Cron generate new word cron
 on:
   schedule:
-    - cron: '0 22 * * *'
+    - cron: '15 1 * * *'
 jobs:
   cron:
     runs-on: ubuntu-latest
