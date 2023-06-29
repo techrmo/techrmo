@@ -1,0 +1,1 @@
+export { requestGraphQl } from './graphQL';

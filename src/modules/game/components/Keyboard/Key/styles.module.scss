@@ -1,0 +1,38 @@
+@use "abstracts" as *;
+
+.container {
+  user-select: none;
+  -ms-touch-action: manipulation;
+  touch-action: manipulation;
+  height: 6rem;
+  max-width: 6px;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  
+  background-color: $color-gray-900;
+  
+  border: none;
+  border-radius: 0.5rem;
+  
+  font-size: clamp(1.8rem, 2vw, 2rem);
+  font-weight: 500;
+  color: $color-pink-200;
+  
+  margin: 0.3rem;
+  padding: min(1.6rem, 3.6vw);
+  
+  $items: (
+    incorrect: $color-gray-200, 
+    correct: $color-green-900, 
+    bad-position: $color-pink-900
+  );
+    
+  @each $item, $color in $items {
+    &[data-variant="#{$item}"]  {
+      background-color: #{$color};
+      color: $color-gray-700;
+    }
+  }
+}
