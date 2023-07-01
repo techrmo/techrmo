@@ -1,9 +1,9 @@
 import { GraphQLClient } from 'graphql-request';
-import { parsedEnvs } from '../../_config/parseEnvs';
+import { privateEnvs, publicEnvs } from '@/shared/config/envs';
 
-const client = new GraphQLClient(parsedEnvs.NEXT_PUBLIC_GRAPHCMS_URL, {
+const client = new GraphQLClient(publicEnvs.NEXT_PUBLIC_GRAPHCMS_URL, {
   headers: {
-    Authorization: `Bearer ${parsedEnvs.GRAPHCMS_MUTATION_TOKEN}`,
+    Authorization: `Bearer ${privateEnvs.GRAPHCMS_MUTATION_TOKEN}`,
   },
 });
 

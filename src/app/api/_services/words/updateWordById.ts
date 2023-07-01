@@ -1,17 +1,20 @@
 import { gql } from 'graphql-request';
-
 import { requestGraphQl } from '../hygraph';
 
-interface UpdateWordByIdRequest {
-  isCurrent: boolean
-  hasBeenUsed?: boolean
-  id: string
+type UpdateWordData = {
+  isCurrent?: boolean;
+  hasBeenUsed?: boolean;
+  explantion?: string;
+  usedAt?: Date
 }
 
-export const updateWordById = async ({ isCurrent, hasBeenUsed, id }: UpdateWordByIdRequest) => {
+export const updateWordById = async (
+  id: string,
+  data: UpdateWordData,
+) => {
   const query = gql`
     mutation {
-      updateWord(data: ${JSON.stringify({ isCurrent, hasBeenUsed }).replaceAll('"', '')}, where: {id: "${id}"}) {
+      updateWord(data: ${JSON.stringify(data).replaceAll('"', '')}, where: {id: "${id}"}) {
         id
       }
       publishWord(where: {id: "${id}"}, to: PUBLISHED) {

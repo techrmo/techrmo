@@ -1,9 +1,9 @@
 import { Configuration, OpenAIApi } from 'openai';
 import { AxiosError } from 'axios';
-import { parsedEnvs } from '../../_config/parseEnvs';
+import { privateEnvs } from '@/shared/config/envs';
 
 const configuration = new Configuration({
-  apiKey: parsedEnvs.OPENAI_API_TOKEN,
+  apiKey: privateEnvs.OPENAI_API_TOKEN,
 });
 
 const openai = new OpenAIApi(configuration);
