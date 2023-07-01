@@ -4,7 +4,7 @@ import { requestGraphQl } from '../hygraph';
 export const getFirstWordHasNotBeenUsed = async () => {
   const query = `
     query Words {
-      words(where: { hasBeenUsed: false }, skip: 1) {
+      words(where: { hasBeenUsed: false }, first: 1) {
         value
         id
       }
