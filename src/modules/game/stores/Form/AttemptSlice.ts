@@ -17,6 +17,8 @@ export interface AttemptSlice {
   setIsLoading: (isLoading: boolean) => void;
   setIsBlockSend: (isBlockSend: boolean) => void;
   isBlockSend: boolean;
+  isWinner: boolean;
+  isLost: boolean;
 }
 
 export const createAttemptSlice = (
@@ -35,6 +37,8 @@ export const createAttemptSlice = (
     },
     isLoading: false,
     isBlockSend: false,
+    isWinner: false,
+    isLost: false,
     setIsLoading: (isLoading) => set(({ isLoading })),
     setIsBlockSend: (isBlockSend) => set(({ isBlockSend })),
     handleSubmit: async () => {
@@ -58,7 +62,7 @@ export const createAttemptSlice = (
     },
     handleAttempt: async () => {
       const {
-        currentValues, setResultsOfAttempts, setIsLoading, setIsBlockSend,
+        currentValues, setResultsOfAttempts, resultsOfAttempts,
       } = get();
       try {
         const { setUsedKeys } = useKeysStore.getState();
@@ -68,11 +72,21 @@ export const createAttemptSlice = (
 
         setUsedKeys(resultOfAttempt);
         setResultsOfAttempts(resultOfAttempt);
+
+        const isWinner = resultOfAttempt.every((result) => result.result === 'correct');
+
+        if (isWinner) {
+          set(({ isWinner: true }));
+          return;
+        }
+
+        if (resultsOfAttempts.length === 4) {
+          set(({ isLost: true }));
+        }
       } catch (error) {
         console.error(error);
       } finally {
-        setIsLoading(false);
-        setIsBlockSend(false);
+        set(({ isLoading: false, isBlockSend: false }));
       }
     },
   })
