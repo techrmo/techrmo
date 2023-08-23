@@ -1,98 +1,100 @@
 {
   "env": {
     "browser": true,
-    "es2021": true
+    "es6": true
   },
   "extends": [
+    "eslint:recommended",
+    "airbnb/hooks",
+    "airbnb-typescript",
     "plugin:react/recommended",
+    "plugin:react/jsx-runtime",
     "plugin:@typescript-eslint/recommended",
-    "airbnb",
-    "next/core-web-vitals"
+    "plugin:@typescript-eslint/recommended-requiring-type-checking",
+    "plugin:prettier/recommended",
+    "plugin:import/recommended"
   ],
+  "parser": "@typescript-eslint/parser",
   "parserOptions": {
     "ecmaFeatures": {
       "jsx": true
     },
     "ecmaVersion": "latest",
-    "sourceType": "module"
+    "sourceType": "module",
+    "tsconfigRootDir": ".",
+    "project": ["./tsconfig.json"]
   },
   "plugins": ["react", "@typescript-eslint"],
-  "rules": {
-    "react/button-has-type": "off",
-    "react/no-array-index-key": "warn",
-    "import/no-extraneous-dependencies": [
-      "error",
-      {
-        "devDependencies": [
-          "src/**/*.test.tsx",
-          "src/**/*.stories.ts",
-          "public/docs/*"
-        ]
-      }
-    ],
-    "no-use-before-define": "off",
-    "import/order": [
-      "error",
-      {
-        "groups": [
-          "external",
-          "internal",
-          "index",
-          "type",
-          "sibling",
-          "parent",
-          "builtin",
-          "object"
-        ]
-      }
-    ],
-    "react/function-component-definition": "off",
-    "react/react-in-jsx-scope": "off",
-    "import/prefer-default-export": "off",
-    "react/jsx-props-no-spreading": "off",
-    "react/jsx-no-constructed-context-values": "off",
-    "jsx-a11y/label-has-associated-control": [
-      "error",
-      {
-        "required": {
-          "some": ["nesting", "id"]
-        }
-      }
-    ],
-    "jsx-quotes": ["error", "prefer-single"],
-    "jsx-a11y/label-has-for": [
-      "error",
-      {
-        "required": {
-          "some": ["nesting", "id"]
-        }
-      }
-    ],
-    "react/require-default-props": "off",
-    "react/jsx-filename-extension": "off",
-    "react/prop-types": "off",
-    "import/no-unresolved": "error",
-    "react/jsx-no-bind": "off",
-    "import/extensions": [
-      "error",
-      "ignorePackages",
-      {
-        "js": "never",
-        "jsx": "never",
-        "ts": "never",
-        "tsx": "never"
-      }
-    ],
-    "@typescript-eslint/no-unused-vars": [
-      2,
-      {
-        "args": "none"
-      }
-    ]
-  },
   "settings": {
     "import/resolver": {
-      "typescript": {}
+      "typescript": {
+        "project": "./tsconfig.json"
+      }
+    },
+    "react": {
+      "version": "18.x"
     }
+  },
+  "rules": {
+    "import/default": "off",
+    "linebreak-style": "off",
+    "prettier/prettier": [
+      "error",
+      {
+        "printWidth": 80,
+        "jsxBracketSameLine": false,
+        "endOfLine": "lf",
+        "singleQuote": true,
+        "tabWidth": 2,
+        "indentStyle": "space",
+        "useTabs": false
+      }
+    ],
+    "@typescript-eslint/no-explicit-any": "warn",
+    "@typescript-eslint/ban-types": [
+      "error",
+      {
+        "extendDefaults": true,
+        "types": {
+          "{}": false
+        }
+      }
+    ],
+    "@typescript-eslint/no-floating-promises": "off",
+    "react-hooks/exhaustive-deps": "off",
+    "@typescript-eslint/no-misused-promises": "off",
+    "object-shorthand": "error",
+    "no-console": "warn",
+    "import/order": [
+      1, 
+      { 
+        "newlines-between": "always",
+        "groups": [
+          "external", 
+          "builtin", 
+          "internal", 
+          "parent", 
+          "index",
+          "sibling"
+        ],
+        "pathGroups": [
+          { 
+            "pattern": "react", 
+            "group": "builtin",
+            "position": "before" 
+          }, 
+          { 
+            "pattern": "*/components", 
+            "group": "internal" 
+          }, 
+          { 
+            "pattern": "@/shared/assets/**", 
+            "group": "sibling", 
+            "position": "after" 
+          }
+        ]
+      }
+    ],
+    "react/display-name": "off"
   }
 }

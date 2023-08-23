@@ -16,19 +16,16 @@ export const metadata = {
     viewportFit: 'cover',
     userScalable: false,
   },
-
 };
 
 export default function RootLayout({
   children,
 }: {
-  children: React.ReactNode
+  children: React.ReactNode;
 }) {
   return (
-    <html lang='en'>
-      <body className={poppins.className}>
-        {children}
-      </body>
+    <html lang="en">
+      <body className={poppins.className}>{children}</body>
     </html>
   );
 }

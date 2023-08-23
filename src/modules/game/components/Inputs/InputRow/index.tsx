@@ -1,7 +1,6 @@
 import { ReactNode } from 'react';
 
 import { useFormStore } from '@/modules/game/stores/Form';
-
 import LoadingUI from '@/shared/components/LoadingUI';
 
 import styles from './styles.module.scss';
@@ -16,9 +15,7 @@ const InputRow = ({ children }: InputRowProps) => {
   return (
     <>
       <LoadingUI isLoading={isLoading} />
-      <form className={styles.container}>
-        {children}
-      </form>
+      <form className={styles.container}>{children}</form>
     </>
   );
 };

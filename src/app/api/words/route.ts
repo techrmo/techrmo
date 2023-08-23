@@ -1,7 +1,6 @@
 import { NextResponse, NextRequest } from 'next/server';
 
 import { getCurrentWord } from '../_services/words/getCurrentWord';
-
 import { inputSchema } from '../../../modules/game/validators/input';
 
 export async function POST(request: NextRequest) {

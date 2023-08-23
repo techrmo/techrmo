@@ -1,5 +1,6 @@
 import { Configuration, OpenAIApi } from 'openai';
 import { AxiosError } from 'axios';
+
 import { privateEnvs } from '@/shared/config/envs';
 
 const configuration = new Configuration({
@@ -17,12 +18,14 @@ export const generateWordExplanation = async (value: string) => {
       messages: [
         {
           role: 'system',
-          content: 'Você precisa se comportar como um sistema que responda perguntas relacionada a programação',
+          content:
+            'Você precisa se comportar como um sistema que responda perguntas relacionada a programação',
         },
         {
           role: 'user',
           content: value,
-        }],
+        },
+      ],
     });
 
     return chatCompletion.data.choices;

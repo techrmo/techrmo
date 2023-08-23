@@ -19,7 +19,7 @@ export const useKeysStore = create<KeysStore>((set, get) => ({
 
     const usedKeysParsed = values.reduce(
       (previous, current) => ({ ...previous, [current.value]: current.result }),
-      usedKeys,
+      usedKeys
     );
 
     set(() => ({ usedKeys: usedKeysParsed }));

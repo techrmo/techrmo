@@ -1,4 +1,5 @@
 import { GraphQLClient } from 'graphql-request';
+
 import { privateEnvs, publicEnvs } from '@/shared/config/envs';
 
 const client = new GraphQLClient(publicEnvs.NEXT_PUBLIC_GRAPHCMS_URL, {

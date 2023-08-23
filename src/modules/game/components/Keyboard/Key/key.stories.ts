@@ -1,5 +1,6 @@
-import Key from '.';
 import type { Meta, StoryObj } from '@storybook/react';
+
+import Key from '.';
 
 const meta: Meta<typeof Key> = {
   title: 'Components/Key',

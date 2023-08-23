@@ -1,5 +1,6 @@
-import { getCurrentWordSchema } from './validators/getCurrentWord';
 import { requestGraphQl } from '../hygraph';
+
+import { getCurrentWordSchema } from './validators/getCurrentWord';
 
 export const getCurrentWord = async () => {
   const query = `

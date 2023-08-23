@@ -1,5 +1,6 @@
-import { getFirstWordHasNotBeenUsedSchema } from './validators/getFirstWordHasNotBeenUsed';
 import { requestGraphQl } from '../hygraph';
+
+import { getFirstWordHasNotBeenUsedSchema } from './validators/getFirstWordHasNotBeenUsed';
 
 export const getFirstWordHasNotBeenUsed = async () => {
   const query = `

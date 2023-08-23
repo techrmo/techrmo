@@ -1,7 +1,12 @@
 import { useFormStore } from '../stores/Form';
 import { RowColumnIndex } from '../stores/Form/FormSlice';
 
-export type InputBoxVariant = 'inactive' | 'active' | 'incorrect' | 'correct' | 'bad-position'
+export type InputBoxVariant =
+  | 'inactive'
+  | 'active'
+  | 'incorrect'
+  | 'correct'
+  | 'bad-position';
 
 interface UseInputVariantProps {
   columnIndex: RowColumnIndex;
@@ -9,8 +14,11 @@ interface UseInputVariantProps {
   isActiveRow: boolean;
 }
 
-const useInputVariant = ({ columnIndex, rowIndex, isActiveRow }:
-  UseInputVariantProps): InputBoxVariant => {
+const useInputVariant = ({
+  columnIndex,
+  rowIndex,
+  isActiveRow,
+}: UseInputVariantProps): InputBoxVariant => {
   const resultOfAttempt = useFormStore((state) => state.resultsOfAttempts);
   const currentRow = resultOfAttempt.at(rowIndex);
   const currentBox = currentRow?.at(columnIndex);

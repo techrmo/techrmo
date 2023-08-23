@@ -1,6 +1,7 @@
 import { z } from 'zod';
 
 import { verifyIsLetterKey } from '@/shared/helpers/verifyIsLetterKey';
+
 import type { Keys } from '../constants/Keys';
 
 export const stringValidation = z
@@ -18,4 +19,4 @@ export const stringValidation = z
 
 export const inputSchema = z.array(stringValidation).length(5);
 
-export type FormFields = z.infer<typeof inputSchema>
+export type FormFields = z.infer<typeof inputSchema>;

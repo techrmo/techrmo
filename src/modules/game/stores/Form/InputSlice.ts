@@ -5,15 +5,17 @@ export interface InputSlice {
   setCurrentInputElement: (input: HTMLInputElement | null) => void;
 }
 
-export const createInputSlice = ((set: SetFormState, get: GetFormState): InputSlice => ({
+export const createInputSlice = (
+  set: SetFormState,
+  get: GetFormState
+): InputSlice => ({
   currentInputElement: null,
-  setCurrentInputElement:
-    (input: HTMLInputElement | null) => {
-      const { currentInputElement } = get();
+  setCurrentInputElement: (input: HTMLInputElement | null) => {
+    const { currentInputElement } = get();
 
-      if (input) {
-        currentInputElement?.removeAttribute('data-focused');
-        set({ currentInputElement: input });
-      }
-    },
-}));
+    if (input) {
+      currentInputElement?.removeAttribute('data-focused');
+      set({ currentInputElement: input });
+    }
+  },
+});
