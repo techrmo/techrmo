@@ -1,5 +1,5 @@
 import { Configuration, OpenAIApi } from 'openai';
-import { AxiosError } from 'axios';
+import axios, { AxiosError } from 'axios';
 
 import { privateEnvs } from '@/shared/config/envs';
 
@@ -30,8 +30,10 @@ export const generateWordExplanation = async (value: string) => {
 
     return chatCompletion.data.choices;
   } catch (error) {
-    const errorAxios = error as AxiosError;
-    console.error(errorAxios.response);
+    if (axios.isAxiosError(error)) {
+      console.error(error.response);
+    }
+
     return null;
   }
 };
