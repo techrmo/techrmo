@@ -1,6 +1,8 @@
 @use "abstracts" as *;
 
 .container {
+  // --test: 0;
+
   user-select: none;
   -ms-touch-action: manipulation;
   touch-action: manipulation;
@@ -10,6 +12,8 @@
   display: flex;
   justify-content: center;
   align-items: center;
+
+  // width: var(--test);
   
   background-color: $color-gray-900;
   

@@ -1,5 +1,5 @@
 import { Configuration, OpenAIApi } from 'openai';
-import axios, { AxiosError } from 'axios';
+import axios from 'axios';
 
 import { privateEnvs } from '@/shared/config/envs';
 

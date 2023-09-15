@@ -1,11 +1,28 @@
 import { NextResponse, NextRequest } from 'next/server';
+import { getServerSession } from 'next-auth';
 
-import { getCurrentWord } from '../_services/words/getCurrentWord';
-import { inputSchema } from '../../../modules/game/validators/input';
+import { getCurrentWord } from '../(services)/words';
+import { wordValidationRequest } from '../(services)/words/validators';
+import { authOptions } from '../auth/[...nextauth]/route';
 
 export async function POST(request: NextRequest) {
+  const session = await getServerSession(authOptions);
+
+  console.log(session);
+
+  if (!session) {
+    return NextResponse.json(
+      {
+        message: 'Usuário não autenticado',
+      },
+      { status: 401 }
+    );
+  }
+
   const secretWord = await getCurrentWord();
-  const parsedValues = inputSchema.parse((await request.json()).values);
+  const { values: parsedValues } = wordValidationRequest.parse(
+    await request.json()
+  );
 
   if (secretWord) {
     const secretWordArray = secretWord.value.toUpperCase().split('');

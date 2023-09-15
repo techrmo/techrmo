@@ -6,7 +6,7 @@ import {
   getCurrentWord,
   getFirstWordHasNotBeenUsed,
   updateWordById,
-} from '../_services/words';
+} from '../(services)/words';
 
 export async function POST(request: NextRequest) {
   const requestHeaders = new Headers(request.headers);
