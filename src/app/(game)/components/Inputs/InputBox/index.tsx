@@ -1,4 +1,5 @@
 import { useEffect, useRef } from 'react';
+import { useStore } from 'zustand';
 
 import useInputVariant from '../../../hooks/useInputVariant';
 import { useFormStore } from '../../../stores/Form';
@@ -17,6 +18,7 @@ const InputBox = ({ columnIndex, rowIndex }: InputBoxProps) => {
     (state) => state.updateCurrentInputAndPosition
   );
   const currentRowIndex = useFormStore((state) => state.currentRowIndex);
+  const values = useStore(useFormStore, (state) => state.values);
   const isActiveRow = currentRowIndex === rowIndex;
 
   const variant = useInputVariant({
@@ -36,8 +38,18 @@ const InputBox = ({ columnIndex, rowIndex }: InputBoxProps) => {
     updateCurrentInputAndPosition(inputRef.current, columnIndex);
   };
 
+  const getDefaultValue = () => {
+    const currentRow = values[rowIndex];
+    if (!currentRow?.length) {
+      return undefined;
+    }
+
+    return currentRow[columnIndex];
+  };
+
   return (
     <input
+      defaultValue={getDefaultValue()}
       ref={inputRef}
       className={styles.container}
       type="text"

@@ -1,3 +1,5 @@
+import useStore from '@/shared/hooks/useStore';
+
 import { useFormStore } from '../stores/Form';
 import { RowColumnIndex } from '../stores/Form/FormSlice';
 
@@ -19,8 +21,11 @@ const useInputVariant = ({
   rowIndex,
   isActiveRow,
 }: UseInputVariantProps): InputBoxVariant => {
-  const resultOfAttempt = useFormStore((state) => state.resultsOfAttempts);
-  const currentRow = resultOfAttempt.at(rowIndex);
+  const resultOfAttempt = useStore(
+    useFormStore,
+    (state) => state.resultsOfAttempts
+  );
+  const currentRow = resultOfAttempt?.at(rowIndex);
   const currentBox = currentRow?.at(columnIndex);
 
   if (currentBox) {
