@@ -2,7 +2,7 @@ import React from 'react';
 import { Poppins } from 'next/font/google';
 import { getServerSession } from 'next-auth';
 
-import { authOptions } from '../../api/auth/[...nextauth]/route';
+import { authOptions } from '../../api/(routes)/auth/[...nextauth]/route';
 import { NextAuthProvider } from '../providers/NextAuthProvider';
 
 import '@/shared/scss/main.scss';

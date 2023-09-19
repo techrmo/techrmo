@@ -8,4 +8,7 @@ const client = new GraphQLClient(publicEnvs.NEXT_PUBLIC_GRAPHCMS_URL, {
   },
 });
 
-export const requestGraphQl = (query: string) => client.request(query);
+export const requestGraphQl = (
+  query: string,
+  variables?: Record<string, unknown>
+) => client.request(query, variables);
