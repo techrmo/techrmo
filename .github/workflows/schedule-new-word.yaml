@@ -1,0 +1,13 @@
+name: Cron generate new word
+on:
+  schedule:
+    - cron: '0 3 * * *'
+jobs:
+  cron:
+    runs-on: ubuntu-latest
+    steps:
+      - name: create new word
+        run: |
+          curl --location -v --request POST \
+          --url '${{ vars.NEXT_PUBLIC_API_URL_DEV }}/cron' \
+          --header 'Authorization: Bearer ${{ secrets.TOKEN_API }}'

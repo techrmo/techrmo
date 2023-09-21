@@ -16,7 +16,8 @@
   "less.validate": false,
   "scss.validate": false,
   "editor.codeActionsOnSave": {
-    "source.fixAll.stylelint": true
+    "source.fixAll.stylelint": true,
+    "source.fixAll.eslint": true
   },
   "files.autoSaveDelay": 500,
   "stylelint.config": {

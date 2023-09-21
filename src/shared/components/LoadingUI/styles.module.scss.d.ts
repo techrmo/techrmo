@@ -1,9 +1,9 @@
-export const container: string;
-export const displayC: string;
-export const displayH: string;
-export const firstLettersMove: string;
-export const lastLettersMove: string;
-export const loading: string;
-export const logo: string;
-export const moveLetter: string;
-export const randomLetter: string;
+export declare const container: string;
+export declare const displayC: string;
+export declare const displayH: string;
+export declare const firstLettersMove: string;
+export declare const lastLettersMove: string;
+export declare const loading: string;
+export declare const logo: string;
+export declare const moveLetter: string;
+export declare const randomLetter: string;
