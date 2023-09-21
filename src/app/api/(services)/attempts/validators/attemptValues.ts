@@ -5,7 +5,7 @@ import {
   firstLineKeys,
   secondLineKeys,
   thirdLineKeys,
-} from '@/app/(game)/constants/Keys';
+} from '@/shared/constants/Keys';
 
 const secondLineValidKeys = removeItemFromArray(secondLineKeys, '<');
 const thirdLineValidKeys = removeItemFromArray(thirdLineKeys, 'ENTER');
@@ -16,7 +16,7 @@ export const valueValidation = z.enum([
   ...thirdLineValidKeys,
 ]);
 
-const letterResult = z.enum(['correct', 'incorrect', 'bad-position']);
+export const letterResult = z.enum(['correct', 'incorrect', 'bad-position']);
 
 const resultsValidation = z.object({
   value: valueValidation,

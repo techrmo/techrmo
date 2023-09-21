@@ -1,7 +1,7 @@
 import { create } from 'zustand';
 
 import type { LetterResult } from '../validators/responseWords';
-import type { Keys } from '../constants/Keys';
+import type { Keys } from '../../../shared/constants/Keys';
 
 interface KeyResult {
   value: Keys;

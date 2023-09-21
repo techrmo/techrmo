@@ -1,5 +1,5 @@
 import { useKeysStore } from '../../../stores/KeysStore';
-import type { Keys } from '../../../constants/Keys';
+import type { Keys } from '../../../../../shared/constants/Keys';
 
 import styles from './styles.module.scss';
 

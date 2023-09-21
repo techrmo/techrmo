@@ -41,7 +41,7 @@ const InputBox = ({ columnIndex, rowIndex }: InputBoxProps) => {
   const getDefaultValue = () => {
     const currentRow = values[rowIndex];
     if (!currentRow?.length) {
-      return undefined;
+      return;
     }
 
     return currentRow[columnIndex];

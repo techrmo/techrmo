@@ -1,18 +1,29 @@
 import { NextResponse, NextRequest } from 'next/server';
-import { getServerSession } from 'next-auth';
+import { currentUser } from '@clerk/nextjs';
 
 import { getCurrentWord } from '../../(services)/words';
 import { wordValidationRequest } from '../../(services)/words/validators';
-import { authOptions } from '../auth/[...nextauth]/route';
 import {
   getCurrentAttemptPlayer,
   upsertAttempt,
 } from '../../(services)/attempts';
+import { letterResult } from '../../(services)/attempts/validators/attemptValues';
 
 export async function POST(request: NextRequest) {
-  const session = await getServerSession(authOptions);
+  const user = await currentUser();
 
-  if (!session || !session.user?.email) {
+  if (!user) {
+    return NextResponse.json(
+      {
+        message: 'Usuário não autenticado',
+      },
+      { status: 401 }
+    );
+  }
+
+  const [firstEmail] = user.emailAddresses;
+
+  if (!firstEmail) {
     return NextResponse.json(
       {
         message: 'Usuário não autenticado',
@@ -32,39 +43,37 @@ export async function POST(request: NextRequest) {
       {
         message: 'Palavra não encontrada.',
       },
-      { status: 404 }
+      { status: 400 }
     );
   }
 
   const secretWordArray = secretWord.value.toUpperCase().split('');
 
-  const currentAttempt = await getCurrentAttemptPlayer(session.user.email);
+  const currentAttempt = await getCurrentAttemptPlayer(firstEmail.emailAddress);
 
   const results = parsedValues.map((letter, index) => {
-    const letterUpperCase = letter.toUpperCase();
-
-    if (letterUpperCase === secretWordArray[index]) {
+    if (letter === secretWordArray[index]) {
       return {
-        value: letterUpperCase,
-        result: 'correct',
+        value: letter,
+        result: letterResult.Values.correct,
       };
     }
 
-    if (secretWordArray.includes(letterUpperCase)) {
+    if (secretWordArray.includes(letter)) {
       return {
-        value: letterUpperCase,
-        result: 'bad-position',
+        value: letter,
+        result: letterResult.Values['bad-position'],
       };
     }
 
     return {
-      value: letterUpperCase,
-      result: 'incorrect',
+      value: letter,
+      result: letterResult.Values.incorrect,
     };
   });
 
   await upsertAttempt({
-    email: session.user.email,
+    email: firstEmail.emailAddress,
     status: 'PLAYING',
     word: secretWord.value,
     values: currentAttempt ? [...currentAttempt.values, results] : [results],

@@ -21,8 +21,6 @@ export const getCurrentAttemptPlayer = async (playerEmail: string) => {
 
   const response = await requestGraphQl(query);
 
-  console.log(response);
-
   const {
     attempts: [firstAttempt],
   } = getCurrentAttemptPlayerSchema.parse(response);

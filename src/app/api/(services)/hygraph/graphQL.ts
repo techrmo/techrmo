@@ -6,6 +6,7 @@ const client = new GraphQLClient(publicEnvs.NEXT_PUBLIC_GRAPHCMS_URL, {
   headers: {
     Authorization: `Bearer ${privateEnvs.GRAPHCMS_MUTATION_TOKEN}`,
   },
+  cache: 'force-cache',
 });
 
 export const requestGraphQl = (

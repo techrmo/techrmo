@@ -1,25 +1,11 @@
 import { z } from 'zod';
 
-import { removeItemFromArray } from '@/shared/helpers/removeItemFromArray';
-import {
-  firstLineKeys,
-  secondLineKeys,
-  thirdLineKeys,
-} from '@/app/(game)/constants/Keys';
-
-const secondLineValidKeys = removeItemFromArray(secondLineKeys, '<');
-const thirdLineValidKeys = removeItemFromArray(thirdLineKeys, 'ENTER');
-
-export const valueValidation = z.enum([
-  ...firstLineKeys,
-  ...secondLineValidKeys,
-  ...thirdLineValidKeys,
-]);
+import { alphabetLetterSchema } from '@/shared/schema/alphabetLetterSchema';
 
 const letterResult = z.enum(['correct', 'incorrect', 'bad-position']);
 
 const resultsValidation = z.object({
-  value: valueValidation,
+  value: alphabetLetterSchema,
   result: letterResult,
 });
 
@@ -35,3 +21,5 @@ export const getCurrentAttemptPlayerSchema = z.object({
     })
   ),
 });
+
+export type ResultValidation = z.infer<typeof resultsValidation>;

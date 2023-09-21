@@ -1,8 +1,4 @@
-import {
-  expect,
-  describe,
-  it,
-} from 'vitest';
+import { expect, describe, it } from 'vitest';
 import { render } from '@testing-library/react';
 
 import InputBox from '@/app/(game)/components/Inputs/InputBox';

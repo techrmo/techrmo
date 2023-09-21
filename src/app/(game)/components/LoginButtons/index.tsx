@@ -1,21 +1,31 @@
 'use client';
 
-import { signIn, signOut, useSession } from 'next-auth/react';
+import { useClerk, useSignIn, useUser } from '@clerk/nextjs';
 
 const LoginButtons = () => {
-  const session = useSession();
-
-  const isAuthenticated = session.status === 'authenticated';
+  const { signIn } = useSignIn();
+  const { user } = useUser();
+  const { signOut } = useClerk();
 
   return (
     <>
-      {!isAuthenticated ? (
-        <button type="button" onClick={() => signIn('github')}>
-          Logar com github
-        </button>
+      {user ? (
+        <>
+          <p style={{ color: '#fff' }}>{user?.username}</p>
+          <button onClick={() => signOut()}>Sair</button>
+        </>
       ) : (
-        <button type="button" onClick={() => signOut()}>
-          Deslogar como {session.data.user?.name}
+        <button
+          type="button"
+          onClick={async () => {
+            await signIn?.authenticateWithRedirect({
+              strategy: 'oauth_github',
+              redirectUrl: 'http://localhost:3000',
+              redirectUrlComplete: '/',
+            });
+          }}
+        >
+          Logar com github
         </button>
       )}
     </>

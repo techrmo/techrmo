@@ -2,16 +2,17 @@ import { gql } from 'graphql-request';
 
 import { requestGraphQl } from '../hygraph';
 
+import { ResultValidation } from './validators';
+
 interface AttemptData {
-  id?: string | undefined; // ativar opção no tsconfig
+  id?: string;
   status: 'PLAYING' | 'WIN' | 'LOST';
   word: string;
   email: string;
-  values: any;
+  values: ResultValidation[][];
 }
 
 export const upsertAttempt = async (data: AttemptData) => {
-  console.log('oq checjou', data);
   const query = gql`
     mutation UpsertAttempt($values: Json) {
       upsertAttempt(

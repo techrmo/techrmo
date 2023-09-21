@@ -1,15 +1,15 @@
 import { z } from 'zod';
 
-import { verifyIsLetterKey } from '@/shared/helpers/verifyIsLetterKey';
-import type { Keys } from '@/app/(game)/constants/Keys';
+import { AlphabetLetter } from '@/shared/schema/alphabetLetterSchema';
+import { verifyIsAlphabetLetter } from '@/shared/helpers/verifyIsAlphabetLetter';
 
 export const stringValidation = z
   .string()
   .length(1)
-  .transform<Keys>((arg) => {
+  .transform<AlphabetLetter>((arg) => {
     const letterUpperCase = arg.toUpperCase();
 
-    if (verifyIsLetterKey(letterUpperCase)) {
+    if (verifyIsAlphabetLetter(letterUpperCase)) {
       return letterUpperCase;
     }
 

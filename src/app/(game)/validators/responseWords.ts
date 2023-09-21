@@ -6,7 +6,7 @@ import {
   firstLineKeys,
   secondLineKeys,
   thirdLineKeys,
-} from '../constants/Keys';
+} from '../../../shared/constants/Keys';
 
 const secondLineValidKeys = removeItemFromArray(secondLineKeys, '<');
 const thirdLineValidKeys = removeItemFromArray(thirdLineKeys, 'ENTER');

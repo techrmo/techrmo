@@ -1,4 +1,4 @@
-import { Keys } from '../../constants/Keys';
+import { Keys } from '../../../../shared/constants/Keys';
 
 import type { GetFormState, SetFormState } from '.';
 

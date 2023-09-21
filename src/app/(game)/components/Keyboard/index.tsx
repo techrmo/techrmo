@@ -5,7 +5,7 @@ import {
   firstLineKeys,
   secondLineKeys,
   thirdLineKeys,
-} from '../../constants/Keys';
+} from '../../../../shared/constants/Keys';
 
 import Key from './Key';
 import styles from './styles.module.scss';
