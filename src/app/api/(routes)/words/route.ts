@@ -1,6 +1,8 @@
 import { NextResponse, NextRequest } from 'next/server';
 import { currentUser } from '@clerk/nextjs';
 
+import { getStatus } from '@/shared/helpers/getStatusAttempt';
+
 import { getCurrentWord } from '../../(services)/words';
 import { wordValidationRequest } from '../../(services)/words/validators';
 import {
@@ -8,28 +10,20 @@ import {
   upsertAttempt,
 } from '../../(services)/attempts';
 import { letterResult } from '../../(services)/attempts/validators/attemptValues';
+import { apiHandler } from '../../helpers/apiHandler';
+import { AppError } from '../../(errors)/AppError';
 
-export async function POST(request: NextRequest) {
+async function POST(request: NextRequest) {
   const user = await currentUser();
 
   if (!user) {
-    return NextResponse.json(
-      {
-        message: 'Usuário não autenticado',
-      },
-      { status: 401 }
-    );
+    throw new AppError('Usuário não autenticado', 401);
   }
 
   const [firstEmail] = user.emailAddresses;
 
   if (!firstEmail) {
-    return NextResponse.json(
-      {
-        message: 'Usuário não autenticado',
-      },
-      { status: 401 }
-    );
+    throw new AppError('Usuário não autenticado', 401);
   }
 
   const secretWord = await getCurrentWord();
@@ -39,12 +33,7 @@ export async function POST(request: NextRequest) {
   );
 
   if (!secretWord) {
-    return NextResponse.json(
-      {
-        message: 'Palavra não encontrada.',
-      },
-      { status: 400 }
-    );
+    throw new AppError('Palavra não encontrada.', 400);
   }
 
   const secretWordArray = secretWord.value.toUpperCase().split('');
@@ -72,13 +61,24 @@ export async function POST(request: NextRequest) {
     };
   });
 
+  const resultOfAttempt = currentAttempt
+    ? [...currentAttempt.values, results]
+    : [results];
+
+  const isWinner = results.every((result) => result.result === 'correct');
+  const isLost = !isWinner && resultOfAttempt.length === 7; // @todo deixar número de tentativa em env ou banco
+
+  const status = getStatus(isWinner, isLost);
+
   await upsertAttempt({
     email: firstEmail.emailAddress,
-    status: 'PLAYING',
+    status,
     word: secretWord.value,
-    values: currentAttempt ? [...currentAttempt.values, results] : [results],
+    values: resultOfAttempt,
     id: currentAttempt?.id,
   });
 
-  return NextResponse.json({ results });
+  return NextResponse.json({ results, status });
 }
+
+module.exports = apiHandler({ POST });
