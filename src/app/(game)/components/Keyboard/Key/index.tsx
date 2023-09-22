@@ -1,5 +1,7 @@
+import type { Keys } from '@/shared/constants/Keys';
+import useStore from '@/shared/hooks/useStore';
+
 import { useKeysStore } from '../../../stores/KeysStore';
-import type { Keys } from '../../../../../shared/constants/Keys';
 
 import styles from './styles.module.scss';
 
@@ -9,13 +11,13 @@ interface KeyProps {
 }
 
 const Key = ({ value, handleKeyUp }: KeyProps) => {
-  const usedKey = useKeysStore((state) => state.usedKeys[value]);
+  const usedKey = useStore(useKeysStore, (state) => state.usedKeys[value]);
 
   return (
     <button
       className={styles.container}
       type="button"
-      data-variant={usedKey}
+      data-variant={usedKey ?? null}
       onClick={() => handleKeyUp({ key: value })}
     >
       {value}

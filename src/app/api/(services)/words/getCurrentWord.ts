@@ -8,6 +8,7 @@ export const getCurrentWord = async () => {
       words(where: { isCurrent: true }) {
         id
         value
+        explanation
       }
     }
   `;
@@ -15,7 +16,7 @@ export const getCurrentWord = async () => {
   const response = await requestGraphQl(query);
   const { words } = getCurrentWordSchema.parse(response);
 
-  const word = words[0];
+  const [word] = words;
 
   return word;
 };

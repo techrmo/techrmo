@@ -1,18 +1,29 @@
-import { create } from 'zustand';
+import { createWithEqualityFn } from 'zustand/traditional';
+
+import { useDialogStore } from '@/shared/stores/dialogStore';
+import type { GameStatus } from '@/shared/constants/GameStatus';
 
 interface State {
-  status: 'WINNER' | 'LOST' | 'IN-GAME';
+  status: GameStatus;
   response: string | null;
+  explanation: string | null;
 }
 
 interface Actions {
   changeResult: (data: State) => void;
 }
 
-interface ResultStore extends State, Actions {}
+export interface ResultStore extends State, Actions {}
 
-export const useResultStore = create<ResultStore>((set) => ({
-  status: 'IN-GAME',
-  response: null,
-  changeResult: (data: State) => set(data),
-}));
+export const useResultStore = createWithEqualityFn<ResultStore>(
+  (set) => ({
+    status: 'PLAYING',
+    explanation: null,
+    response: null,
+    changeResult: (data: State) => {
+      useDialogStore.setState({ isOpen: true });
+      set(data);
+    },
+  }),
+  Object.is
+);

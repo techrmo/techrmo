@@ -1,7 +1,7 @@
 'use client';
 
 import * as Dialog from '@radix-ui/react-dialog';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { shallow } from 'zustand/shallow';
 
 import DialogUI from '@/shared/components/DialogUI';
@@ -13,10 +13,17 @@ import { useResultStore } from '../../stores/ResultStore';
 import styles from './styles.module.scss';
 
 const DialogFinished = () => {
-  const { status, response } = useResultStore(
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  const { status, response, explanation } = useResultStore(
     (store) => ({
       status: store.status,
       response: store.response,
+      explanation: store.explanation,
     }),
     shallow
   );
@@ -28,13 +35,13 @@ const DialogFinished = () => {
     ${isExplanation ? styles.contentExplanation : ''}
   `;
 
-  const titleText = status === 'WINNER' ? 'Você acertou!' : 'Você errou!';
+  const titleText = status === 'WIN' ? 'Você acertou!' : 'Você errou!';
 
   const title = !isExplanation ? (
     <Dialog.Title className={styles.title}>{titleText}</Dialog.Title>
   ) : null;
 
-  if (!response) {
+  if (!response || !mounted) {
     return null;
   }
 
@@ -43,9 +50,9 @@ const DialogFinished = () => {
       <Dialog.Content className={contentClasses}>
         {title}
         <div className={styles.wordContainer}>
-          {response.split('').map((value) => (
+          {response.split('').map((value, index) => (
             <span
-              key={value}
+              key={index}
               data-variant="correct"
               className={stylesBox.container}
             >
@@ -53,15 +60,7 @@ const DialogFinished = () => {
             </span>
           ))}
         </div>
-        {isExplanation && (
-          <p className={styles.explanation}>
-            YAGNI (You Aren&apos;t Gonna Need It) é um princípio de
-            desenvolvimento de software que preza pela simplicidade. Evite
-            adicionar recursos desnecessários, foque no que é essencial e evite
-            desperdício de tempo e esforço. Isso resulta em código mais limpo,
-            flexível e entrega mais rápida do software.
-          </p>
-        )}
+        {isExplanation && <p className={styles.explanation}>{explanation}</p>}
         {!isExplanation && (
           <Button type="button" onClick={() => setIsExplanation(true)}>
             Ver explicação

@@ -1,12 +1,14 @@
 import { gql } from 'graphql-request';
 
+import type { GameStatus } from '@/shared/constants/GameStatus';
+
 import { requestGraphQl } from '../hygraph';
 
 import { ResultValidation } from './validators';
 
 interface AttemptData {
   id?: string;
-  status: 'PLAYING' | 'WIN' | 'LOST';
+  status: GameStatus;
   word: string;
   email: string;
   values: ResultValidation[][];

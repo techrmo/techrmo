@@ -18,7 +18,9 @@ export interface FormSlice {
   values: (Keys | '')[][];
 }
 
-const allowedColumnIndexes = Object.freeze<RowColumnIndex[]>([0, 1, 2, 3, 4]);
+export const allowedColumnIndexes = Object.freeze<RowColumnIndex[]>([
+  0, 1, 2, 3, 4,
+]);
 const directionMapping = Object.freeze({
   NEXT: +1,
   PREVIOUS: -1,

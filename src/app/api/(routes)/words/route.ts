@@ -78,7 +78,11 @@ async function POST(request: NextRequest) {
     id: currentAttempt?.id,
   });
 
-  return NextResponse.json({ results, status });
+  return NextResponse.json({
+    results,
+    status,
+    ...(status !== 'PLAYING' ? { explanation: secretWord.explanation } : {}),
+  });
 }
 
 module.exports = apiHandler({ POST });

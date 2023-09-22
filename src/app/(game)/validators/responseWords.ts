@@ -1,6 +1,7 @@
 import { z } from 'zod';
 
 import { removeItemFromArray } from '@/shared/helpers/removeItemFromArray';
+import { GAME_STATUS } from '@/shared/constants/GameStatus';
 
 import {
   firstLineKeys,
@@ -26,6 +27,8 @@ const resultsValidation = z.object({
 
 export const responseWord = z.object({
   results: z.array(resultsValidation).length(5),
+  status: z.enum(GAME_STATUS),
+  explanation: z.string().optional(),
 });
 
 export const responseCookieAttempt = z.array(

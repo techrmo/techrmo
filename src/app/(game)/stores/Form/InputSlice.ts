@@ -3,6 +3,7 @@ import type { GetFormState, SetFormState } from '.';
 export interface InputSlice {
   currentInputElement: HTMLInputElement | null;
   setCurrentInputElement: (input: HTMLInputElement | null) => void;
+  resetState: () => void;
 }
 
 export const createInputSlice = (
@@ -18,4 +19,5 @@ export const createInputSlice = (
       set({ currentInputElement: input });
     }
   },
+  resetState: () => set({ currentInputElement: null }),
 });

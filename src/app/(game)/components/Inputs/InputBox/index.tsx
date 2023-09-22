@@ -1,5 +1,6 @@
 import { useEffect, useRef } from 'react';
-import { useStore } from 'zustand';
+
+import { useResultStore } from '@/app/(game)/stores/ResultStore';
 
 import useInputVariant from '../../../hooks/useInputVariant';
 import { useFormStore } from '../../../stores/Form';
@@ -18,8 +19,9 @@ const InputBox = ({ columnIndex, rowIndex }: InputBoxProps) => {
     (state) => state.updateCurrentInputAndPosition
   );
   const currentRowIndex = useFormStore((state) => state.currentRowIndex);
-  const values = useStore(useFormStore, (state) => state.values);
-  const isActiveRow = currentRowIndex === rowIndex;
+  const values = useFormStore((state) => state.values);
+  const status = useResultStore((store) => store.status);
+  const isActiveRow = currentRowIndex === rowIndex && status === 'PLAYING';
 
   const variant = useInputVariant({
     columnIndex,

@@ -1,5 +1,4 @@
 import { delay } from '@/shared/helpers/delay';
-import { useDialogStore } from '@/shared/stores/dialogStore';
 
 import type {
   LetterResult,
@@ -34,6 +33,8 @@ export const createAttemptSlice = (
   get: GetFormState
 ): AttemptSlice => ({
   resultsOfAttempts: [],
+  isLoading: false,
+  isBlockSend: false,
   setResultsOfAttempts: (resultOfAttempt: Results) => {
     const { resultsOfAttempts, currentRowIndex, values } = get();
     const mappedResult = resultOfAttempt.map((letter) => letter.result);
@@ -45,8 +46,6 @@ export const createAttemptSlice = (
       resultsOfAttempts: [...resultsOfAttempts, mappedResult],
     }));
   },
-  isLoading: false,
-  isBlockSend: false,
   setIsLoading: (isLoading) => set({ isLoading }),
   setIsBlockSend: (isBlockSend) => set({ isBlockSend }),
   handleSubmit: async () => {
@@ -64,35 +63,33 @@ export const createAttemptSlice = (
     }
   },
   handleAttempt: async () => {
-    const { currentValues, setResultsOfAttempts, resultsOfAttempts } = get();
+    const status = useResultStore.getState().status;
+
+    if (status !== 'PLAYING') {
+      return;
+    }
+
+    const { currentValues, setResultsOfAttempts, resetState } = get();
     try {
       const { setUsedKeys } = useKeysStore.getState();
 
       const parsedValues = inputSchema.parse(currentValues());
-      const resultOfAttempt = await verifyWord(parsedValues);
+      const {
+        results: resultOfAttempt,
+        status: resultStatus,
+        explanation,
+      } = await verifyWord(parsedValues);
 
       setUsedKeys(resultOfAttempt);
       setResultsOfAttempts(resultOfAttempt);
 
-      const isWinner = resultOfAttempt.every(
-        (result) => result.result === 'correct'
-      );
-
-      if (isWinner) {
-        useDialogStore.setState({ isOpen: true });
+      if (resultStatus !== 'PLAYING' && explanation) {
         useResultStore.getState().changeResult({
-          status: 'WINNER',
+          status: resultStatus,
           response: resultOfAttempt.map((result) => result.value).join(''),
+          explanation,
         });
-        return;
-      }
-
-      if (resultsOfAttempts.length === numberOfAttempts - 1) {
-        useDialogStore.setState({ isOpen: true });
-        useResultStore.getState().changeResult({
-          status: 'LOST',
-          response: resultOfAttempt.map((result) => result.value).join(''),
-        });
+        resetState();
       }
     } catch (error) {
       console.error(error);
