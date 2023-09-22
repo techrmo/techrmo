@@ -8,7 +8,10 @@ const schema = z.object({
     z.string().url(),
     'http://localhost:3000/api'
   ),
-  NEXT_PUBLIC_GRAPHCMS_URL: withDevDefault(z.string().url(), ''),
+  NEXT_PUBLIC_GRAPHCMS_URL: withDevDefault(
+    z.string().url(),
+    'http://localhost:3000/ap'
+  ),
 });
 
 export const publicEnvs = schema.parse({
