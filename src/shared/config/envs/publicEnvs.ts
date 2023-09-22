@@ -10,7 +10,7 @@ const schema = z.object({
   ),
   NEXT_PUBLIC_GRAPHCMS_URL: withDevDefault(
     z.string().url(),
-    'http://localhost:3000/ap'
+    'http://localhost:3000/api'
   ),
 });
 
