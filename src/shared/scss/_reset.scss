@@ -1,15 +1,5 @@
 @use "./abstracts" as *;
 
-:root {
-  font-size: 60%;
-}
-
-@media (min-width: 700px) {
-  :root {
-    font-size: 62.5%;
-  }
-}
-
 * {
   margin: 0;
   padding: 0;
@@ -24,6 +14,7 @@ html {
 }
 
 body {
+  font-family: var(--font-poppins);
   background: #000;
   color: $color-gray-100;
   -webkit-font-smoothing: antialiased;
@@ -50,7 +41,10 @@ a {
 }
 
 html {
-
   -ms-touch-action: manipulation;
   touch-action: manipulation;
+}
+
+.react-joyride {
+  position: absolute;
 }
