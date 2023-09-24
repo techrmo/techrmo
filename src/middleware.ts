@@ -2,10 +2,6 @@ import { NextRequest, NextResponse } from 'next/server';
 
 import { publicEnvs } from '@/shared/config/envs';
 
-import { customInitApp } from './app/api/(services)/frebaseAdmin/firebaseAdmin';
-
-customInitApp();
-
 export async function middleware(request: NextRequest) {
   const session = request.cookies.get('session');
 
