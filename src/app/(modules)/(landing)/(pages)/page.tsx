@@ -31,7 +31,7 @@ const Home = async () => {
         <div className={styles.line} />
       </div>
       <header className={styles.header}>
-        <Image src="./logo.svg" alt="Logo techrmo" width={250} />
+        <Image src="./logo.svg" alt="Logo techrmo" width={250} height={100} />
       </header>
 
       <section>
