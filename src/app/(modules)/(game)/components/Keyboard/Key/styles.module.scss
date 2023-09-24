@@ -4,7 +4,7 @@
   user-select: none;
   -ms-touch-action: manipulation;
   touch-action: manipulation;
-  height: 6rem;
+  height: 60px;
   max-width: 6px;
   text-align: center;
   display: flex;
@@ -14,14 +14,14 @@
   background-color: $color-gray-700;
   
   border: none;
-  border-radius: 0.5rem;
+  border-radius: 5px;
   
-  font-size: clamp(1.8rem, 2vw, 2rem);
+  font-size: clamp(1.125rem, 2vw, 1.25rem);
   font-weight: 600;
   color: $color-gray-100;
   
-  margin: 0.3rem;
-  padding: min(1.6rem, 3.6vw);
+  margin: 3px;
+  padding: min(16px, 3.6vw);
   
   $items: (
     incorrect: $color-gray-600, 

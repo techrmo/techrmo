@@ -21,10 +21,6 @@ const Onboarding = () => {
   const setFormOnboarding = useFormStore((store) => store.setFormOnboarding);
   const [steps] = useState<Step[]>([
     {
-      target: '.login-button',
-      content: 'Primeiro é necessário realizar login com o github',
-    },
-    {
       target: '.input-row',
       content: <InputStep />,
     },
@@ -74,7 +70,7 @@ const Onboarding = () => {
     }
 
     if (action === ACTIONS.CLOSE || action === ACTIONS.RESET) {
-      setFormOnboarding([], []);
+      setFormOnboarding([]);
     }
   };
 

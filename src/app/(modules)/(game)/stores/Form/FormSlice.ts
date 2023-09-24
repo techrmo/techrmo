@@ -16,7 +16,7 @@ export interface FormSlice {
     value: Keys | '',
     directionInputToMove: DirectionInputToMove
   ) => void;
-  setFormOnboarding: (values: Keys[], letterResult: LetterResult[]) => void;
+  setFormOnboarding: (values: Keys[], letterResult?: LetterResult[]) => void;
   currentValues: () => void;
   values: (Keys | '')[][];
 }

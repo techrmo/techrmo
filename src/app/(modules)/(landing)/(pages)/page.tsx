@@ -1,5 +1,7 @@
 import Image from 'next/image';
 import Link from 'next/link';
+import { currentUser } from '@clerk/nextjs';
+import { redirect } from 'next/navigation';
 
 import InputBoxUI from '@/shared/components/ui/InputBoxUI/InputBoxUI';
 
@@ -15,7 +17,13 @@ import UiwLinkedin from '@/shared/assets/icons/UiwLinkedin';
 import FeInstagram from '@/shared/assets/icons/FeInstagram';
 import FormkitYoutube from '@/shared/assets/icons/FormkitYoutube';
 
-const Home = () => {
+const Home = async () => {
+  const user = await currentUser();
+
+  if (user) {
+    redirect('/game');
+  }
+
   return (
     <main className={styles.container}>
       <div className={styles.lines}>

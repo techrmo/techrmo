@@ -9,7 +9,7 @@
   align-items: center;
   flex-direction: column;
   border-radius: 4px;
-  border-radius: 0.4rem;
+  border-radius: 4px;
   border: 2px solid var(--gray-700, #2B2B2B);
   background: #000;
 
@@ -18,10 +18,10 @@
   max-width: 350px;
   min-width: 350px;
   height: 410px;
-  padding: 2.6rem 1.5rem;
+  padding: 26px 15px;
 
   .title {
-    font-size: 4rem;
+    font-size: 2.5rem;
     font-weight: 500;
     color: $color-gray-100;
   }
@@ -31,9 +31,9 @@
     gap: 10px;
 
     span {
-      width: 5.5rem;
-      height: 5.5rem;
-      font-size: 4.5rem;
+      width: 55px;
+      height: 55px;
+      font-size: 2.8125rem;
       padding: 0;
 
       display: flex;
@@ -56,9 +56,9 @@
 
   .wordContainer {
     span {
-      width: 4.5rem;
-      height: 4.5rem;
-      font-size: 3.5rem;
+      width: 45px;
+      height: 45px;
+      font-size: 2.1875rem;
       padding: 0;
 
       display: flex;
