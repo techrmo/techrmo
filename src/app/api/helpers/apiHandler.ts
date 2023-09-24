@@ -1,13 +1,19 @@
 import { NextRequest, NextResponse } from 'next/server';
 
 import { AppError } from '../(errors)/AppError';
+import { customInitApp } from '../(services)/frebaseAdmin/firebaseAdmin';
+import { AuthError } from '../(errors)/AuthError';
 
 const httpMethods = ['GET', 'POST', 'PUT', 'PATCH', 'DELETE'] as const;
 
-type FunctionApi = (request: NextRequest) => Promise<NextResponse | undefined>;
+type FunctionApi = (
+  request: NextRequest
+) => Promise<NextResponse | undefined> | NextResponse;
 
 type MethodsAllowed = (typeof httpMethods)[number];
 type APIRequests = Partial<Record<MethodsAllowed, FunctionApi>>;
+
+customInitApp();
 
 export function apiHandler(handler: APIRequests) {
   const wrappedHandler: APIRequests = {};
@@ -22,6 +28,10 @@ export function apiHandler(handler: APIRequests) {
         }
       } catch (error) {
         console.error(error);
+
+        if (error instanceof AuthError) {
+          return NextResponse.redirect(new URL('/', request.url));
+        }
 
         if (error instanceof AppError) {
           return NextResponse.json(

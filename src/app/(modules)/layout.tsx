@@ -1,5 +1,4 @@
 import { Poppins, Roboto } from 'next/font/google';
-import { ClerkProvider } from '@clerk/nextjs';
 
 import '@/shared/scss/main.scss';
 
@@ -34,16 +33,14 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <ClerkProvider>
-      <html lang="en">
-        <head>
-          <meta name="msapplication-TileColor" content="#000000" />
-          <meta name="theme-color" content="#000000" />
-        </head>
-        <body className={`${poppins.variable} ${roboto.variable}`}>
-          {children}
-        </body>
-      </html>
-    </ClerkProvider>
+    <html lang="en">
+      <head>
+        <meta name="msapplication-TileColor" content="#000000" />
+        <meta name="theme-color" content="#000000" />
+      </head>
+      <body className={`${poppins.variable} ${roboto.variable}`}>
+        {children}
+      </body>
+    </html>
   );
 }

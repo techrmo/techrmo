@@ -1,8 +1,10 @@
-import { currentUser } from '@clerk/nextjs';
+import { auth } from 'firebase-admin';
+import { cookies } from 'next/headers';
 
 import { getCurrentAttemptPlayer } from '@/app/api/(services)/attempts';
 import { getCurrentWord } from '@/app/api/(services)/words';
 import type { GameStatus } from '@/shared/constants/GameStatus';
+import { getCurrentUser } from '@/shared/services/getCurrentUser';
 
 import { allowedColumnIndexes } from '../stores/Form/FormSlice';
 
@@ -29,19 +31,17 @@ const getCurrentRowIndex = (
 };
 
 export const getCurrentAttemptPlayerService = async () => {
-  const user = await currentUser();
+  const user = await getCurrentUser();
 
   if (!user) {
     return;
   }
 
-  const [firstEmail] = user.emailAddresses;
-
-  if (!firstEmail) {
+  if (!user.email) {
     return;
   }
 
-  const attempt = await getCurrentAttemptPlayer(firstEmail.emailAddress);
+  const attempt = await getCurrentAttemptPlayer(user.email);
 
   if (!attempt) {
     return;

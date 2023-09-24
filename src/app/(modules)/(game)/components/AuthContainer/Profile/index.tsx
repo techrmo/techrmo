@@ -1,18 +1,34 @@
 'use client';
 
 import * as DropdownMenu from '@radix-ui/react-dropdown-menu';
-import { useClerk, useUser } from '@clerk/nextjs';
 import { useRouter } from 'next/navigation';
+import { getAuth, signOut } from 'firebase/auth';
+import { useEffect, useState } from 'react';
+
+import { auth as AuthFirebase } from '@/shared/services/firebase';
+import { api } from '@/shared/services/api';
 
 import styles from './styles.module.scss';
 
+import defaultProfile from '@/shared/assets/defaultProfile.png';
+
 const Profile = () => {
-  const { user } = useUser();
-  const { signOut } = useClerk();
   const router = useRouter();
+  const auth = getAuth();
+  const [user, setUser] = useState(auth.currentUser);
+
+  useEffect(() => {
+    const unsub = AuthFirebase.onAuthStateChanged((response) => {
+      setUser(response);
+    });
+
+    return () => unsub();
+  }, []);
 
   const handleSignOut = async () => {
-    await signOut();
+    await signOut(AuthFirebase);
+    await api.post('signOut');
+
     router.push('/');
   };
 
@@ -24,8 +40,11 @@ const Profile = () => {
     <DropdownMenu.Root>
       <DropdownMenu.Trigger asChild>
         <button type="button" className={styles.container}>
-          {user.username}
-          <img src={user.imageUrl} alt={`Perfil do ${user.username || ''}`} />
+          {user.displayName}
+          <img
+            src={user.photoURL || defaultProfile.src}
+            alt={`Perfil do ${user.displayName || ''}`}
+          />
         </button>
       </DropdownMenu.Trigger>
 

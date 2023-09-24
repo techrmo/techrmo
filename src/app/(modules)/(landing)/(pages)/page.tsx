@@ -4,6 +4,7 @@ import { currentUser } from '@clerk/nextjs';
 import { redirect } from 'next/navigation';
 
 import InputBoxUI from '@/shared/components/ui/InputBoxUI/InputBoxUI';
+import { getCurrentUser } from '@/shared/services/getCurrentUser';
 
 import LoginButton from '../components/LoginButton';
 
@@ -18,7 +19,7 @@ import FeInstagram from '@/shared/assets/icons/FeInstagram';
 import FormkitYoutube from '@/shared/assets/icons/FormkitYoutube';
 
 const Home = async () => {
-  const user = await currentUser();
+  const user = await getCurrentUser();
 
   if (user) {
     redirect('/game');

@@ -1,7 +1,7 @@
 import { NextResponse, NextRequest } from 'next/server';
-import { currentUser } from '@clerk/nextjs';
 
 import { getStatus } from '@/shared/helpers/getStatusAttempt';
+import { getCurrentUser } from '@/shared/services/getCurrentUser';
 
 import { getCurrentWord } from '../../(services)/words';
 import { wordValidationRequest } from '../../(services)/words/validators';
@@ -14,15 +14,13 @@ import { apiHandler } from '../../helpers/apiHandler';
 import { AppError } from '../../(errors)/AppError';
 
 async function POST(request: NextRequest) {
-  const user = await currentUser();
+  const user = await getCurrentUser();
 
   if (!user) {
     throw new AppError('Usuário não autenticado', 401);
   }
 
-  const [firstEmail] = user.emailAddresses;
-
-  if (!firstEmail) {
+  if (!user.email) {
     throw new AppError('Usuário não autenticado', 401);
   }
 
@@ -38,7 +36,7 @@ async function POST(request: NextRequest) {
 
   const secretWordArray = secretWord.value.toUpperCase().split('');
 
-  const currentAttempt = await getCurrentAttemptPlayer(firstEmail.emailAddress);
+  const currentAttempt = await getCurrentAttemptPlayer(user.email);
 
   const results = parsedValues.map((letter, index) => {
     if (letter === secretWordArray[index]) {
@@ -71,7 +69,7 @@ async function POST(request: NextRequest) {
   const status = getStatus(isWinner, isLost);
 
   await upsertAttempt({
-    email: firstEmail.emailAddress,
+    email: user.email,
     status,
     word: secretWord.value,
     values: resultOfAttempt,

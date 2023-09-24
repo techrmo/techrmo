@@ -1,22 +1,36 @@
 'use client';
 
-import { useSignIn } from '@clerk/nextjs';
+import { useRouter } from 'next/navigation';
+import { GithubAuthProvider, signInWithPopup } from 'firebase/auth';
+
+import { auth } from '@/shared/services/firebase';
+import { api } from '@/shared/services/api';
 
 import styles from './styles.module.scss';
 
 import MdiGithub from '@/shared/assets/icons/MdiGithub';
 
 const LoginButton = () => {
-  const { signIn } = useSignIn();
+  const router = useRouter();
+  const provider = new GithubAuthProvider();
 
   const handleLogin = async () => {
-    const teste = await signIn?.authenticateWithRedirect({
-      strategy: 'oauth_github',
-      redirectUrl: '/game',
-      redirectUrlComplete: '/game',
-    });
+    try {
+      const response = await signInWithPopup(auth, provider);
 
-    console.log(teste);
+      await api.post(
+        'login',
+        {},
+        {
+          headers: {
+            Authorization: `Bearer ${await response.user.getIdToken()}`,
+          },
+        }
+      );
+      router.push('game');
+    } catch (error) {
+      console.error('error', error);
+    }
   };
 
   return (
