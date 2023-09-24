@@ -54,7 +54,7 @@ const Home = async () => {
       </section>
 
       <footer className={styles.footer}>
-        <p>Segue agente lá</p>
+        <p>Segue a gente lá</p>
 
         <div>
           <ul>
