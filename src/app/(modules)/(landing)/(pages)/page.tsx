@@ -1,6 +1,5 @@
 import Image from 'next/image';
 import Link from 'next/link';
-import { currentUser } from '@clerk/nextjs';
 import { redirect } from 'next/navigation';
 
 import InputBoxUI from '@/shared/components/ui/InputBoxUI/InputBoxUI';
@@ -10,7 +9,6 @@ import LoginButton from '../components/LoginButton';
 
 import styles from './styles.module.scss';
 
-import Logo from '@/shared/assets/logo.svg';
 import ProfileTsunode from '@/shared/assets/profileTsunode.png';
 import ProfileAlves from '@/shared/assets/profileAlves.png';
 import SimpleIconsTwitter from '@/shared/assets/icons/SimpleIconsTwitter';
@@ -33,7 +31,7 @@ const Home = async () => {
         <div className={styles.line} />
       </div>
       <header className={styles.header}>
-        <Image src={Logo} alt="Logo techrmo" width={250} />
+        <Image src="./logo.svg" alt="Logo techrmo" width={250} />
       </header>
 
       <section>

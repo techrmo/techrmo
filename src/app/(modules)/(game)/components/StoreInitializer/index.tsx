@@ -2,7 +2,10 @@
 
 import { useRef } from 'react';
 
-import { InitialStoreForm, useFormStore } from '@/app/(modules)/(game)/stores/Form';
+import {
+  InitialStoreForm,
+  useFormStore,
+} from '@/app/(modules)/(game)/stores/Form';
 
 interface StoreInitializerProps {
   initialStore?: InitialStoreForm;
