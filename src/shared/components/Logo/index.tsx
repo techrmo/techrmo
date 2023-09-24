@@ -12,7 +12,6 @@ const Logo = () => (
       <g filter="url(#filter0_d_323_1253)">
         <mask
           id="mask0_323_1253"
-          style="mask-type:luminance"
           maskUnits="userSpaceOnUse"
           x="5"
           y="0"
