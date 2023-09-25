@@ -30,6 +30,7 @@ const InputBoxUI = forwardRef<HTMLInputElement, InputBoxProps>(
         data-variant={variant}
         pattern="[a-zA-Z]"
         onFocus={handleFocus}
+        translate="no"
       />
     );
   }

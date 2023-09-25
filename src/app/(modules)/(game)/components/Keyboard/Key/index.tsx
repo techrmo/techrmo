@@ -19,6 +19,7 @@ const Key = ({ value, handleKeyUp }: KeyProps) => {
       type="button"
       data-variant={usedKey ?? null}
       onClick={() => handleKeyUp({ key: value })}
+      translate="no"
     >
       {value}
     </button>
