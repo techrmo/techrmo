@@ -8,6 +8,7 @@
   border: none;
   color: $color-gray-100;
   text-transform: capitalize;
+  height: fit-content;
   
   img {
     background: $color-yellow-900;
@@ -74,7 +75,14 @@
 }
 
 .dropdownMenuArrow {
-  fill:  $color-gray-800;
+  fill: $color-gray-800;
+}
+
+.dropdownMenuLabel {
+  padding-left: 25px;
+  font-size: 0.75rem;
+  line-height: 25px;
+  color: $color-yellow-800;
 }
 
 @keyframes slideUpAndFade {

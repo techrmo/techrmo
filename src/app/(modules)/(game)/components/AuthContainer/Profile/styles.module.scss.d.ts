@@ -3,6 +3,7 @@ export declare const dropdownMenuArrow: string;
 export declare const dropdownMenuCheckboxItem: string;
 export declare const dropdownMenuContent: string;
 export declare const dropdownMenuItem: string;
+export declare const dropdownMenuLabel: string;
 export declare const dropdownMenuRadioItem: string;
 export declare const dropdownMenuSubContent: string;
 export declare const dropdownMenuSubTrigger: string;

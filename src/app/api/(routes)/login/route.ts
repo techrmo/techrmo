@@ -63,6 +63,8 @@ async function GET() {
     throw new AppError('Usuário não autorizado', 401);
   }
 
+  console.log(user);
+
   upsertPlayer({
     email: user.email,
     image: user.photoURL,

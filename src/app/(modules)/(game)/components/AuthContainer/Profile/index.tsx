@@ -40,7 +40,6 @@ const Profile = () => {
     <DropdownMenu.Root>
       <DropdownMenu.Trigger asChild>
         <button type="button" className={styles.container}>
-          {user.displayName}
           <img
             src={user.photoURL || defaultProfile.src}
             alt={`Perfil do ${user.displayName || ''}`}
@@ -55,6 +54,10 @@ const Profile = () => {
           side="bottom"
           align="end"
         >
+          <DropdownMenu.Label className={styles.dropdownMenuLabel}>
+            Logado como {user.displayName}
+          </DropdownMenu.Label>
+
           <DropdownMenu.Item className={styles.dropdownMenuItem} disabled>
             Ranking (em breve)
           </DropdownMenu.Item>
