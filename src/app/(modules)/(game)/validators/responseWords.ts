@@ -28,7 +28,7 @@ const resultsValidation = z.object({
 export const responseWord = z.object({
   results: z.array(resultsValidation).length(5),
   status: z.enum(GAME_STATUS),
-  explanation: z.string().optional(),
+  explanation: z.string().nullable().optional(),
 });
 
 export const responseCookieAttempt = z.array(
