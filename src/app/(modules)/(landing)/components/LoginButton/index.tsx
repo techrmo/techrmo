@@ -34,11 +34,7 @@ const LoginButton = () => {
   };
 
   return (
-    <button
-      className={`${styles.container} login-button`}
-      type="button"
-      onClick={handleLogin}
-    >
+    <button className={styles.container} type="button" onClick={handleLogin}>
       <MdiGithub /> Entrar com Github
     </button>
   );

@@ -43,7 +43,7 @@ const Home = async () => {
       </section>
 
       <section>
-        <h2>Todos os dias uma nova palava para você aprender.</h2>
+        <h2>Todos os dias uma nova palavra para você aprender.</h2>
         <div className={styles.inputContainer}>
           <InputBoxUI variant="correct" defaultValue="R" />
           <InputBoxUI variant="incorrect" defaultValue="E" />

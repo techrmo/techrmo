@@ -8,6 +8,8 @@ import ReactJoyride, {
   Step,
 } from 'react-joyride';
 
+import { useOnboardingStore } from '@/shared/stores/onboardingStore';
+
 import { useFormStore } from '../../stores/Form';
 
 import InputStep from './Steps/Input';
@@ -19,10 +21,15 @@ import InputStep6 from './Steps/Input6';
 
 const Onboarding = () => {
   const setFormOnboarding = useFormStore((store) => store.setFormOnboarding);
+  const isOpenOnboarding = useOnboardingStore(
+    (store) => store.isOpenOnboarding
+  );
+  const openOnboarding = useOnboardingStore((store) => store.openOnboarding);
   const [steps] = useState<Step[]>([
     {
       target: '.input-row',
       content: <InputStep />,
+      disableBeacon: true,
     },
     {
       target: '.input-row',
@@ -71,11 +78,14 @@ const Onboarding = () => {
 
     if (action === ACTIONS.CLOSE || action === ACTIONS.RESET) {
       setFormOnboarding([]);
+      openOnboarding();
     }
   };
 
   return (
     <ReactJoyride
+      run={isOpenOnboarding}
+      disableOverlay
       disableScrolling={true}
       callback={handleJoyrideCallback}
       showProgress
