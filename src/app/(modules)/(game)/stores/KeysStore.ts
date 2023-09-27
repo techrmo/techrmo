@@ -9,15 +9,29 @@ export interface KeyResult {
 }
 interface KeysStore {
   usedKeys: Partial<Record<Keys, LetterResult>>;
+  usedKeysBackupOnboarding: Partial<Record<Keys, LetterResult>>;
   setUsedKeys: (values: KeyResult[]) => void;
   setKeyboardOnboarding: (
     usedKeys: Partial<Record<Keys, LetterResult>>
   ) => void;
+  setUsedKeysBackupOnboarding: () => void;
+  resetKeyboardOnboarding: () => void;
 }
 
 export const useKeysStore = createWithEqualityFn<KeysStore>(
   (set, get) => ({
     usedKeys: {},
+    usedKeysBackupOnboarding: {},
+    resetKeyboardOnboarding: () =>
+      set({
+        usedKeys: get().usedKeysBackupOnboarding,
+        usedKeysBackupOnboarding: {},
+      }),
+    setUsedKeysBackupOnboarding: () =>
+      set({
+        usedKeysBackupOnboarding: get().usedKeys,
+        usedKeys: {},
+      }),
     setKeyboardOnboarding: (
       usedKeys: Partial<Record<Keys, LetterResult>> = {}
     ) => set({ usedKeys }),

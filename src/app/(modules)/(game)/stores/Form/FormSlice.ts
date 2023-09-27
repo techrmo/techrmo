@@ -18,7 +18,11 @@ export interface FormSlice {
   ) => void;
   setFormOnboarding: (values: Keys[], letterResult?: LetterResult[]) => void;
   currentValues: () => void;
+  setValuesBackupOnboarding: () => void;
+  resetValuesOnboarding: () => void;
   values: (Keys | '')[][];
+  valuesOnboardingBackup: (Keys | '')[][];
+  currentRowIndexBackup: RowColumnIndex;
 }
 
 export const allowedColumnIndexes = Object.freeze<RowColumnIndex[]>([
@@ -35,12 +39,29 @@ export const createFormSlice = (
 ): FormSlice => ({
   currentRowIndex: 0,
   currentColumnIndex: 0,
+  currentRowIndexBackup: 0,
   values: [[]],
+  valuesOnboardingBackup: [[]],
   currentValues: () => {
     const { values, currentRowIndex } = get();
 
     return values[currentRowIndex];
   },
+  resetValuesOnboarding: () =>
+    set({
+      resultsOfAttempts: get().resultsOfAttemptsOnboardingBackup,
+      values: get().valuesOnboardingBackup,
+      currentRowIndex: get().currentRowIndexBackup,
+    }),
+  setValuesBackupOnboarding: () =>
+    set({
+      resultsOfAttemptsOnboardingBackup: get().resultsOfAttempts,
+      valuesOnboardingBackup: get().values,
+      currentRowIndexBackup: get().currentRowIndex,
+      values: [[]],
+      resultsOfAttempts: [],
+      currentRowIndex: 0,
+    }),
   setFormOnboarding: (values: Keys[], letterResult: LetterResult[] = []) =>
     set({
       values: [values],

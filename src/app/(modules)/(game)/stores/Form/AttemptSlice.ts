@@ -19,6 +19,7 @@ export const numberOfAttempts = 7;
 
 export interface AttemptSlice {
   resultsOfAttempts: LetterResult[][];
+  resultsOfAttemptsOnboardingBackup: LetterResult[][];
   setResultsOfAttempts: (resultOfAttempt: Results) => void;
   handleAttempt: () => Promise<void>;
   handleSubmit: () => Promise<void>;
@@ -33,6 +34,7 @@ export const createAttemptSlice = (
   get: GetFormState
 ): AttemptSlice => ({
   resultsOfAttempts: [],
+  resultsOfAttemptsOnboardingBackup: [],
   isLoading: false,
   isBlockSend: false,
   setResultsOfAttempts: (resultOfAttempt: Results) => {

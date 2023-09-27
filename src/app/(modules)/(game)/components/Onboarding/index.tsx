@@ -7,6 +7,7 @@ import ReactJoyride, {
   LIFECYCLE,
   Step,
 } from 'react-joyride';
+import { shallow } from 'zustand/shallow';
 
 import { useOnboardingStore } from '@/shared/stores/onboardingStore';
 
@@ -26,14 +27,38 @@ import Key from './Steps/Key';
 import FinalStep from './Steps/FinalStep';
 
 const Onboarding = () => {
-  const setFormOnboarding = useFormStore((store) => store.setFormOnboarding);
-  const setKeyboardOnboarding = useKeysStore(
-    (store) => store.setKeyboardOnboarding
+  const {
+    setFormOnboarding,
+    resetValuesOnboarding,
+    setValuesBackupOnboarding,
+  } = useFormStore(
+    (store) => ({
+      setFormOnboarding: store.setFormOnboarding,
+      resetValuesOnboarding: store.resetValuesOnboarding,
+      setValuesBackupOnboarding: store.setValuesBackupOnboarding,
+    }),
+    shallow
   );
-  const isOpenOnboarding = useOnboardingStore(
-    (store) => store.isOpenOnboarding
+  const {
+    setKeyboardOnboarding,
+    resetKeyboardOnboarding,
+    setUsedKeysBackupOnboarding,
+  } = useKeysStore(
+    (store) => ({
+      setKeyboardOnboarding: store.setKeyboardOnboarding,
+      resetKeyboardOnboarding: store.resetKeyboardOnboarding,
+      setUsedKeysBackupOnboarding: store.setUsedKeysBackupOnboarding,
+    }),
+    shallow
   );
-  const openOnboarding = useOnboardingStore((store) => store.openOnboarding);
+  const { isOpenOnboarding, openOnboarding } = useOnboardingStore(
+    (store) => ({
+      isOpenOnboarding: store.isOpenOnboarding,
+      openOnboarding: store.openOnboarding,
+    }),
+    shallow
+  );
+
   const [steps] = useState<Step[]>([
     {
       target: 'body',
@@ -108,12 +133,22 @@ const Onboarding = () => {
     setMounted(true);
   }, []);
 
+  useEffect(() => {
+    if (isOpenOnboarding) {
+      setUsedKeysBackupOnboarding();
+      setValuesBackupOnboarding();
+      return;
+    }
+  }, [isOpenOnboarding]);
+
   if (!mounted) {
     return null;
   }
 
   const handleJoyrideCallback = (data: CallBackProps) => {
     const { index, action, lifecycle } = data;
+
+    console.log(index, action, lifecycle);
 
     if (lifecycle === LIFECYCLE.TOOLTIP && index >= 2 && index <= 5) {
       setFormOnboarding(
@@ -130,14 +165,14 @@ const Onboarding = () => {
       return;
     }
 
-    if (index === 1) {
+    if (lifecycle === LIFECYCLE.TOOLTIP && index === 1) {
       setFormOnboarding(['R', 'E', 'A', 'C', 'T']);
     }
 
     if (action === ACTIONS.CLOSE || action === ACTIONS.RESET) {
       openOnboarding();
-      setFormOnboarding([]);
-      setKeyboardOnboarding({});
+      resetKeyboardOnboarding();
+      resetValuesOnboarding();
     }
   };
 
