@@ -49,38 +49,47 @@ const Onboarding = () => {
     {
       target: '.input-row',
       content: <InputStep2 />,
+      offset: -5,
     },
     {
       target: '.input-row',
       content: <InputStep3 />,
+      offset: -5,
     },
     {
       target: '.input-box-1',
       content: <InputStep4 />,
+      offset: -5,
     },
     {
       target: '.input-box-3',
       content: <InputStep5 />,
+      offset: -5,
     },
     {
       target: '.input-box-2',
       content: <InputStep6 />,
+      offset: -5,
     },
     {
       target: '.keyboard',
       content: <Key />,
+      offset: -5,
     },
     {
       target: '.key-C',
       content: <KeyStep1 />,
+      offset: -5,
     },
     {
       target: '.key-E',
       content: <KeyStep2 />,
+      offset: -5,
     },
     {
       target: '.key-A',
       content: <KeyStep3 />,
+      offset: -5,
     },
     {
       target: 'body',
