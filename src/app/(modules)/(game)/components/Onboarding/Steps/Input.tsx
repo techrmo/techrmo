@@ -13,7 +13,7 @@ const InputStep = () => {
         possível.
       </p>
       <p>
-        O jogo vai dando dicas para você, segue o tutorial para entender .
+        O jogo vai dando dicas para você, segue o tutorial para entender.
         &#128640;
       </p>
     </Container>

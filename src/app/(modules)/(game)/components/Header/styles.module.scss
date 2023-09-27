@@ -43,7 +43,8 @@
     transform: rotateY(180deg);
   }
 
-  &:hover div {
+  &:hover div,
+  &:active div {
     animation: rotateYSvg 1.5s infinite;
   }
 }

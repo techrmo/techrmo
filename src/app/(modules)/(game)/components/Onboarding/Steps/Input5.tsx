@@ -10,7 +10,7 @@ const InputStep5 = () => {
       </p>
       <InputBoxUI variant="bad-position" defaultValue="C" />
       <p>
-        Amarelo significa que a palavra secreta tem essa letra, mas está na
+        Amarelo significa que a palavra secreta tem essa letra, mas ela está na
         posição incorreta.
       </p>
     </Container>

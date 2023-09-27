@@ -6,7 +6,10 @@ const KeyStep1 = () => {
   return (
     <Container>
       <KeyUI variant="bad-position" value="C" />
-      <p>Essa Tecla</p>
+      <p>
+        Assim como nos quadrados acima, o amarelo significa que essa letra
+        existe na palavra secreta, mas está na posição incorreta. &#128528;
+      </p>
     </Container>
   );
 };

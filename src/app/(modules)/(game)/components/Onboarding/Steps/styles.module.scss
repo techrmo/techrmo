@@ -17,3 +17,21 @@
     background-color: $color-gray-600;
   }
 }
+
+.socialMedia {
+  display: flex;
+  gap: 20px;
+
+  img {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+  }
+
+  ul {
+    list-style: none;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+}

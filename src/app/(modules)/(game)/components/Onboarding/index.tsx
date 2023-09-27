@@ -22,6 +22,8 @@ import InputStep6 from './Steps/Input6';
 import KeyStep1 from './Steps/Key1';
 import KeyStep2 from './Steps/Key2';
 import KeyStep3 from './Steps/Key3';
+import Key from './Steps/Key';
+import FinalStep from './Steps/FinalStep';
 
 const Onboarding = () => {
   const setFormOnboarding = useFormStore((store) => store.setFormOnboarding);
@@ -34,9 +36,15 @@ const Onboarding = () => {
   const openOnboarding = useOnboardingStore((store) => store.openOnboarding);
   const [steps] = useState<Step[]>([
     {
-      target: '.input-row',
+      target: 'body',
       content: <InputStep />,
       disableBeacon: true,
+      placement: 'center',
+      styles: {
+        options: {
+          arrowColor: 'transparent',
+        },
+      },
     },
     {
       target: '.input-row',
@@ -60,7 +68,7 @@ const Onboarding = () => {
     },
     {
       target: '.keyboard',
-      content: 'Aqui você usará para digitar as letras das tentativas',
+      content: <Key />,
     },
     {
       target: '.key-C',
@@ -73,6 +81,16 @@ const Onboarding = () => {
     {
       target: '.key-A',
       content: <KeyStep3 />,
+    },
+    {
+      target: 'body',
+      content: <FinalStep />,
+      placement: 'center',
+      styles: {
+        options: {
+          arrowColor: 'transparent',
+        },
+      },
     },
   ]);
   const [mounted, setMounted] = useState(false);
