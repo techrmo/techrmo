@@ -1,4 +1,4 @@
-import InputBoxUI from '@/shared/components/ui/InputBoxUI';
+import InputBoxUI from '@/shared/components/InputBoxUI';
 
 import Container from './Container';
 
@@ -7,8 +7,8 @@ const InputStep4 = () => {
     <Container>
       <InputBoxUI variant="correct" defaultValue="E" />
       <p>
-        Quadrado verde significa que a letra existe e ela está na posição
-        correta
+        Aqui você está com sorte, pois significa que a palavra secreta contém
+        essa letra e ela está exatamente nessa posição. &#128154;
       </p>
     </Container>
   );

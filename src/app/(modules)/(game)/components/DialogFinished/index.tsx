@@ -6,7 +6,7 @@ import { shallow } from 'zustand/shallow';
 
 import DialogUI from '@/shared/components/DialogUI';
 import Button from '@/shared/components/Button';
-import stylesBox from '@/shared/components/ui/InputBoxUI/styles.module.scss';
+import stylesBox from '@/shared/components/InputBoxUI/styles.module.scss';
 
 import { useResultStore } from '../../stores/ResultStore';
 

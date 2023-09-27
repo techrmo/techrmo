@@ -1,15 +1,21 @@
-import InputBoxUI from '@/shared/components/ui/InputBoxUI';
+import InputBoxUI from '@/shared/components/InputBoxUI';
+import { isMacOS } from '@/shared/helpers/isMacOs';
 
 import Container from './Container';
 
 const InputStep2 = () => {
+  const keyEnter = isMacOS() ? 'return' : 'Enter';
+
   return (
     <Container>
       <p>
-        Quadrados brancos significa que você pode digitar e realizar sua
-        tentativa:
+        Os quadrados brancos são <br /> o seu momento de brilhar &#10024;.
       </p>
-      <InputBoxUI variant="active" defaultValue="O" />
+      <InputBoxUI variant="active" defaultValue="A" />
+      <p>
+        Insira uma letra em cada um para formatar a palavra que você irá chutar
+        e assim que finalizar é só pressionar o <kbd>{keyEnter}</kbd>.
+      </p>
     </Container>
   );
 };

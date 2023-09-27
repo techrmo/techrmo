@@ -11,6 +11,7 @@ import ReactJoyride, {
 import { useOnboardingStore } from '@/shared/stores/onboardingStore';
 
 import { useFormStore } from '../../stores/Form';
+import { useKeysStore } from '../../stores/KeysStore';
 
 import InputStep from './Steps/Input';
 import InputStep2 from './Steps/Input2';
@@ -18,9 +19,15 @@ import InputStep3 from './Steps/Input3';
 import InputStep4 from './Steps/Input4';
 import InputStep5 from './Steps/Input5';
 import InputStep6 from './Steps/Input6';
+import KeyStep1 from './Steps/Key1';
+import KeyStep2 from './Steps/Key2';
+import KeyStep3 from './Steps/Key3';
 
 const Onboarding = () => {
   const setFormOnboarding = useFormStore((store) => store.setFormOnboarding);
+  const setKeyboardOnboarding = useKeysStore(
+    (store) => store.setKeyboardOnboarding
+  );
   const isOpenOnboarding = useOnboardingStore(
     (store) => store.isOpenOnboarding
   );
@@ -55,6 +62,18 @@ const Onboarding = () => {
       target: '.keyboard',
       content: 'Aqui você usará para digitar as letras das tentativas',
     },
+    {
+      target: '.key-C',
+      content: <KeyStep1 />,
+    },
+    {
+      target: '.key-E',
+      content: <KeyStep2 />,
+    },
+    {
+      target: '.key-A',
+      content: <KeyStep3 />,
+    },
   ]);
   const [mounted, setMounted] = useState(false);
 
@@ -69,16 +88,29 @@ const Onboarding = () => {
   const handleJoyrideCallback = (data: CallBackProps) => {
     const { index, action, lifecycle } = data;
 
-    if (lifecycle === LIFECYCLE.TOOLTIP && index >= 3 && index <= 6) {
+    if (lifecycle === LIFECYCLE.TOOLTIP && index >= 2 && index <= 5) {
       setFormOnboarding(
         ['R', 'E', 'A', 'C', 'T'],
         ['incorrect', 'correct', 'incorrect', 'bad-position', 'incorrect']
       );
+      setKeyboardOnboarding({
+        R: 'incorrect',
+        E: 'correct',
+        A: 'incorrect',
+        C: 'bad-position',
+        T: 'incorrect',
+      });
+      return;
+    }
+
+    if (index === 1) {
+      setFormOnboarding(['R', 'E', 'A', 'C', 'T']);
     }
 
     if (action === ACTIONS.CLOSE || action === ACTIONS.RESET) {
-      setFormOnboarding([]);
       openOnboarding();
+      setFormOnboarding([]);
+      setKeyboardOnboarding({});
     }
   };
 
@@ -86,9 +118,10 @@ const Onboarding = () => {
     <ReactJoyride
       run={isOpenOnboarding}
       disableOverlay
-      disableScrolling={true}
-      callback={handleJoyrideCallback}
+      disableScrollParentFix
+      disableScrolling
       showProgress
+      callback={handleJoyrideCallback}
       locale={{
         next: 'Próximo',
         close: 'Fechar',

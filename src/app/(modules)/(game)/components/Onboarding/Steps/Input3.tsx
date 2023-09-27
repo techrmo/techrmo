@@ -1,4 +1,4 @@
-import InputBoxUI from '@/shared/components/ui/InputBoxUI';
+import InputBoxUI from '@/shared/components/InputBoxUI';
 
 import Container from './Container';
 
@@ -6,8 +6,8 @@ const InputStep3 = () => {
   return (
     <Container>
       <p>
-        A cada tentativa você tem um retorno de o quão perto você está da
-        palavra:
+        Assim que você realizar a sua tentativa, quadrados coloridos aparecerão
+        (ou não) &#128064;!
       </p>
       <div>
         <InputBoxUI variant="incorrect" defaultValue="R" />
@@ -16,6 +16,7 @@ const InputStep3 = () => {
         <InputBoxUI variant="bad-position" defaultValue="C" />
         <InputBoxUI variant="incorrect" defaultValue="T" />
       </div>
+      <p>Mas não se preocupe, vamos entender o que cada cor signifca!</p>
     </Container>
   );
 };

@@ -41,10 +41,10 @@ export const createFormSlice = (
 
     return values[currentRowIndex];
   },
-  setFormOnboarding: (values: Keys[], letterResult?: LetterResult[]) =>
+  setFormOnboarding: (values: Keys[], letterResult: LetterResult[] = []) =>
     set({
       values: [values],
-      ...(letterResult ? { resultsOfAttempts: [letterResult] } : {}),
+      resultsOfAttempts: [letterResult],
     }),
   setValues: (value: Keys | '', directionInputToMove: DirectionInputToMove) => {
     const { currentRowIndex, currentColumnIndex, values } = get();

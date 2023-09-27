@@ -1,9 +1,8 @@
 import type { Keys } from '@/shared/constants/Keys';
 import useStore from '@/shared/hooks/useStore';
+import KeyUI from '@/app/(modules)/(game)/components/Keyboard/KeyUI/KeyUI';
 
 import { useKeysStore } from '../../../stores/KeysStore';
-
-import styles from './styles.module.scss';
 
 interface KeyProps {
   value: Keys;
@@ -14,15 +13,11 @@ const Key = ({ value, handleKeyUp }: KeyProps) => {
   const usedKey = useStore(useKeysStore, (state) => state.usedKeys[value]);
 
   return (
-    <button
-      className={styles.container}
-      type="button"
-      data-variant={usedKey ?? null}
-      onClick={() => handleKeyUp({ key: value })}
-      translate="no"
-    >
-      {value}
-    </button>
+    <KeyUI
+      value={value}
+      variant={usedKey}
+      handleKeyUp={() => handleKeyUp({ key: value })}
+    />
   );
 };
 

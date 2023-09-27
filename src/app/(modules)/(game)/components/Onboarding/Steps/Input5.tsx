@@ -1,16 +1,18 @@
-import InputBoxUI from '@/shared/components/ui/InputBoxUI';
+import InputBoxUI from '@/shared/components/InputBoxUI';
 
 import Container from './Container';
 
 const InputStep5 = () => {
   return (
     <Container>
+      <p>
+        Aqui é aquilo, né? Você chegou na área, mas chutou para fora. &#127773;
+      </p>
       <InputBoxUI variant="bad-position" defaultValue="C" />
       <p>
-        Quadrado amarelo significa que a letra existe, mas ela está na posição
-        incorreta
+        Amarelo significa que a palavra secreta tem essa letra, mas está na
+        posição incorreta.
       </p>
-      <div></div>
     </Container>
   );
 };
