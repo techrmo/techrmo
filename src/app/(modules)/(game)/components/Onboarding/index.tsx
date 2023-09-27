@@ -148,7 +148,7 @@ const Onboarding = () => {
   const handleJoyrideCallback = (data: CallBackProps) => {
     const { index, action, lifecycle } = data;
 
-    if (lifecycle === LIFECYCLE.TOOLTIP && index >= 2 && index <= 5) {
+    if (lifecycle === LIFECYCLE.TOOLTIP && index >= 2) {
       setFormOnboarding(
         ['R', 'E', 'A', 'C', 'T'],
         ['incorrect', 'correct', 'incorrect', 'bad-position', 'incorrect']
