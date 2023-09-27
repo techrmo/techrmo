@@ -1,12 +1,13 @@
 'use client';
 
+import { useEffect, useState } from 'react';
 import * as DropdownMenu from '@radix-ui/react-dropdown-menu';
 import { useRouter } from 'next/navigation';
-import { getAuth, signOut } from 'firebase/auth';
-import { useEffect, useState } from 'react';
+import { getAuth, signOut as firebaseSignOut } from 'firebase/auth';
 
-import { auth as AuthFirebase } from '@/shared/services/firebase';
-import { api } from '@/shared/services/api';
+import { auth as FirebaseAuth } from '@/shared/services/firebase';
+
+import { signOut } from '../../../services/signOutService';
 
 import styles from './styles.module.scss';
 
@@ -18,16 +19,15 @@ const Profile = () => {
   const [user, setUser] = useState(auth.currentUser);
 
   useEffect(() => {
-    const unsub = AuthFirebase.onAuthStateChanged((response) => {
+    const unsubscribe = FirebaseAuth.onAuthStateChanged((response) => {
       setUser(response);
     });
 
-    return () => unsub();
+    return () => unsubscribe();
   }, []);
 
   const handleSignOut = async () => {
-    await signOut(AuthFirebase);
-    await api.post('signOut');
+    await Promise.all([firebaseSignOut(FirebaseAuth), signOut()]);
 
     router.push('/');
   };
@@ -35,15 +35,15 @@ const Profile = () => {
   if (!user) {
     return null;
   }
+  const { photoURL, displayName } = user;
+  const profileImage = photoURL || defaultProfile.src;
+  const profileImageAlt = `Perfil do ${displayName || ''}`;
 
   return (
     <DropdownMenu.Root>
       <DropdownMenu.Trigger asChild>
         <button type="button" className={styles.container}>
-          <img
-            src={user.photoURL || defaultProfile.src}
-            alt={`Perfil do ${user.displayName || ''}`}
-          />
+          <img src={profileImage} alt={profileImageAlt} />
         </button>
       </DropdownMenu.Trigger>
 
@@ -55,7 +55,7 @@ const Profile = () => {
           align="end"
         >
           <DropdownMenu.Label className={styles.dropdownMenuLabel}>
-            Logado como {user.displayName}
+            Logado como {displayName}
           </DropdownMenu.Label>
 
           <DropdownMenu.Item className={styles.dropdownMenuItem} disabled>
