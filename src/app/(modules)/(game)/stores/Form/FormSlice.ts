@@ -7,9 +7,14 @@ import type { GetFormState, SetFormState } from '.';
 export type RowColumnIndex = 0 | 1 | 2 | 3 | 4;
 export type DirectionInputToMove = 'NEXT' | 'PREVIOUS';
 
-export interface FormSlice {
+export interface FormSliceStates {
   currentRowIndex: RowColumnIndex;
   currentColumnIndex: RowColumnIndex;
+  values: (Keys | '')[][];
+  valuesOnboardingBackup: (Keys | '')[][];
+  currentRowIndexBackup: RowColumnIndex;
+}
+export interface FormSliceActions {
   setCurrentRowIndex: (value: RowColumnIndex) => void;
   setCurrentColumnIndex: (value: RowColumnIndex) => void;
   setValues: (
@@ -20,10 +25,8 @@ export interface FormSlice {
   currentValues: () => void;
   setValuesBackupOnboarding: () => void;
   resetValuesOnboarding: () => void;
-  values: (Keys | '')[][];
-  valuesOnboardingBackup: (Keys | '')[][];
-  currentRowIndexBackup: RowColumnIndex;
 }
+export type FormSlice = FormSliceStates & FormSliceActions;
 
 export const allowedColumnIndexes = Object.freeze<RowColumnIndex[]>([
   0, 1, 2, 3, 4,
@@ -33,15 +36,19 @@ const directionMapping = Object.freeze({
   PREVIOUS: -1,
 });
 
-export const createFormSlice = (
-  set: SetFormState,
-  get: GetFormState
-): FormSlice => ({
+const initialState: FormSliceStates = {
   currentRowIndex: 0,
   currentColumnIndex: 0,
   currentRowIndexBackup: 0,
   values: [[]],
   valuesOnboardingBackup: [[]],
+};
+
+export const createFormSlice = (
+  set: SetFormState,
+  get: GetFormState
+): FormSlice => ({
+  ...initialState,
   currentValues: () => {
     const { values, currentRowIndex } = get();
 

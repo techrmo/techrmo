@@ -148,8 +148,6 @@ const Onboarding = () => {
   const handleJoyrideCallback = (data: CallBackProps) => {
     const { index, action, lifecycle } = data;
 
-    console.log(index, action, lifecycle);
-
     if (lifecycle === LIFECYCLE.TOOLTIP && index >= 2 && index <= 5) {
       setFormOnboarding(
         ['R', 'E', 'A', 'C', 'T'],

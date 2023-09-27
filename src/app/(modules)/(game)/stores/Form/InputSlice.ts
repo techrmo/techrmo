@@ -1,16 +1,23 @@
 import type { GetFormState, SetFormState } from '.';
 
-export interface InputSlice {
+export interface InputSliceStates {
   currentInputElement: HTMLInputElement | null;
+}
+export interface InputSliceActions {
   setCurrentInputElement: (input: HTMLInputElement | null) => void;
   resetState: () => void;
 }
+export type InputSlice = InputSliceStates & InputSliceActions;
+
+const initialState: InputSliceStates = {
+  currentInputElement: null,
+};
 
 export const createInputSlice = (
   set: SetFormState,
   get: GetFormState
 ): InputSlice => ({
-  currentInputElement: null,
+  ...initialState,
   setCurrentInputElement: (input: HTMLInputElement | null) => {
     const { currentInputElement } = get();
 
@@ -19,5 +26,5 @@ export const createInputSlice = (
       set({ currentInputElement: input });
     }
   },
-  resetState: () => set({ currentInputElement: null }),
+  resetState: () => set(initialState),
 });

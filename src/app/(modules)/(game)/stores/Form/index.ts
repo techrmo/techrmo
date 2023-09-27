@@ -10,16 +10,17 @@ import { type AttemptSlice, createAttemptSlice } from './AttemptSlice';
 import { InputFormSlice, createInputFormSlice } from './InputFormSlice';
 
 type UseForm = InputSlice & FormSlice & AttemptSlice & InputFormSlice;
+
 export type InitialStoreForm = Partial<UseForm> &
   Omit<ResultStore, 'changeResult'> & { keyResult: KeyResult[] };
-interface UseFormStore {
+interface UseFormStoreActions {
   setInitialState: (data: InitialStoreForm) => void;
 }
 
 export type SetFormState = StoreApi<UseForm>['setState'];
 export type GetFormState = StoreApi<UseForm>['getState'];
 
-export const useFormStore = createWithEqualityFn<UseForm & UseFormStore>(
+export const useFormStore = createWithEqualityFn<UseForm & UseFormStoreActions>(
   (set, get) => ({
     ...createInputSlice(set, get),
     ...createFormSlice(set, get),

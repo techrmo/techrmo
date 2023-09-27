@@ -17,26 +17,35 @@ type Results = ResponseWord['results'];
 
 export const numberOfAttempts = 7;
 
-export interface AttemptSlice {
+interface AttemptSliceState {
   resultsOfAttempts: LetterResult[][];
   resultsOfAttemptsOnboardingBackup: LetterResult[][];
+  isLoading: boolean;
+  isBlockSend: boolean;
+}
+
+export interface AttemptSliceActions {
   setResultsOfAttempts: (resultOfAttempt: Results) => void;
   handleAttempt: () => Promise<void>;
   handleSubmit: () => Promise<void>;
-  isLoading: boolean;
+
   setIsLoading: (isLoading: boolean) => void;
   setIsBlockSend: (isBlockSend: boolean) => void;
-  isBlockSend: boolean;
 }
+export type AttemptSlice = AttemptSliceState & AttemptSliceActions;
+
+const initialState: AttemptSliceState = {
+  resultsOfAttempts: [],
+  resultsOfAttemptsOnboardingBackup: [],
+  isLoading: false,
+  isBlockSend: false,
+};
 
 export const createAttemptSlice = (
   set: SetFormState,
   get: GetFormState
 ): AttemptSlice => ({
-  resultsOfAttempts: [],
-  resultsOfAttemptsOnboardingBackup: [],
-  isLoading: false,
-  isBlockSend: false,
+  ...initialState,
   setResultsOfAttempts: (resultOfAttempt: Results) => {
     const { resultsOfAttempts, currentRowIndex, values } = get();
     const mappedResult = resultOfAttempt.map((letter) => letter.result);

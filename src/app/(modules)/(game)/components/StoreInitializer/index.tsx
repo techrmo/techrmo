@@ -3,7 +3,7 @@
 import { useRef } from 'react';
 
 import {
-  InitialStoreForm,
+  type InitialStoreForm,
   useFormStore,
 } from '@/app/(modules)/(game)/stores/Form';
 
