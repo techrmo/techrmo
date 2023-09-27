@@ -7,18 +7,18 @@ import styles from './styles.module.scss';
 
 interface InputRowProps {
   children: ReactNode;
-  onboarding: boolean;
+  isOnboarding: boolean;
 }
 
-const InputRow = ({ children, onboarding }: InputRowProps) => {
+const InputRow = ({ children, isOnboarding }: InputRowProps) => {
   const isLoading = useFormStore((state) => state.isLoading);
 
-  const classOnboarding = onboarding ? 'input-row' : '';
+  const onboardingClassname = isOnboarding ? 'input-row' : '';
 
   return (
     <>
       <LoadingUI isLoading={isLoading} />
-      <form className={`${styles.container} ${classOnboarding}`}>
+      <form className={`${styles.container} ${onboardingClassname}`}>
         {children}
       </form>
     </>

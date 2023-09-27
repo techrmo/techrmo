@@ -1,7 +1,7 @@
 'use client';
 
-import * as Dialog from '@radix-ui/react-dialog';
 import { useEffect, useState } from 'react';
+import * as Dialog from '@radix-ui/react-dialog';
 import { shallow } from 'zustand/shallow';
 
 import DialogUI from '@/shared/components/DialogUI';
@@ -12,11 +12,12 @@ import { useResultStore } from '../../stores/ResultStore';
 
 import styles from './styles.module.scss';
 
-const DialogFinished = () => {
-  const [mounted, setMounted] = useState(false);
+const DialogGameFinished = () => {
+  const [hasBeenMounted, setHasBeenMounted] = useState(false);
+  const [isExplanation, setIsExplanation] = useState(false);
 
   useEffect(() => {
-    setMounted(true);
+    setHasBeenMounted(true);
   }, []);
 
   const { status, response, explanation } = useResultStore(
@@ -28,10 +29,7 @@ const DialogFinished = () => {
     shallow
   );
 
-  const [isExplanation, setIsExplanation] = useState(false);
-
-  const contentClasses = `
-    ${styles.content} 
+  const explanationClassname = `
     ${isExplanation ? styles.contentExplanation : ''}
   `;
 
@@ -41,13 +39,13 @@ const DialogFinished = () => {
     <Dialog.Title className={styles.title}>{titleText}</Dialog.Title>
   ) : null;
 
-  if (!response || !mounted) {
+  if (!response || !hasBeenMounted) {
     return null;
   }
 
   return (
     <DialogUI>
-      <Dialog.Content className={contentClasses}>
+      <Dialog.Content className={`${styles.content} ${explanationClassname}`}>
         {title}
         <div className={styles.wordContainer}>
           {response.split('').map((value, index) => (
@@ -60,8 +58,9 @@ const DialogFinished = () => {
             </span>
           ))}
         </div>
-        {isExplanation && <p className={styles.explanation}>{explanation}</p>}
-        {!isExplanation && (
+        {isExplanation ? (
+          <p className={styles.explanation}>{explanation}</p>
+        ) : (
           <Button type="button" onClick={() => setIsExplanation(true)}>
             Ver explicação
           </Button>
@@ -71,4 +70,4 @@ const DialogFinished = () => {
   );
 };
 
-export default DialogFinished;
+export default DialogGameFinished;

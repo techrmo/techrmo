@@ -14,7 +14,7 @@ const Header = () => {
   return (
     <header className={styles.container}>
       <div>
-        <Image src="/logo.svg" alt="Logo techrmo" width={150} height={50} />
+        <Image src="/logo.svg" alt="Logo do techrmo" width={150} height={50} />
         <button type="button" onClick={openOnboarding}>
           Como Jogar
         </button>

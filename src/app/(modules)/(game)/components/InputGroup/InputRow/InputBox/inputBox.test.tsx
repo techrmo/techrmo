@@ -5,7 +5,9 @@ import InputBox from '@/app/(modules)/(game)/components/InputGroup/InputRow/Inpu
 
 describe('Input box component', () => {
   it('should be rendered', () => {
-    const { container } = render(<InputBox columnIndex={0} rowIndex={0} />);
+    const { container } = render(
+      <InputBox columnIndex={0} rowIndex={0} isOnboarding={false} />
+    );
 
     const input = container.firstElementChild;
 

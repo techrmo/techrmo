@@ -1,8 +1,8 @@
 import { useEffect, useRef } from 'react';
 
 import { useResultStore } from '@/app/(modules)/(game)/stores/ResultStore';
-import useInputVariant from '@/app/(modules)/(game)/hooks/useInputVariant';
 import { useFormStore } from '@/app/(modules)/(game)/stores/Form';
+import useInputVariant from '@/app/(modules)/(game)/hooks/useInputVariant';
 import type { RowColumnIndex } from '@/app/(modules)/(game)/stores/Form/FormSlice';
 import useStore from '@/shared/hooks/useStore';
 import InputBoxUI from '@/shared/components/ui/InputBoxUI';
@@ -10,10 +10,10 @@ import InputBoxUI from '@/shared/components/ui/InputBoxUI';
 interface InputBoxProps {
   columnIndex: RowColumnIndex;
   rowIndex: RowColumnIndex;
-  onboarding: boolean;
+  isOnboarding: boolean;
 }
 
-const InputBox = ({ columnIndex, rowIndex, onboarding }: InputBoxProps) => {
+const InputBox = ({ columnIndex, rowIndex, isOnboarding }: InputBoxProps) => {
   const inputRef = useRef<HTMLInputElement | null>(null);
   const updateCurrentInputAndPosition = useFormStore(
     (state) => state.updateCurrentInputAndPosition
@@ -22,7 +22,7 @@ const InputBox = ({ columnIndex, rowIndex, onboarding }: InputBoxProps) => {
   const values = useFormStore((state) => state.values);
   const status = useStore(useResultStore, (store) => store.status);
   const isActiveRow = currentRowIndex === rowIndex && status === 'PLAYING';
-  const classOnboarding = onboarding ? `input-box-${columnIndex}` : '';
+  const classOnboarding = isOnboarding ? `input-box-${columnIndex}` : '';
 
   const variant = useInputVariant({
     columnIndex,
