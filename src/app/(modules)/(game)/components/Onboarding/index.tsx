@@ -2,10 +2,10 @@
 
 import { useEffect, useState } from 'react';
 import ReactJoyride, {
+  type CallBackProps,
+  type Step,
   ACTIONS,
-  CallBackProps,
   LIFECYCLE,
-  Step,
 } from 'react-joyride';
 import { shallow } from 'zustand/shallow';
 

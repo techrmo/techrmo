@@ -3,6 +3,7 @@
 import * as Dialog from '@radix-ui/react-dialog';
 import { useEffect, useState } from 'react';
 import { shallow } from 'zustand/shallow';
+import confetti from 'canvas-confetti';
 
 import DialogUI from '@/shared/components/DialogUI';
 import Button from '@/shared/components/Button';
@@ -14,11 +15,7 @@ import styles from './styles.module.scss';
 
 const DialogFinished = () => {
   const [mounted, setMounted] = useState(false);
-
-  useEffect(() => {
-    setMounted(true);
-  }, []);
-
+  const [isExplanation, setIsExplanation] = useState(false);
   const { status, response, explanation } = useResultStore(
     (store) => ({
       status: store.status,
@@ -28,7 +25,32 @@ const DialogFinished = () => {
     shallow
   );
 
-  const [isExplanation, setIsExplanation] = useState(false);
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  useEffect(() => {
+    if (!response) {
+      return;
+    }
+
+    const triggerConfetti = () => {
+      confetti({
+        particleCount: 250,
+        spread: 450,
+        origin: { x: 1, y: 0 },
+        colors: ['#FFE927', '#2B2B2B', '#fffb00', '#61590F', ' #E0CD22'],
+      });
+      confetti({
+        particleCount: 250,
+        spread: 450,
+        origin: { x: 0, y: 0 },
+        colors: ['#FFE927', '#2B2B2B', '#fffb00', '#61590F', ' #E0CD22'],
+      });
+    };
+
+    triggerConfetti();
+  }, [response]);
 
   const contentClasses = `
     ${styles.content} 
