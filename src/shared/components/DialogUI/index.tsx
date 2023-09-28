@@ -18,11 +18,15 @@ const DialogUI = ({ children }: DialogUIProps) => {
   }));
 
   return (
-    <Dialog.Root open={isOpen}>
+    <Dialog.Root open={isOpen} onOpenChange={close}>
       <Dialog.Portal>
         <Dialog.Overlay className={styles.overlay}>
           {children}
-          <Dialog.Close className={styles.close} onClick={close}>
+          <Dialog.Close
+            aria-label="Close"
+            className={styles.close}
+            onClick={close}
+          >
             Fechar
           </Dialog.Close>
         </Dialog.Overlay>

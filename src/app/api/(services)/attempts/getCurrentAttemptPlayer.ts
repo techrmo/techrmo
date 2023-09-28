@@ -15,6 +15,7 @@ export const getCurrentAttemptPlayer = async (playerEmail: string) => {
       ) {
         id
         values
+        statusAttempt
       }
     }
   `;

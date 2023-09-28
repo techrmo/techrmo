@@ -7,6 +7,9 @@ const schema = z.object({
   TOKEN_API: z.string(),
   GITHUB_ID: z.string(),
   GITHUB_SECRET: z.string(),
+  FIREBASE_AUTH_PROJECT_ID: z.string(),
+  FIREBASE_AUTH_PRIVATE_KEY: z.string(),
+  FIREBASE_AUTH_CLIENT_EMAIL: z.string(),
 });
 
 export const privateEnvs = schema.parse({
@@ -15,4 +18,7 @@ export const privateEnvs = schema.parse({
   TOKEN_API: process.env['TOKEN_API'],
   GITHUB_ID: process.env['GITHUB_ID'],
   GITHUB_SECRET: process.env['GITHUB_SECRET'],
+  FIREBASE_AUTH_PROJECT_ID: process.env['FIREBASE_AUTH_PROJECT_ID'],
+  FIREBASE_AUTH_PRIVATE_KEY: process.env['FIREBASE_AUTH_PRIVATE_KEY'],
+  FIREBASE_AUTH_CLIENT_EMAIL: process.env['FIREBASE_AUTH_CLIENT_EMAIL'],
 });

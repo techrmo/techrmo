@@ -1,6 +1,7 @@
 import { z } from 'zod';
 
 import { alphabetLetterSchema } from '@/shared/schema/alphabetLetterSchema';
+import { GAME_STATUS } from '@/shared/constants/GameStatus';
 
 const letterResult = z.enum(['correct', 'incorrect', 'bad-position']);
 
@@ -18,6 +19,7 @@ export const getCurrentAttemptPlayerSchema = z.object({
     z.object({
       id: z.string(),
       values: z.array(z.array(resultsValidation).length(5)),
+      statusAttempt: z.enum(GAME_STATUS),
     })
   ),
 });

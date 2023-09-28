@@ -14,7 +14,7 @@ const nextConfig = {
         destination: '/docs/index.html',
       },
     ];
-  },
+  }
 };
 
 module.exports = nextConfig;

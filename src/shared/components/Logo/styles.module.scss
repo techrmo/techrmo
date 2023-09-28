@@ -10,7 +10,7 @@
   color: $color-green-900;
 
   & span:nth-of-type(3) {
-    background-color: $color-pink-900;
+    background-color: $color-yellow-900;
     transform: rotate(6deg);
   }
 
@@ -23,18 +23,18 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 6rem;
+    height: 60px;
   }
   
   & span:nth-of-type(3),
   & span:nth-of-type(4) {
-    width: 6rem;
+    width: 60px;
     
-    font-size: 5.5rem;
+    font-size: 3.4375rem;
     font-weight: 400;
     color: $color-gray-800;
     
-    border-radius: 1rem;
+    border-radius: 10px;
   }
 
   @include mobile-l {

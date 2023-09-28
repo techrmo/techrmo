@@ -1,9 +1,14 @@
 import { gql } from 'graphql-request';
-import type { User } from 'next-auth';
 
 import { requestGraphQl } from '../hygraph';
 
-export const upsertPlayer = async (data: User) => {
+interface UpsertPlayerData {
+  image?: string;
+  email: string;
+  name: string;
+}
+
+export const upsertPlayer = async (data: UpsertPlayerData) => {
   try {
     const query = gql`
       mutation {
