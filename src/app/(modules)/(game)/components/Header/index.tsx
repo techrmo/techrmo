@@ -3,7 +3,7 @@
 import Image from 'next/image';
 
 import { useOnboardingStore } from '@/shared/stores/onboardingStore';
-import TooltipUI from '@/shared/components/TooltipUI';
+import TooltipUI from '@/shared/components/ui/Tooltip';
 
 import Profile from '../Profile';
 

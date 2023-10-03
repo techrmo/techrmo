@@ -1,21 +1,29 @@
 'use client';
 
-import * as Dialog from '@radix-ui/react-dialog';
 import { useEffect, useState } from 'react';
 import { shallow } from 'zustand/shallow';
 import confetti from 'canvas-confetti';
 
-import DialogUI from '@/shared/components/DialogUI';
-import Button from '@/shared/components/Button';
-import stylesBox from '@/shared/components/InputBoxUI/styles.module.scss';
+import DialogUI from '@/shared/components/ui/Dialog';
+import Button from '@/shared/components/ui/Button';
+import stylesBox from '@/shared/components/ui/InputBox/styles.module.scss';
 
+import { useDialogStore } from '../../stores/DialogStore';
 import { useResultStore } from '../../stores/ResultStore';
+import { useConfetti } from '../../hooks/useConffetti';
 
 import styles from './styles.module.scss';
 
 const DialogFinished = () => {
   const [mounted, setMounted] = useState(false);
   const [isExplanation, setIsExplanation] = useState(false);
+  const { isOpen, close } = useDialogStore(
+    (store) => ({
+      isOpen: store.isOpen,
+      close: store.close,
+    }),
+    shallow
+  );
   const { status, response, explanation } = useResultStore(
     (store) => ({
       status: store.status,
@@ -24,71 +32,51 @@ const DialogFinished = () => {
     }),
     shallow
   );
+  useConfetti(response);
 
   useEffect(() => {
     setMounted(true);
   }, []);
 
-  useEffect(() => {
-    if (!response) {
-      return;
-    }
-
-    const triggerConfetti = () => {
-      confetti({
-        particleCount: 250,
-        spread: 450,
-        origin: { x: 1, y: 0 },
-        colors: ['#FFE927', '#2B2B2B', '#fffb00', '#61590F', ' #E0CD22'],
-      });
-      confetti({
-        particleCount: 250,
-        spread: 450,
-        origin: { x: 0, y: 0 },
-        colors: ['#FFE927', '#2B2B2B', '#fffb00', '#61590F', ' #E0CD22'],
-      });
-    };
-
-    triggerConfetti();
-  }, [response]);
-
-  const contentClasses = `
+  const contentClassName = `
     ${styles.content} 
     ${isExplanation ? styles.contentExplanation : ''}
   `;
 
   const titleText = status === 'WIN' ? 'Você acertou!' : 'Você errou!';
-
-  const title = !isExplanation ? (
-    <Dialog.Title className={styles.title}>{titleText}</Dialog.Title>
-  ) : null;
+  const title = !isExplanation ? titleText : '';
 
   if (!response || !mounted) {
     return null;
   }
 
   return (
-    <DialogUI>
-      <Dialog.Content className={contentClasses}>
-        {title}
-        <div className={styles.wordContainer}>
-          {response.split('').map((value, index) => (
-            <span
-              key={index}
-              data-variant="correct"
-              className={stylesBox.container}
-            >
-              {value}
-            </span>
-          ))}
-        </div>
-        {isExplanation && <p className={styles.explanation}>{explanation}</p>}
-        {!isExplanation && (
-          <Button type="button" onClick={() => setIsExplanation(true)}>
-            Ver explicação
-          </Button>
-        )}
-      </Dialog.Content>
+    <DialogUI
+      isOpen={isOpen}
+      close={close}
+      title={title}
+      titleClassName={styles.title}
+      contentClassName={contentClassName}
+    >
+      <div className={styles.wordContainer}>
+        {response.split('').map((value, index) => (
+          <span
+            key={index}
+            data-variant="correct"
+            className={stylesBox.container}
+            translate="no"
+          >
+            {value}
+          </span>
+        ))}
+      </div>
+      {isExplanation ? (
+        <p className={styles.explanation}>{explanation}</p>
+      ) : (
+        <Button type="button" onClick={() => setIsExplanation(true)}>
+          Ver explicação
+        </Button>
+      )}
     </DialogUI>
   );
 };

@@ -1,4 +1,4 @@
-import InputBoxUI from '@/shared/components/InputBoxUI';
+import InputBoxUI from '@/shared/components/ui/InputBox';
 
 import Container from './Container';
 

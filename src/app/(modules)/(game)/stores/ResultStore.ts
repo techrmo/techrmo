@@ -1,6 +1,6 @@
 import { createWithEqualityFn } from 'zustand/traditional';
 
-import { useDialogStore } from '@/shared/stores/dialogStore';
+import { useDialogStore } from '@/app/(modules)/(game)/stores/DialogStore';
 import type { GameStatus } from '@/shared/constants/GameStatus';
 
 interface State {

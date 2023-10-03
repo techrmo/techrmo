@@ -5,7 +5,7 @@ import type {
   ResponseWord,
 } from '../../validators/responseWords';
 import { inputSchema } from '../../validators/input';
-import { verifyWord } from '../../services/wordsService';
+import { verifyWordService } from '../../services/verifyWordService';
 import { useKeysStore } from '../KeysStore';
 import { useResultStore } from '../ResultStore';
 
@@ -89,7 +89,7 @@ export const createAttemptSlice = (
         results: resultOfAttempt,
         status: resultStatus,
         explanation,
-      } = await verifyWord(parsedValues);
+      } = await verifyWordService(parsedValues);
 
       setUsedKeys(resultOfAttempt);
       setResultsOfAttempts(resultOfAttempt);

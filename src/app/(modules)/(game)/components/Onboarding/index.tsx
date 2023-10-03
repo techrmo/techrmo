@@ -43,11 +43,13 @@ const Onboarding = () => {
     setKeyboardOnboarding,
     resetKeyboardOnboarding,
     setUsedKeysBackupOnboarding,
+    setDisableAllKeys,
   } = useKeysStore(
     (store) => ({
       setKeyboardOnboarding: store.setKeyboardOnboarding,
       resetKeyboardOnboarding: store.resetKeyboardOnboarding,
       setUsedKeysBackupOnboarding: store.setUsedKeysBackupOnboarding,
+      setDisableAllKeys: store.setDisableAllKeys,
     }),
     shallow
   );
@@ -137,6 +139,7 @@ const Onboarding = () => {
     if (isOpenOnboarding) {
       setUsedKeysBackupOnboarding();
       setValuesBackupOnboarding();
+      setDisableAllKeys(true);
       return;
     }
   }, [isOpenOnboarding]);
@@ -171,6 +174,7 @@ const Onboarding = () => {
       openOnboarding();
       resetKeyboardOnboarding();
       resetValuesOnboarding();
+      setDisableAllKeys(false);
     }
   };
 

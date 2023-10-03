@@ -40,7 +40,7 @@
     "**/*.ts",
     "**/*.tsx",
     ".next/types/**/*.ts",
-    "src/shared/@types/images.d.ts"
+    "src/app/@types/images.d.ts"
   ],
   "exclude": [
     "node_modules"

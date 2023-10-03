@@ -1,36 +1,26 @@
 @use "abstracts" as *;
 
 .container {
-  display: flex;
-  padding: 6px 10px 6px 5px;
-  justify-content: center;
-  align-items: center;
-  gap: 6px;
+  color: $color-gray-100;
+  border: 2px solid $color-green-800;
+  background: none;
   position: relative;
 
-  border-radius: 20px;
-  border: 1px solid $color-yellow-800;
+  padding: 7px 16px;
+  font-size: 1.875rem;
 
-  background: none;
-  color: $color-gray-100;
-  font-size: 24px;
-
-  svg {
-    width: 30px;
-    height: 30px;
-
-    margin-left: 5px;
-  }
+  border-radius: 25px;
+  z-index: 10;
 
   &:before {
     content: "";
     background: linear-gradient(
       45deg,
-      #ffe927,
+      #00fe44,
       #ffffff,
-      #fffb00,
-      #61590f,
-      #e0cd22
+      #1d6430,
+      #294230,
+      #77d891
     );
     position: absolute;
     top: -2px;
@@ -43,15 +33,7 @@
     animation: glowing 20s linear infinite;
     opacity: 0;
     transition: opacity 0.3s ease-in-out;
-    border-radius: 30px;
-  }
-
-  &:active {
-    color: #000;
-  }
-
-  &:active:after {
-    background: transparent;
+    border-radius: 25px;
   }
 
   &:hover:before {
@@ -67,9 +49,8 @@
     background: #111;
     left: 0;
     top: 0;
-    border-radius: 20px;
+    border-radius: 25px;
   }
-  z-index: 10;
 }
 
 @keyframes glowing {

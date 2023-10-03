@@ -1,3 +1,5 @@
+@use "abstracts" as *;
+
 .overlay {
   inset: 0;
   position: fixed;
@@ -6,12 +8,15 @@
   align-items: center;
 
   border-radius: 0;
-  background:rgba(0, 0, 0, 0.64);
+  background: rgba(0, 0, 0, 0.64);
   backdrop-filter: blur(2px);
 }
 
 .close {
   position: absolute;
-  top: 0;
-  right: 0;
+  top: 5px;
+  right: 5px;
+  color: $color-brown-500;
+  background: none;
+  border: none;
 }
