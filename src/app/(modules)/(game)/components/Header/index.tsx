@@ -17,7 +17,13 @@ const Header = () => {
   return (
     <header className={styles.container}>
       <div>
-        <Image src="/logo.svg" alt="Logo techrmo" width={150} height={50} />
+        <Image
+          src="/logo.svg"
+          alt="Logo techrmo"
+          width={150}
+          height={50}
+          crossOrigin="anonymous"
+        />
         <TooltipUI content="Como jogar?" side="bottom">
           <button
             className={styles.helpButton}
