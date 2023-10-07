@@ -43,7 +43,7 @@ const LoginButton = () => {
     fetch(data)
       .then((res) => res.blob())
       .then(async (blob) => {
-        const file = new File([blob], 'File name', { type: 'image/png' });
+        const file = new File([blob], 'name.jpg', { type: 'image/jpg' });
 
         const shareData = {
           title: `oi`,
