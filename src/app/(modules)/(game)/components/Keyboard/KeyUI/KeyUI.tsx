@@ -6,7 +6,7 @@ import styles from './styles.module.scss';
 interface KeyUIProps {
   variant: LetterResult | undefined;
   value: Keys;
-  disabled: boolean;
+  disabled?: boolean;
   handleKeyUp?: () => void;
 }
 

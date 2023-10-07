@@ -64,7 +64,7 @@ export const getCurrentAttemptPlayerService = async () => {
   return {
     keyResult,
     response: result?.value || '',
-    explanations: result?.explanations,
+    explanations: result?.explanations || [],
     status: attempt.statusAttempt,
     resultsOfAttempts,
     values: [...values, []],
