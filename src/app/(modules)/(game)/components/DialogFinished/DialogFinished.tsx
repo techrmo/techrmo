@@ -60,12 +60,7 @@ export const DialogFinished = () => {
   }
 
   return (
-    <Dialog
-      useDialogStore={useFinishedDialogStore}
-      title={getTitle()}
-      contentClassName={styles.content}
-      titleClassName={styles.title}
-    >
+    <>
       <div ref={ref} style={{ background: 'red' }}>
         opa
         <input type="text" value={2} />
@@ -84,6 +79,20 @@ export const DialogFinished = () => {
       >
         <DialogResponse isGeneratingScreenshot={isGenerating} />
       </DialogContent>
-    </Dialog>
+      {/* <Dialog
+        useDialogStore={useFinishedDialogStore}
+        title={getTitle()}
+        contentClassName={styles.content}
+        titleClassName={styles.title}
+      >
+        <DialogContent
+          file={file}
+          isExplanation={isExplanation}
+          setIsExplanation={setIsExplanation}
+        >
+          <DialogResponse isGeneratingScreenshot={isGenerating} />
+        </DialogContent>
+      </Dialog> */}
+    </>
   );
 };

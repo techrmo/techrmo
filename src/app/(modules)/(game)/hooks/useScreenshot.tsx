@@ -12,11 +12,13 @@ export const useScreenshot = <T extends HTMLElement>(mounted: boolean) => {
       if (!ref.current) {
         return;
       }
+      console.log(ref.current);
 
       try {
         const canvas = await html2canvas(ref.current, {
           useCORS: true,
           allowTaint: true,
+          logging: true,
         });
         const image = canvas.toDataURL('image/png');
 
