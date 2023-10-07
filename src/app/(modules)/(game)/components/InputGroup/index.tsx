@@ -2,7 +2,7 @@
 
 import { numberOfAttempts } from '../../stores/Form/AttemptSlice';
 import type { RowColumnIndex } from '../../stores/Form/FormSlice';
-import { DialogFinished } from '../';
+import { DialogFinished } from '..';
 
 import InputBox from './InputRow/InputBox';
 import InputRow from './InputRow';

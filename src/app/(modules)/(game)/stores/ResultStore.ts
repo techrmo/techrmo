@@ -1,6 +1,6 @@
 import { createWithEqualityFn } from 'zustand/traditional';
 
-import { useDialogStore } from '@/app/(modules)/(game)/stores/DialogStore';
+import { useFinishedDialogStore } from '@/app/(modules)/(game)/stores/DialogFinishedStore';
 import type { GameStatus } from '@/shared/constants/GameStatus';
 
 interface State {
@@ -25,7 +25,7 @@ export const useResultStore = createWithEqualityFn<ResultStore>(
   (set) => ({
     ...initialState,
     changeResult: (data: State) => {
-      useDialogStore.setState({ isOpen: true });
+      useFinishedDialogStore.setState({ isOpen: true });
       set(data);
     },
   }),

@@ -11,7 +11,12 @@ interface TooltipUIProps
   children: ReactNode;
 }
 
-const TooltipUI = ({ content, children, ...restContent }: TooltipUIProps) => {
+const TooltipUI = ({
+  content,
+  children,
+  sideOffset = 5,
+  ...restContent
+}: TooltipUIProps) => {
   return (
     <Tooltip.Provider delayDuration={0}>
       <Tooltip.Root>
@@ -20,7 +25,7 @@ const TooltipUI = ({ content, children, ...restContent }: TooltipUIProps) => {
           <Tooltip.Content
             {...restContent}
             className={styles.tooltipContent}
-            sideOffset={5}
+            sideOffset={sideOffset}
           >
             {content}
             <Tooltip.Arrow className={styles.tooltipArrow} />

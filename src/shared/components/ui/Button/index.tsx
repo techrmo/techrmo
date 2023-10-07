@@ -1,4 +1,4 @@
-import { ComponentProps, ReactNode } from 'react';
+import { ComponentProps, ReactNode, forwardRef } from 'react';
 
 import styles from './styles.module.scss';
 
@@ -14,20 +14,26 @@ interface ButtonProps extends ComponentProps<'button'> {
     | 'text-yellow';
 }
 
-const Button = ({
-  children,
-  variant = 'outlined-green',
-  size = 'medium',
-  ...rest
-}: ButtonProps) => (
-  <button
-    className={styles.container}
-    data-variant={variant}
-    data-size={size}
-    {...rest}
-  >
-    {children}
-  </button>
+const Button = forwardRef<HTMLButtonElement, ButtonProps>(
+  (
+    {
+      children,
+      variant = 'outlined-green',
+      size = 'medium',
+      ...rest
+    }: ButtonProps,
+    ref
+  ) => (
+    <button
+      ref={ref}
+      className={styles.container}
+      data-variant={variant}
+      data-size={size}
+      {...rest}
+    >
+      {children}
+    </button>
+  )
 );
 
 export default Button;

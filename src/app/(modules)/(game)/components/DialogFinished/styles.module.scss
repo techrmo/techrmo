@@ -27,17 +27,23 @@
 
   .wordContainer {
     display: flex;
-    gap: 10px;
+    flex-direction: column;
 
-    span {
-      width: 55px;
-      height: 55px;
-      font-size: 2.8125rem;
-      padding: 0;
+    input {
+      font-weight: bold;
+      width: 45px;
+      height: 45px;
+      font-size: 30px;
+    }
 
-      display: flex;
-      align-items: center;
+    div {
       justify-content: center;
+      display: flex;
+      gap: 10px;
+    }
+
+    svg {
+      margin-right: 5px;
     }
   }
 }
@@ -62,22 +68,5 @@
     text-align: center;
     font-weight: 400;
     font-size: 1.25rem;
-  }
-}
-
-.contentExplanation {
-  background: #000;
-
-  .wordContainer {
-    span {
-      width: 45px;
-      height: 45px;
-      font-size: 2.1875rem;
-      padding: 0;
-
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
   }
 }

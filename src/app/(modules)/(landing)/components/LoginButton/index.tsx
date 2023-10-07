@@ -2,7 +2,6 @@
 
 import { useRouter } from 'next/navigation';
 import { GithubAuthProvider, signInWithPopup } from 'firebase/auth';
-import html2canvas from 'html2canvas';
 
 import { auth } from '@/shared/services/firebase';
 import { api } from '@/shared/services/api';
@@ -34,35 +33,8 @@ const LoginButton = () => {
     }
   };
 
-  const handleDownloadImage = async () => {
-    console.log('data');
-    const element = document.getElementById('print'),
-      canvas = await html2canvas(element!),
-      data = canvas.toDataURL('image/jpg');
-
-    fetch(data)
-      .then((res) => res.blob())
-      .then(async (blob) => {
-        const file = new File([blob], 'name.jpg', { type: 'image/jpg' });
-
-        const shareData = {
-          title: `oi`,
-          files: [file],
-        };
-
-        if (navigator.canShare && navigator.canShare(shareData)) {
-          await navigator.share(shareData);
-        }
-      });
-  };
-
   return (
-    <button
-      id="print"
-      className={styles.container}
-      type="button"
-      onClick={handleDownloadImage}
-    >
+    <button className={styles.container} type="button" onClick={handleLogin}>
       <MdiGithub /> Entrar com Github
     </button>
   );
