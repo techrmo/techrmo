@@ -75,18 +75,6 @@ export const DialogFinished = () => {
           in aut laboriosam accusamus minima omnis nobis, suscipit at doloribus
           molestiae? Aliquid?
         </p>
-        <p>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Enim magnam
-          saepe quibusdam nesciunt doloremque facilis nulla, placeat voluptate
-          in aut laboriosam accusamus minima omnis nobis, suscipit at doloribus
-          molestiae? Aliquid?
-        </p>
-        <p>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Enim magnam
-          saepe quibusdam nesciunt doloremque facilis nulla, placeat voluptate
-          in aut laboriosam accusamus minima omnis nobis, suscipit at doloribus
-          molestiae? Aliquid?
-        </p>
         <button onClick={() => console.log('oi')}>Teste</button>
       </div>
       <DialogContent
