@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from 'react';
 import axios from 'axios';
 import html2canvas from 'html2canvas';
 
-export const useScreenShot = <T extends HTMLElement>() => {
+export const useScreenShot = <T extends HTMLElement>(mounted: boolean) => {
   const [file, setFile] = useState<File | null>(null);
   const ref = useRef<T>(null);
 
@@ -15,6 +15,8 @@ export const useScreenShot = <T extends HTMLElement>() => {
       const canvas = await html2canvas(ref.current);
       const image = canvas.toDataURL('image/png');
 
+      console.log(image);
+
       const response = await axios.get<Blob>(image, {
         responseType: 'blob',
       });
@@ -25,7 +27,7 @@ export const useScreenShot = <T extends HTMLElement>() => {
       setFile(newfile);
     };
     generateScreenShot();
-  }, [setFile]);
+  }, [setFile, mounted]);
 
   return { file, ref };
 };

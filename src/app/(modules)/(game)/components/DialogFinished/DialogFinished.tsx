@@ -17,7 +17,7 @@ export const DialogFinished = () => {
   const [isExplanation, setIsExplanation] = useState(false);
 
   const status = useResultStore((store) => store.status);
-  const { file, ref } = useScreenShot<HTMLDivElement>();
+  const { file, ref } = useScreenShot<HTMLDivElement>(mounted);
 
   useEffect(() => {
     setMounted(true);
