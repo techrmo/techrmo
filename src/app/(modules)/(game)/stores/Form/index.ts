@@ -29,14 +29,14 @@ export const useFormStore = createWithEqualityFn<UseForm & UseFormStoreActions>(
     setInitialState: ({
       response,
       status,
-      explanation,
+      explanations,
       keyResult,
       ...store
     }) => {
       useResultStore.getState().changeResult({
         response,
         status,
-        explanation,
+        explanations,
       });
       useKeysStore.getState().setUsedKeys(keyResult);
 

@@ -185,12 +185,13 @@ const Onboarding = () => {
       disableScrollParentFix
       disableScrolling
       showProgress
+      continuous
       callback={handleJoyrideCallback}
       locale={{
         next: 'Próximo',
         close: 'Fechar',
         back: 'Voltar',
-        last: 'Último',
+        last: 'Fechar',
         open: 'Abrir',
         skip: 'Pular',
       }}
@@ -215,7 +216,6 @@ const Onboarding = () => {
           overflow: 'hidden',
         },
       }}
-      continuous
     />
   );
 };

@@ -4,10 +4,28 @@ import styles from './styles.module.scss';
 
 interface ButtonProps extends ComponentProps<'button'> {
   children: ReactNode;
+  size?: 'small' | 'medium' | 'large';
+  variant?:
+    | 'outlined-green'
+    | 'outlined-yellow'
+    | 'contained-green'
+    | 'contained-yellow'
+    | 'text-green'
+    | 'text-yellow';
 }
 
-const Button = ({ children, ...rest }: ButtonProps) => (
-  <button className={styles.container} {...rest}>
+const Button = ({
+  children,
+  variant = 'outlined-green',
+  size = 'medium',
+  ...rest
+}: ButtonProps) => (
+  <button
+    className={styles.container}
+    data-variant={variant}
+    data-size={size}
+    {...rest}
+  >
     {children}
   </button>
 );

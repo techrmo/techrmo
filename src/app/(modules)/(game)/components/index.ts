@@ -1,4 +1,4 @@
-export { default as DialogFinished } from './DialogFinished';
+export * from './DialogFinished';
 export { default as Header } from './Header';
 export { default as InputGroup } from './InputGroup';
 export { default as Keyboard } from './Keyboard';

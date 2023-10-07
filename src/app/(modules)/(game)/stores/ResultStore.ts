@@ -6,7 +6,7 @@ import type { GameStatus } from '@/shared/constants/GameStatus';
 interface State {
   status: GameStatus;
   response: string | null;
-  explanation: string | null;
+  explanations: string[];
 }
 
 interface Actions {
@@ -15,11 +15,15 @@ interface Actions {
 
 export interface ResultStore extends State, Actions {}
 
+const initialState: State = {
+  status: 'PLAYING',
+  explanations: [],
+  response: null,
+};
+
 export const useResultStore = createWithEqualityFn<ResultStore>(
   (set) => ({
-    status: 'PLAYING',
-    explanation: null,
-    response: null,
+    ...initialState,
     changeResult: (data: State) => {
       useDialogStore.setState({ isOpen: true });
       set(data);

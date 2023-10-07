@@ -43,7 +43,7 @@ async function POST() {
 }
 
 async function GET() {
-  const session = cookies().get('session')?.value || '';
+  const session = cookies().get('session')?.value;
 
   if (!session) {
     return NextResponse.json({ isLogged: false }, { status: 401 });

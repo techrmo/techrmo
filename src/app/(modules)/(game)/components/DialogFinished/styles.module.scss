@@ -16,7 +16,7 @@
   inset: 0;
   max-width: 350px;
   min-width: 350px;
-  min-height: 410px;
+  height: 410px;
   padding: 26px 15px;
 
   .title {
@@ -40,13 +40,28 @@
       justify-content: center;
     }
   }
+}
+
+.explanationContainer {
+  flex: 1;
+  display: flex;
+  justify-content: space-around;
+  flex-direction: column;
+
+  > div {
+    align-self: flex-end;
+  }
 
   .explanation {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
     color: $color-gray-100;
     text-align: center;
     font-weight: 400;
     font-size: 1.25rem;
-    flex: 0.8;
   }
 }
 

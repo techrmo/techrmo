@@ -88,17 +88,17 @@ export const createAttemptSlice = (
       const {
         results: resultOfAttempt,
         status: resultStatus,
-        explanation,
+        explanations,
       } = await verifyWordService(parsedValues);
 
       setUsedKeys(resultOfAttempt);
       setResultsOfAttempts(resultOfAttempt);
 
-      if (resultStatus !== 'PLAYING' && explanation) {
+      if (resultStatus !== 'PLAYING' && explanations) {
         useResultStore.getState().changeResult({
           status: resultStatus,
           response: resultOfAttempt.map((result) => result.value).join(''),
-          explanation,
+          explanations,
         });
         resetState();
       }

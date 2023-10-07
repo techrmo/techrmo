@@ -12,7 +12,7 @@ const getResult = async (status: GameStatus) => {
 
   return {
     value: '',
-    explanation: '',
+    explanations: [],
   };
 };
 
@@ -64,7 +64,7 @@ export const getCurrentAttemptPlayerService = async () => {
   return {
     keyResult,
     response: result?.value || '',
-    explanation: result?.explanation || '',
+    explanations: result?.explanations,
     status: attempt.statusAttempt,
     resultsOfAttempts,
     values: [...values, []],

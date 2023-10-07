@@ -25,6 +25,7 @@
     "firebase": "^10.4.0",
     "firebase-admin": "^11.10.1",
     "graphql-request": "^6.1.0",
+    "html2canvas": "^1.4.1",
     "next": "^13.5.1",
     "nookies": "^2.5.2",
     "openai": "^3.3.0",
