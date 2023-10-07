@@ -9,7 +9,7 @@ export const useScreenshot = <T extends HTMLElement>(mounted: boolean) => {
 
   useEffect(() => {
     const generateScreenshot = async () => {
-      if (!ref.current) {
+      if (!ref.current || !mounted) {
         return;
       }
       console.log(ref.current);
