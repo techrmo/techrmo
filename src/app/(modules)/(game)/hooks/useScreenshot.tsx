@@ -20,6 +20,7 @@ export const useScreenshot = <T extends HTMLElement>(mounted: boolean) => {
           allowTaint: true,
           logging: true,
         });
+        console.log('aqui', canvas);
         const image = canvas.toDataURL('image/png');
 
         console.log(image);
