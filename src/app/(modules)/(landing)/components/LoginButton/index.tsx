@@ -40,29 +40,20 @@ const LoginButton = () => {
       canvas = await html2canvas(element!),
       data = canvas.toDataURL('image/jpg');
 
-    const filesArray = [
-      new File([data], `oi.png`, {
-        type: 'image/png',
-        lastModified: new Date().getTime(),
-      }),
-    ];
-    const shareData = {
-      title: `oi`,
-      files: filesArray,
-    };
+    fetch(data)
+      .then((res) => res.blob())
+      .then(async (blob) => {
+        const file = new File([blob], 'File name', { type: 'image/png' });
 
-    if (navigator.canShare && navigator.canShare(shareData)) {
-      await navigator.share(shareData);
-    }
+        const shareData = {
+          title: `oi`,
+          files: [file],
+        };
 
-    // link = document.createElement('a');
-
-    // link.href = data;
-    // link.download = 'downloaded-image.jpg';
-
-    // document.body.appendChild(link);
-    // link.click();
-    // document.body.removeChild(link);
+        if (navigator.canShare && navigator.canShare(shareData)) {
+          await navigator.share(shareData);
+        }
+      });
   };
 
   return (
