@@ -17,7 +17,9 @@ export const useScreenshot = <T extends HTMLElement>(mounted: boolean) => {
         const canvas = await html2canvas(ref.current, {
           useCORS: true,
           allowTaint: true,
+          foreignObjectRendering: true,
         });
+        console.log(canvas);
         const image = canvas.toDataURL('image/png');
 
         console.log(image);
