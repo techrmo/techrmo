@@ -61,12 +61,34 @@ export const DialogFinished = () => {
 
   return (
     <Dialog
-      ref={ref}
       useDialogStore={useFinishedDialogStore}
       title={getTitle()}
       contentClassName={styles.content}
       titleClassName={styles.title}
     >
+      <div ref={ref} style={{ background: 'red' }}>
+        opa
+        <input type="text" value={2} />
+        <p>
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Enim magnam
+          saepe quibusdam nesciunt doloremque facilis nulla, placeat voluptate
+          in aut laboriosam accusamus minima omnis nobis, suscipit at doloribus
+          molestiae? Aliquid?
+        </p>
+        <p>
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Enim magnam
+          saepe quibusdam nesciunt doloremque facilis nulla, placeat voluptate
+          in aut laboriosam accusamus minima omnis nobis, suscipit at doloribus
+          molestiae? Aliquid?
+        </p>
+        <p>
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Enim magnam
+          saepe quibusdam nesciunt doloremque facilis nulla, placeat voluptate
+          in aut laboriosam accusamus minima omnis nobis, suscipit at doloribus
+          molestiae? Aliquid?
+        </p>
+        <button onClick={() => console.log('oi')}>Teste</button>
+      </div>
       <DialogContent
         file={file}
         isExplanation={isExplanation}
