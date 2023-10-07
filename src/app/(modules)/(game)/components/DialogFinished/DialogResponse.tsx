@@ -6,7 +6,13 @@ import { useResultStore } from '../../stores/ResultStore';
 
 import styles from './styles.module.scss';
 
-export const DialogResponse = () => {
+interface DialogResponseProps {
+  isGeneratingScreenshot: boolean;
+}
+
+export const DialogResponse = ({
+  isGeneratingScreenshot,
+}: DialogResponseProps) => {
   const response = useResultStore((store) => store.response);
 
   useConfetti(response);
@@ -25,6 +31,7 @@ export const DialogResponse = () => {
             defaultValue={value}
             variant="correct"
             className={stylesBox.container}
+            isHidden={isGeneratingScreenshot}
           />
         ))}
       </div>
