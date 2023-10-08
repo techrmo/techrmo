@@ -84,10 +84,11 @@
     #04f845 100%
   );
 
-  display: none;
+  display: flex;
   flex-direction: column;
   justify-content: space-around;
   align-items: center;
+  text-align: center;
 
   color: $color-gray-100;
 
@@ -122,5 +123,11 @@
         padding: 8px;
       }
     }
+  }
+
+  img {
+    margin: 0 auto;
+    width: 250px;
+    height: 100px;
   }
 }
