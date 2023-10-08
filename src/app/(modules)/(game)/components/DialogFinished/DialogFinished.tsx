@@ -1,7 +1,6 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { getAuth } from 'firebase/auth';
 
 import { Dialog } from '@/shared/components/core/Dialog';
 
@@ -17,10 +16,9 @@ import { ShareComponent } from './ShareComponent';
 export const DialogFinished = () => {
   const [mounted, setMounted] = useState(false);
   const [isExplanation, setIsExplanation] = useState(false);
-  const auth = getAuth();
 
   const status = useResultStore((store) => store.status);
-  const { file, isGenerating, ref } = useScreenshot<HTMLDivElement>(mounted);
+  const { file, ref } = useScreenshot<HTMLDivElement>(mounted);
 
   useEffect(() => {
     setMounted(true);
@@ -29,20 +27,6 @@ export const DialogFinished = () => {
   const getTitle = () => {
     if (isExplanation) {
       return '';
-    }
-
-    const displayName = auth.currentUser?.displayName;
-
-    if (!displayName) {
-      return '';
-    }
-
-    if (isGenerating && status === 'WIN') {
-      return `${displayName} acertou a palavra do dia`;
-    }
-
-    if (isGenerating && status === 'LOST') {
-      return `${displayName} acertou a palavra do dia`;
     }
 
     if (status === 'WIN') {
@@ -74,7 +58,7 @@ export const DialogFinished = () => {
           isExplanation={isExplanation}
           setIsExplanation={setIsExplanation}
         >
-          <DialogResponse isGeneratingScreenshot={isGenerating} />
+          <DialogResponse />
         </DialogContent>
       </Dialog>
     </>

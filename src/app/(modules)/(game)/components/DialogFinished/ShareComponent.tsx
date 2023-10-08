@@ -18,7 +18,13 @@ export const ShareComponent = forwardRef<HTMLDivElement>((props, ref) => {
 
       <p>Tsunode acertou a palavra do dia</p>
 
-      <Image src={keyboard} alt="Logo techrmo" crossOrigin="anonymous" />
+      <Image
+        src={keyboard}
+        alt="Logo techrmo"
+        crossOrigin="anonymous"
+        width={150}
+        height={50}
+      />
     </div>
   );
 });

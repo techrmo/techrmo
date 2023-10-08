@@ -4,7 +4,6 @@ import html2canvas from 'html2canvas';
 
 export const useScreenshot = <T extends HTMLElement>(mounted: boolean) => {
   const [file, setFile] = useState<File | null>(null);
-  const [isGenerating, setIsGenerating] = useState(true);
   const ref = useRef<T>(null);
 
   useEffect(() => {
@@ -19,10 +18,12 @@ export const useScreenshot = <T extends HTMLElement>(mounted: boolean) => {
         const canvas = await html2canvas(ref.current, {
           useCORS: true,
           allowTaint: true,
-          logging: true,
+          scale: 1,
         });
 
-        const image = canvas.toDataURL('image/png');
+        const image = canvas.toDataURL('image/png', 1);
+
+        console.log(image);
 
         const response = await axios.get<Blob>(image, {
           responseType: 'blob',
@@ -35,12 +36,11 @@ export const useScreenshot = <T extends HTMLElement>(mounted: boolean) => {
       } catch (error) {
         console.error(error);
       } finally {
-        ref.current.style.display = 'none';
-        // setIsGenerating(false);
+        // ref.current.style.display = 'none';
       }
     };
     generateScreenshot();
   }, [setFile, mounted]);
 
-  return { file, ref, isGenerating };
+  return { file, ref };
 };
