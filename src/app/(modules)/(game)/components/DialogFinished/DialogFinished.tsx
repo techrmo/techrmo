@@ -8,10 +8,11 @@ import { useFinishedDialogStore } from '../../stores/DialogFinishedStore';
 import { useResultStore } from '../../stores/ResultStore';
 import { useScreenshot } from '../../hooks/useScreenshot';
 
-import styles from './styles.module.scss';
 import { DialogResponse } from './DialogResponse';
-import { DialogContent } from './DialogContent';
 import { ShareComponent } from './ShareComponent';
+import { DialogExplanations } from './DialogExplanations';
+import { DialogFooterButtons } from './DialogFooterButtons';
+import styles from './styles.module.scss';
 
 export const DialogFinished = () => {
   const [mounted, setMounted] = useState(false);
@@ -53,13 +54,15 @@ export const DialogFinished = () => {
         contentClassName={styles.content}
         titleClassName={styles.title}
       >
-        <DialogContent
-          file={file}
-          isExplanation={isExplanation}
-          setIsExplanation={setIsExplanation}
-        >
-          <DialogResponse />
-        </DialogContent>
+        <DialogResponse />
+        {isExplanation ? (
+          <DialogExplanations backToResult={() => setIsExplanation(false)} />
+        ) : (
+          <DialogFooterButtons
+            file={file}
+            goToExplanation={() => setIsExplanation(true)}
+          />
+        )}
       </Dialog>
     </>
   );

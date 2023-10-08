@@ -5,7 +5,7 @@
   position: relative;
   display: flex;
   gap: 10px;
-  justify-content: space-around;
+  justify-content: space-between;
   align-items: center;
   flex-direction: column;
   border-radius: 4px;
@@ -24,28 +24,27 @@
     font-weight: 500;
     color: $color-gray-100;
   }
+}
 
-  .wordContainer {
+.wordContainer {
+  display: flex;
+  flex-direction: column;
+
+  input {
+    width: 55px;
+    height: 55px;
+    font-size: 2.8125rem;
+    text-transform: uppercase;
+  }
+
+  div {
+    justify-content: center;
     display: flex;
-    flex-direction: column;
+    gap: 10px;
+  }
 
-    input {
-      font-weight: bold;
-      width: 45px;
-      height: 45px;
-      font-size: 30px;
-      text-transform: uppercase;
-    }
-
-    div {
-      justify-content: center;
-      display: flex;
-      gap: 10px;
-    }
-
-    svg {
-      margin-right: 5px;
-    }
+  svg {
+    margin-right: 5px;
   }
 }
 
@@ -57,6 +56,7 @@
 
   > div {
     align-self: flex-end;
+    display: flex;
   }
 
   .explanation {
@@ -69,6 +69,71 @@
     text-align: center;
     font-weight: 400;
     font-size: 1.25rem;
+  }
+
+  .wordContainer div input {
+    width: 45px;
+    height: 45px;
+    font-size: 1.875rem;
+  }
+}
+
+.dialogFooterButtons {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  gap: 10px;
+
+  button {
+    height: 40px;
+  }
+
+  button:nth-child(1) {
+    display: block;
+    overflow: hidden;
+    text-align: center;
+    padding: 0;
+    width: 200px;
+
+    transition: 0.2s;
+    border: none;
+  }
+
+  button span {
+    display: block;
+    transition: 0.3s;
+  }
+
+  & button:hover span:nth-child(1) {
+    margin-left: 60px;
+  }
+  & button span:nth-child(1) {
+    margin-top: 10px;
+  }
+
+  button span:nth-child(2) {
+    position: relative;
+    width: 200px;
+    height: 100px;
+    margin-top: -88px;
+    background: linear-gradient(
+      180deg,
+      #000 0%,
+      #c0ff7c 38.97%,
+      #40db69 99.99%,
+      #04f845 100%
+    );
+    left: -250px;
+    display: flex;
+    justify-content: flex-end;
+    align-items: flex-end;
+    padding: 12px 28px;
+    border-radius: 50px;
+    color: $color-gray-900;
+  }
+
+  & button:hover span:nth-child(2) {
+    left: -130px;
   }
 }
 
