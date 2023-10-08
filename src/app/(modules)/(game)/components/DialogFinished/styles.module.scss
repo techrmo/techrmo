@@ -84,7 +84,7 @@
     #04f845 100%
   );
 
-  display: flex;
+  display: none;
   flex-direction: column;
   justify-content: space-around;
   align-items: center;
@@ -125,7 +125,7 @@
     }
   }
 
-  img {
+  svg {
     margin: 0 auto;
     width: 250px;
     height: 100px;

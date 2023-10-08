@@ -1,21 +1,15 @@
-import Image from 'next/image';
 import { forwardRef } from 'react';
 
 import KeyUI from '../Keyboard/KeyUI/KeyUI';
 
 import styles from './styles.module.scss';
 
+import { Logo } from '@/shared/assets/icons/Logo';
+
 export const ShareComponent = forwardRef<HTMLDivElement>((props, ref) => {
   return (
     <div id="screenshot" ref={ref} className={styles.shareComponent}>
-      <Image
-        src="/logo.svg"
-        alt="Logo techrmo"
-        width={250}
-        height={100}
-        crossOrigin="anonymous"
-      />
-
+      <Logo />
       <p>
         <span>Tsunode</span> acertou a palavra do dia!
       </p>
