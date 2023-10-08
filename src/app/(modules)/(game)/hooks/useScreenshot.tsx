@@ -12,7 +12,8 @@ export const useScreenshot = <T extends HTMLElement>(mounted: boolean) => {
       if (!ref.current || !mounted) {
         return;
       }
-      console.log(ref.current);
+
+      ref.current.style.display = 'flex';
 
       try {
         const canvas = await html2canvas(ref.current, {
@@ -20,10 +21,8 @@ export const useScreenshot = <T extends HTMLElement>(mounted: boolean) => {
           allowTaint: true,
           logging: true,
         });
-        console.log('aqui', canvas);
-        const image = canvas.toDataURL('image/png');
 
-        console.log(image);
+        const image = canvas.toDataURL('image/png');
 
         const response = await axios.get<Blob>(image, {
           responseType: 'blob',
@@ -36,6 +35,7 @@ export const useScreenshot = <T extends HTMLElement>(mounted: boolean) => {
       } catch (error) {
         console.error(error);
       } finally {
+        ref.current.style.display = 'none';
         // setIsGenerating(false);
       }
     };

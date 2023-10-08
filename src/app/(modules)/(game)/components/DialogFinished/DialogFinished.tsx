@@ -12,6 +12,7 @@ import { useScreenshot } from '../../hooks/useScreenshot';
 import styles from './styles.module.scss';
 import { DialogResponse } from './DialogResponse';
 import { DialogContent } from './DialogContent';
+import { ShareComponent } from './ShareComponent';
 
 export const DialogFinished = () => {
   const [mounted, setMounted] = useState(false);
@@ -60,20 +61,22 @@ export const DialogFinished = () => {
   }
 
   return (
-    <Dialog
-      ref={ref}
-      useDialogStore={useFinishedDialogStore}
-      title={getTitle()}
-      contentClassName={styles.content}
-      titleClassName={styles.title}
-    >
-      <DialogContent
-        file={file}
-        isExplanation={isExplanation}
-        setIsExplanation={setIsExplanation}
+    <>
+      <ShareComponent ref={ref} />
+      <Dialog
+        useDialogStore={useFinishedDialogStore}
+        title={getTitle()}
+        contentClassName={styles.content}
+        titleClassName={styles.title}
       >
-        <DialogResponse isGeneratingScreenshot={isGenerating} />
-      </DialogContent>
-    </Dialog>
+        <DialogContent
+          file={file}
+          isExplanation={isExplanation}
+          setIsExplanation={setIsExplanation}
+        >
+          <DialogResponse isGeneratingScreenshot={isGenerating} />
+        </DialogContent>
+      </Dialog>
+    </>
   );
 };

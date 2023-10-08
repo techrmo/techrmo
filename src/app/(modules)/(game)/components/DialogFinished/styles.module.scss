@@ -71,3 +71,26 @@
     font-size: 1.25rem;
   }
 }
+
+.shareComponent {
+  position: absolute;
+  top: 100px;
+  left: 0;
+  height: 100svh;
+  width: 100vw;
+
+  background: linear-gradient(
+    180deg,
+    #000 0%,
+    #000 38.97%,
+    #027b22 99.99%,
+    #04f845 100%
+  );
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+
+  color: $color-gray-100;
+}
