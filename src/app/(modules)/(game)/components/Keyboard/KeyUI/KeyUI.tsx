@@ -5,7 +5,7 @@ import styles from './styles.module.scss';
 
 interface KeyUIProps {
   variant: LetterResult | undefined;
-  value: Keys;
+  value: Keys | 'É' | 'techrmo.app';
   disabled?: boolean;
   handleKeyUp?: () => void;
 }

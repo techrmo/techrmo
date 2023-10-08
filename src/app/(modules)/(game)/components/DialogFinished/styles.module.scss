@@ -73,9 +73,6 @@
 }
 
 .shareComponent {
-  position: absolute;
-  top: 100px;
-  left: 0;
   height: 100vh;
   width: 100vw;
 
@@ -87,15 +84,43 @@
     #04f845 100%
   );
 
-  display: flex;
+  display: none;
   flex-direction: column;
   justify-content: space-around;
   align-items: center;
 
   color: $color-gray-100;
 
-  // img {
-  //   height: 150px;
-  //   width: 150px;
-  // }
+  p {
+    font-size: 2.25rem;
+    font-weight: 600;
+    text-align: center;
+
+    span {
+      color: $color-green-800;
+    }
+  }
+
+  & > div > div {
+    display: flex;
+
+    $sizes: (
+      1: 8px,
+      2: 14px,
+      3: 22px,
+    );
+
+    @each $item, $size in $sizes {
+      &:nth-child(#{$item}) {
+        margin-left: #{$size};
+      }
+    }
+
+    &:last-of-type {
+      button:last-of-type {
+        max-width: fit-content;
+        padding: 8px;
+      }
+    }
+  }
 }

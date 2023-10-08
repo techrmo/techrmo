@@ -1,13 +1,13 @@
 import Image from 'next/image';
 import { forwardRef } from 'react';
 
-import styles from './styles.module.scss';
+import KeyUI from '../Keyboard/KeyUI/KeyUI';
 
-import keyboard from '@/shared/assets/keyboard.png';
+import styles from './styles.module.scss';
 
 export const ShareComponent = forwardRef<HTMLDivElement>((props, ref) => {
   return (
-    <div ref={ref} className={styles.shareComponent}>
+    <div id="screenshot" ref={ref} className={styles.shareComponent}>
       <Image
         src="/logo.svg"
         alt="Logo techrmo"
@@ -16,15 +16,44 @@ export const ShareComponent = forwardRef<HTMLDivElement>((props, ref) => {
         crossOrigin="anonymous"
       />
 
-      <p>Tsunode acertou a palavra do dia</p>
-
-      <Image
-        src={keyboard}
-        alt="Logo techrmo"
-        crossOrigin="anonymous"
-        width={150}
-        height={50}
-      />
+      <p>
+        <span>Tsunode</span> acertou a palavra do dia!
+      </p>
+      <div>
+        <div>
+          <KeyUI value="V" variant="correct" />
+          <KeyUI value="E" variant="correct" />
+          <KeyUI value="N" variant="correct" />
+          <KeyUI value="H" variant="correct" />
+          <KeyUI value="A" variant="correct" />
+          <KeyUI value="Y" variant="incorrect" />
+          <KeyUI value="U" variant="incorrect" />
+          <KeyUI value="I" variant="incorrect" />
+          <KeyUI value="O" variant="incorrect" />
+          <KeyUI value="P" variant="incorrect" />
+        </div>
+        <div>
+          <KeyUI value="A" variant="incorrect" />
+          <KeyUI value="S" variant="incorrect" />
+          <KeyUI value="D" variant="incorrect" />
+          <KeyUI value="J" variant="bad-position" />
+          <KeyUI value="O" variant="bad-position" />
+          <KeyUI value="G" variant="bad-position" />
+          <KeyUI value="A" variant="bad-position" />
+          <KeyUI value="R" variant="bad-position" />
+          <KeyUI value="L" variant="incorrect" />
+          <KeyUI value="<" variant="incorrect" />
+        </div>
+        <div>
+          <KeyUI value="T" variant="correct" />
+          <KeyUI value="A" variant="correct" />
+          <KeyUI value="M" variant="correct" />
+          <KeyUI value="B" variant="correct" />
+          <KeyUI value="É" variant="correct" />
+          <KeyUI value="M" variant="correct" />
+          <KeyUI value="techrmo.app" variant="bad-position" />
+        </div>
+      </div>
     </div>
   );
 });

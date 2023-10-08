@@ -34,8 +34,7 @@ const DialogUI = forwardRef<HTMLDivElement, DialogUIProps>(
               className={styles.close}
               onClick={close}
             >
-              Fechar
-              {/* <IcTwotoneClose /> */}
+              <IcTwotoneClose />
             </Dialog.Close>
           </Dialog.Content>
         </Dialog.Overlay>
