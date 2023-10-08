@@ -17,8 +17,6 @@ export const useScreenshot = <T extends HTMLElement>(mounted: boolean) => {
           useCORS: true,
           allowTaint: true,
           scale: 1,
-          width: 3124,
-          height: 3124,
           onclone: (_document, element) => {
             element.style.display = 'flex';
           },
