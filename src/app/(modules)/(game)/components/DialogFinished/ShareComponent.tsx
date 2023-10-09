@@ -1,4 +1,5 @@
 import { forwardRef } from 'react';
+import { getAuth } from 'firebase/auth';
 
 import KeyUI from '../Keyboard/KeyUI/KeyUI';
 
@@ -7,11 +8,13 @@ import styles from './styles.module.scss';
 import { Logo } from '@/shared/assets/icons/Logo';
 
 export const ShareComponent = forwardRef<HTMLDivElement>((_props, ref) => {
+  const { currentUser } = getAuth();
+
   return (
     <div id="screenshot" ref={ref} className={styles.shareComponent}>
       <Logo />
       <p>
-        <span>Tsunode</span> acertou a palavra do dia!
+        <span>{currentUser?.displayName}</span> acertou a palavra do dia!
       </p>
       <div>
         <div>

@@ -2,13 +2,13 @@ import { useEffect, useRef, useState } from 'react';
 import axios from 'axios';
 import html2canvas from 'html2canvas';
 
-export const useScreenshot = <T extends HTMLElement>(mounted: boolean) => {
+export const useScreenshot = <T extends HTMLElement>(triggered: boolean) => {
   const [file, setFile] = useState<File | null>(null);
   const ref = useRef<T>(null);
 
   useEffect(() => {
     const generateScreenshot = async () => {
-      if (!ref.current || !mounted) {
+      if (!ref.current || !triggered) {
         return;
       }
 
@@ -37,7 +37,7 @@ export const useScreenshot = <T extends HTMLElement>(mounted: boolean) => {
       }
     };
     generateScreenshot();
-  }, [setFile, mounted]);
+  }, [setFile, triggered]);
 
   return { file, ref };
 };

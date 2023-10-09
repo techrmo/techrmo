@@ -19,7 +19,8 @@ export const DialogFinished = () => {
   const [isExplanation, setIsExplanation] = useState(false);
 
   const status = useResultStore((store) => store.status);
-  const { file, ref } = useScreenshot<HTMLDivElement>(mounted);
+  const isOpen = useFinishedDialogStore((store) => store.isOpen);
+  const { file, ref } = useScreenshot<HTMLDivElement>(mounted && isOpen);
 
   useEffect(() => {
     setMounted(true);
@@ -41,7 +42,7 @@ export const DialogFinished = () => {
     return '';
   };
 
-  if (!mounted) {
+  if (!mounted || !isOpen) {
     return null;
   }
 
