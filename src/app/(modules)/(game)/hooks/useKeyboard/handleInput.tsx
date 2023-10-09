@@ -30,7 +30,7 @@ export const useHandleInput = () => {
     }
 
     if (isBackSpaceKey && currentInputElement.value) {
-      updateCurrentInputAndValues(currentInputElement, '', 'PREVIOUS');
+      updateCurrentInputAndValues(currentInputElement, '');
       currentInputElement?.setAttribute('data-focused', 'true');
       return;
     }

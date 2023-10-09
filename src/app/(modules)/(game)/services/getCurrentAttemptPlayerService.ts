@@ -3,7 +3,7 @@ import { getCurrentWord } from '@/app/api/(services)/words';
 import type { GameStatus } from '@/shared/constants/GameStatus';
 import { getCurrentUser } from '@/shared/services/getCurrentUser';
 
-import { allowedColumnIndexes } from '../stores/Form/FormSlice';
+import { allowedRowIndexes } from '../stores/Form/FormSlice';
 
 const getResult = async (status: GameStatus) => {
   if (['LOST', 'WIN'].includes(status)) {
@@ -24,7 +24,7 @@ const getCurrentRowIndex = (
     return;
   }
 
-  return allowedColumnIndexes[resultsOfAttemptsLength] ?? 0;
+  return allowedRowIndexes[resultsOfAttemptsLength] ?? 0;
 };
 
 export const getCurrentAttemptPlayerService = async () => {

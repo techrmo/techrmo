@@ -11,7 +11,7 @@ export interface InputFormSlice {
   updateCurrentInputAndValues: (
     input: HTMLInputElement | null,
     value: Keys | '',
-    directionInputToMove: DirectionInputToMove
+    directionInputToMove?: DirectionInputToMove
   ) => void;
   updateCurrentInputAndPosition: (
     input: HTMLInputElement | null,
@@ -26,7 +26,7 @@ export const createInputFormSlice = (
   updateCurrentInputAndValues: (
     input: HTMLInputElement | null,
     value: Keys | '',
-    directionInputToMove: DirectionInputToMove
+    directionInputToMove?: DirectionInputToMove
   ) => {
     const { currentInputElement } = get();
 

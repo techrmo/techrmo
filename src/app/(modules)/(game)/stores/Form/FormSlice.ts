@@ -5,21 +5,22 @@ import type { Keys } from '../../../../../shared/constants/Keys';
 import type { GetFormState, SetFormState } from '.';
 
 export type RowColumnIndex = 0 | 1 | 2 | 3 | 4;
+export type RowIndex = 0 | 1 | 2 | 3 | 4 | 5 | 6;
 export type DirectionInputToMove = 'NEXT' | 'PREVIOUS';
 
 export interface FormSliceStates {
-  currentRowIndex: RowColumnIndex;
+  currentRowIndex: RowIndex;
   currentColumnIndex: RowColumnIndex;
   values: (Keys | '')[][];
   valuesOnboardingBackup: (Keys | '')[][];
-  currentRowIndexBackup: RowColumnIndex;
+  currentRowIndexBackup: RowIndex;
 }
 export interface FormSliceActions {
   setCurrentRowIndex: (value: RowColumnIndex) => void;
   setCurrentColumnIndex: (value: RowColumnIndex) => void;
   setValues: (
     value: Keys | '',
-    directionInputToMove: DirectionInputToMove
+    directionInputToMove?: DirectionInputToMove
   ) => void;
   setFormOnboarding: (values: Keys[], letterResult?: LetterResult[]) => void;
   currentValues: () => void;
@@ -30,6 +31,9 @@ export type FormSlice = FormSliceStates & FormSliceActions;
 
 export const allowedColumnIndexes = Object.freeze<RowColumnIndex[]>([
   0, 1, 2, 3, 4,
+]);
+export const allowedRowIndexes = Object.freeze<RowIndex[]>([
+  0, 1, 2, 3, 4, 5, 6,
 ]);
 const directionMapping = Object.freeze({
   NEXT: +1,
@@ -74,7 +78,10 @@ export const createFormSlice = (
       values: [values],
       resultsOfAttempts: [letterResult],
     }),
-  setValues: (value: Keys | '', directionInputToMove: DirectionInputToMove) => {
+  setValues: (
+    value: Keys | '',
+    directionInputToMove?: DirectionInputToMove
+  ) => {
     const { currentRowIndex, currentColumnIndex, values } = get();
 
     const newValue = [...values];
@@ -84,13 +91,20 @@ export const createFormSlice = (
       currentRow[currentColumnIndex] = value;
     }
 
-    const updateColumnIndex =
-      currentColumnIndex + directionMapping[directionInputToMove];
+    let updateColumnIndex: number = currentColumnIndex;
+    if (directionInputToMove) {
+      updateColumnIndex =
+        currentColumnIndex + directionMapping[directionInputToMove];
+    }
 
     set(() => ({
       values: newValue,
-      currentColumnIndex:
-        allowedColumnIndexes[updateColumnIndex] ?? currentColumnIndex,
+      ...(updateColumnIndex !== undefined
+        ? {
+            currentColumnIndex:
+              allowedColumnIndexes[updateColumnIndex] ?? currentColumnIndex,
+          }
+        : {}),
     }));
   },
   setCurrentRowIndex: (value: RowColumnIndex) =>
