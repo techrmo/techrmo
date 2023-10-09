@@ -15,7 +15,6 @@ const Home = async () => {
   return (
     <main className={styles.container}>
       <StoreInitializer initialStore={initialStore} />
-
       <Onboarding />
       <Header />
       <InputGroup />

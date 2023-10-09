@@ -10,7 +10,7 @@ interface State {
 }
 
 interface Actions {
-  changeResult: (data: State) => void;
+  changeResult: (data: Omit<State, 'statusBackup'>) => void;
   setResultBackupOnboarding: () => void;
   resetResultOnboarding: () => void;
 }
@@ -27,7 +27,7 @@ const initialState: State = {
 export const useResultStore = createWithEqualityFn<ResultStore>(
   (set, get) => ({
     ...initialState,
-    changeResult: (data: State) => set(data),
+    changeResult: (data: Omit<State, 'statusBackup'>) => set(data),
     resetResultOnboarding: () =>
       set({
         statusBackup: 'PLAYING',
