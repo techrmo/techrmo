@@ -13,12 +13,14 @@ type UsedKeysType = Partial<Record<Keys, LetterResult>>;
 interface KeysStoreStates {
   usedKeys: UsedKeysType;
   usedKeysBackupOnboarding: UsedKeysType;
+  disableAllKeys: boolean;
 }
 interface KeysStoreActions {
   setUsedKeys: (values: KeyResult[]) => void;
   setKeyboardOnboarding: (usedKeys: UsedKeysType) => void;
   setUsedKeysBackupOnboarding: () => void;
   resetKeyboardOnboarding: () => void;
+  setDisableAllKeys: (data: boolean) => void;
 }
 
 type KeysStore = KeysStoreStates & KeysStoreActions;
@@ -26,11 +28,13 @@ type KeysStore = KeysStoreStates & KeysStoreActions;
 const initialState: KeysStoreStates = {
   usedKeys: {},
   usedKeysBackupOnboarding: {},
+  disableAllKeys: false,
 };
 
 export const useKeysStore = createWithEqualityFn<KeysStore>(
   (set, get) => ({
     ...initialState,
+    setDisableAllKeys: (disableAllKeys: boolean) => set({ disableAllKeys }),
     resetKeyboardOnboarding: () =>
       set({
         usedKeys: get().usedKeysBackupOnboarding,

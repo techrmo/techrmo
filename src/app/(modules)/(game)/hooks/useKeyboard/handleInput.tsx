@@ -29,7 +29,15 @@ export const useHandleInput = () => {
       return;
     }
 
-    if (isBackSpaceKey) {
+    if (isBackSpaceKey && currentInputElement.value) {
+      updateCurrentInputAndValues(currentInputElement, '', 'PREVIOUS');
+      currentInputElement?.setAttribute('data-focused', 'true');
+      return;
+    }
+
+    if (isBackSpaceKey && !currentInputElement.value && previousInput) {
+      previousInput.value = '';
+
       updateCurrentInputAndValues(previousInput, '', 'PREVIOUS');
     }
   };

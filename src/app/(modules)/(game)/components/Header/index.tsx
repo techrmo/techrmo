@@ -3,7 +3,7 @@
 import Image from 'next/image';
 
 import { useOnboardingStore } from '@/shared/stores/onboardingStore';
-import TooltipUI from '@/shared/components/TooltipUI';
+import TooltipUI from '@/shared/components/ui/Tooltip';
 
 import Profile from '../Profile';
 
@@ -17,7 +17,13 @@ const Header = () => {
   return (
     <header className={styles.container}>
       <div>
-        <Image src="/logo.svg" alt="Logo techrmo" width={150} height={50} />
+        <Image
+          src="/logo-medium.svg"
+          alt="Logo techrmo"
+          width={150}
+          height={50}
+          crossOrigin="anonymous"
+        />
         <TooltipUI content="Como jogar?" side="bottom">
           <button
             className={styles.helpButton}

@@ -1,6 +1,3 @@
-import { auth } from 'firebase-admin';
-import { cookies } from 'next/headers';
-
 import { getCurrentAttemptPlayer } from '@/app/api/(services)/attempts';
 import { getCurrentWord } from '@/app/api/(services)/words';
 import type { GameStatus } from '@/shared/constants/GameStatus';
@@ -15,7 +12,7 @@ const getResult = async (status: GameStatus) => {
 
   return {
     value: '',
-    explanation: '',
+    explanations: [],
   };
 };
 
@@ -67,7 +64,7 @@ export const getCurrentAttemptPlayerService = async () => {
   return {
     keyResult,
     response: result?.value || '',
-    explanation: result?.explanation || '',
+    explanations: result?.explanations || [],
     status: attempt.statusAttempt,
     resultsOfAttempts,
     values: [...values, []],

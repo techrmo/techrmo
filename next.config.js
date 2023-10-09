@@ -14,6 +14,14 @@ const nextConfig = {
         destination: '/docs/index.html',
       },
     ];
+  },
+  images: {
+    remotePatterns: [
+        {
+          protocol: 'https',
+          hostname: 'avatars.githubusercontent.com',
+        },
+    ],  
   }
 };
 

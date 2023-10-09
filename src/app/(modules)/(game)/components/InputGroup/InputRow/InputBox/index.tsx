@@ -5,7 +5,7 @@ import useInputVariant from '@/app/(modules)/(game)/hooks/useInputVariant';
 import { useFormStore } from '@/app/(modules)/(game)/stores/Form';
 import type { RowColumnIndex } from '@/app/(modules)/(game)/stores/Form/FormSlice';
 import useStore from '@/shared/hooks/useStore';
-import InputBoxUI from '@/shared/components/InputBoxUI';
+import InputBoxUI from '@/shared/components/ui/InputBox';
 
 interface InputBoxProps {
   columnIndex: RowColumnIndex;

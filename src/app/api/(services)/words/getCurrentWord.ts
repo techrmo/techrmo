@@ -8,7 +8,7 @@ export const getCurrentWord = async () => {
       words(where: { isCurrent: true }) {
         id
         value
-        explanation
+        explanations
       }
     }
   `;

@@ -2,6 +2,8 @@ import { Poppins, Roboto } from 'next/font/google';
 
 import '@/shared/scss/main.scss';
 
+import GoogleAnalytics from '@/shared/components/GoogleAnalytics';
+
 const poppins = Poppins({
   weight: ['300', '500', '800'],
   subsets: ['latin'],
@@ -15,7 +17,7 @@ const roboto = Roboto({
 
 export const metadata = {
   title: 'Techrmo',
-  description: 'Advinhe a tech do dia',
+  description: 'Adivinhe a palavra do dia relacionada a tecnologia',
   appleWebApp: true,
   viewport: {
     width: 'device-width',
@@ -39,6 +41,7 @@ export default function RootLayout({
         <meta name="theme-color" content="#000000" />
       </head>
       <body className={`${poppins.variable} ${roboto.variable}`}>
+        <GoogleAnalytics />
         {children}
       </body>
     </html>

@@ -13,6 +13,7 @@ import { useOnboardingStore } from '@/shared/stores/onboardingStore';
 
 import { useFormStore } from '../../stores/Form';
 import { useKeysStore } from '../../stores/KeysStore';
+import { useResultStore } from '../../stores/ResultStore';
 
 import InputStep from './Steps/Input';
 import InputStep2 from './Steps/Input2';
@@ -39,15 +40,24 @@ const Onboarding = () => {
     }),
     shallow
   );
+  const { resetResultOnboarding, setResultBackupOnboarding } = useResultStore(
+    (store) => ({
+      resetResultOnboarding: store.resetResultOnboarding,
+      setResultBackupOnboarding: store.setResultBackupOnboarding,
+    }),
+    shallow
+  );
   const {
     setKeyboardOnboarding,
     resetKeyboardOnboarding,
     setUsedKeysBackupOnboarding,
+    setDisableAllKeys,
   } = useKeysStore(
     (store) => ({
       setKeyboardOnboarding: store.setKeyboardOnboarding,
       resetKeyboardOnboarding: store.resetKeyboardOnboarding,
       setUsedKeysBackupOnboarding: store.setUsedKeysBackupOnboarding,
+      setDisableAllKeys: store.setDisableAllKeys,
     }),
     shallow
   );
@@ -137,6 +147,8 @@ const Onboarding = () => {
     if (isOpenOnboarding) {
       setUsedKeysBackupOnboarding();
       setValuesBackupOnboarding();
+      setResultBackupOnboarding();
+      setDisableAllKeys(true);
       return;
     }
   }, [isOpenOnboarding]);
@@ -171,6 +183,8 @@ const Onboarding = () => {
       openOnboarding();
       resetKeyboardOnboarding();
       resetValuesOnboarding();
+      resetResultOnboarding();
+      setDisableAllKeys(false);
     }
   };
 
@@ -181,12 +195,13 @@ const Onboarding = () => {
       disableScrollParentFix
       disableScrolling
       showProgress
+      continuous
       callback={handleJoyrideCallback}
       locale={{
         next: 'Próximo',
         close: 'Fechar',
         back: 'Voltar',
-        last: 'Último',
+        last: 'Fechar',
         open: 'Abrir',
         skip: 'Pular',
       }}
@@ -211,7 +226,6 @@ const Onboarding = () => {
           overflow: 'hidden',
         },
       }}
-      continuous
     />
   );
 };

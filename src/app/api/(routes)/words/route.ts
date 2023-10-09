@@ -79,7 +79,7 @@ async function POST(request: NextRequest) {
   return NextResponse.json({
     results,
     status,
-    ...(status !== 'PLAYING' ? { explanation: secretWord.explanation } : {}),
+    explanations: status !== 'PLAYING' ? secretWord.explanations : [],
   });
 }
 

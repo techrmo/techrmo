@@ -39,3 +39,5 @@ public/docs/*
 dist/*
 
 .env
+
+words.json

@@ -2,7 +2,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { redirect } from 'next/navigation';
 
-import InputBoxUI from '@/shared/components/InputBoxUI/InputBoxUI';
+import InputBoxUI from '@/shared/components/ui/InputBox';
 import { getCurrentUser } from '@/shared/services/getCurrentUser';
 
 import LoginButton from '../components/LoginButton';

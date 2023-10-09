@@ -5,17 +5,19 @@ import styles from './styles.module.scss';
 
 interface KeyUIProps {
   variant: LetterResult | undefined;
-  value: Keys;
+  value: Keys | 'É' | 'techrmo.app';
+  disabled?: boolean;
   handleKeyUp?: () => void;
 }
 
-const KeyUI = ({ value, variant, handleKeyUp }: KeyUIProps) => {
+const KeyUI = ({ value, variant, disabled, handleKeyUp }: KeyUIProps) => {
   return (
     <button
       className={`${styles.container} key-${value}`}
       data-variant={variant}
       onClick={handleKeyUp}
       type="button"
+      disabled={disabled}
       translate="no"
     >
       {value}

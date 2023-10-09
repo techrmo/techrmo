@@ -12,7 +12,15 @@ import { InputFormSlice, createInputFormSlice } from './InputFormSlice';
 type UseForm = InputSlice & FormSlice & AttemptSlice & InputFormSlice;
 
 export type InitialStoreForm = Partial<UseForm> &
-  Omit<ResultStore, 'changeResult'> & { keyResult: KeyResult[] };
+  Omit<
+    ResultStore,
+    | 'changeResult'
+    | 'setResultBackupOnboarding'
+    | 'resetResultOnboarding'
+    | 'statusBackup'
+  > & {
+    keyResult: KeyResult[];
+  };
 interface UseFormStoreActions {
   setInitialState: (data: InitialStoreForm) => void;
 }
@@ -29,14 +37,14 @@ export const useFormStore = createWithEqualityFn<UseForm & UseFormStoreActions>(
     setInitialState: ({
       response,
       status,
-      explanation,
+      explanations,
       keyResult,
       ...store
     }) => {
       useResultStore.getState().changeResult({
         response,
         status,
-        explanation,
+        explanations,
       });
       useKeysStore.getState().setUsedKeys(keyResult);
 

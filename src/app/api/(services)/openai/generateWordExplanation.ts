@@ -12,8 +12,8 @@ const openai = new OpenAIApi(configuration);
 export const generateWordExplanation = async (value: string) => {
   try {
     const chatCompletion = await openai.createChatCompletion({
-      model: 'gpt-3.5-turbo',
-      temperature: 0.8,
+      model: 'gpt-4',
+
       top_p: 1.0,
       messages: [
         {
@@ -23,12 +23,13 @@ export const generateWordExplanation = async (value: string) => {
         },
         {
           role: 'user',
-          content: value,
+          content:
+            'Me traga 100 palavras relacionadas a programação que conteham exatamente 5 caracteres e junto me traz a explicação curta de cada uma delas.',
         },
       ],
     });
 
-    return chatCompletion.data.choices;
+    return chatCompletion.data;
   } catch (error) {
     if (axios.isAxiosError(error)) {
       console.error(error.response);

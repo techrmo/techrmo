@@ -5,9 +5,10 @@ import type {
   ResponseWord,
 } from '../../validators/responseWords';
 import { inputSchema } from '../../validators/input';
-import { verifyWord } from '../../services/wordsService';
+import { verifyWordService } from '../../services/verifyWordService';
 import { useKeysStore } from '../KeysStore';
 import { useResultStore } from '../ResultStore';
+import { useFinishedDialogStore } from '../DialogFinishedStore';
 
 import type { GetFormState, SetFormState } from '.';
 
@@ -88,18 +89,19 @@ export const createAttemptSlice = (
       const {
         results: resultOfAttempt,
         status: resultStatus,
-        explanation,
-      } = await verifyWord(parsedValues);
+        explanations,
+      } = await verifyWordService(parsedValues);
 
       setUsedKeys(resultOfAttempt);
       setResultsOfAttempts(resultOfAttempt);
 
-      if (resultStatus !== 'PLAYING' && explanation) {
+      if (resultStatus !== 'PLAYING' && explanations) {
         useResultStore.getState().changeResult({
           status: resultStatus,
           response: resultOfAttempt.map((result) => result.value).join(''),
-          explanation,
+          explanations,
         });
+        useFinishedDialogStore.setState({ isOpen: true });
         resetState();
       }
     } catch (error) {

@@ -1,0 +1,129 @@
+@use "abstracts" as *;
+
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  color: $color-gray-100;
+  background: none;
+  border: none;
+  position: relative;
+
+  padding: 6px 16px;
+
+  border-radius: 25px;
+  z-index: 10;
+  transition: all 1s;
+
+  $buttons-sizes: (
+    small: 1.125rem,
+    medium: 1.5rem,
+    large: 1.875rem,
+  );
+
+  @each $type, $size in $buttons-sizes {
+    &[data-size="#{$type}"] {
+      font-size: #{$size};
+    }
+  }
+
+  &[data-variant="outlined-green"] {
+    border: 2px solid $color-green-800;
+
+    &:before {
+      background: linear-gradient(
+        45deg,
+        #00fe44,
+        #ffffff,
+        #1d6430,
+        #294230,
+        #77d891
+      );
+    }
+  }
+
+  &[data-variant="outlined-yellow"] {
+    border: 2px solid $color-yellow-800;
+
+    &:before {
+      background: linear-gradient(
+        45deg,
+        #ffe927,
+        #ffffff,
+        #fffb00,
+        #61590f,
+        #e0cd22
+      );
+    }
+  }
+
+  &[data-variant="contained-green"] {
+    background: $color-green-900;
+
+    color: $color-gray-900;
+
+    &:hover {
+      border: 1px solid $color-green-800;
+    }
+  }
+
+  &[data-variant="contained-yellow"] {
+    background: $color-yellow-800;
+  }
+
+  &[data-variant="text-green"] {
+    color: $color-green-800;
+  }
+
+  &[data-variant="text-yellow"] {
+    color: $color-yellow-800;
+  }
+
+  &[data-variant="outlined-yellow"],
+  &[data-variant="outlined-green"] {
+    &:before {
+      content: "";
+      position: absolute;
+      top: -2px;
+      left: -2px;
+      background-size: 400%;
+      z-index: -1;
+      filter: blur(5px);
+      width: calc(100% + 4px);
+      height: calc(100% + 4px);
+      animation: glowing 20s linear infinite;
+      opacity: 0;
+      transition: opacity 0.3s ease-in-out;
+      border-radius: 25px;
+    }
+
+    &:hover:before {
+      opacity: 1;
+    }
+
+    &:after {
+      z-index: -1;
+      content: "";
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      background: #111;
+      left: 0;
+      top: 0;
+      border-radius: 25px;
+    }
+  }
+}
+
+@keyframes glowing {
+  0% {
+    background-position: 0 0;
+  }
+  50% {
+    background-position: 400% 0;
+  }
+  100% {
+    background-position: 0 0;
+  }
+}

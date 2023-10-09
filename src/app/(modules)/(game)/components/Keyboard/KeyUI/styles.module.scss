@@ -10,32 +10,32 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  
+
   background-color: $color-gray-700;
-  
+
   border: none;
   border-radius: 5px;
-  
+
   font-size: clamp(1.125rem, 2vw, 1.25rem);
   font-weight: 600;
   color: $color-gray-100;
-  
+
   margin: 3px;
   padding: min(16px, 3.6vw);
-  
+
   $items: (
-    incorrect: $color-gray-600, 
-    correct: $color-green-900, 
-    bad-position: $color-yellow-900
+    incorrect: $color-gray-600,
+    correct: $color-green-900,
+    bad-position: $color-yellow-900,
   );
-    
+
   @each $item, $color in $items {
-    &[data-variant="#{$item}"]  {
+    &[data-variant="#{$item}"] {
       background: #{$color};
       color: $color-gray-700;
 
-      @if($item == incorrect) {
-        color: $color-brow-500;
+      @if ($item == incorrect) {
+        color: $color-brown-500;
       }
     }
   }

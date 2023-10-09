@@ -1,6 +1,6 @@
 import { ReactNode } from 'react';
 
-import LoadingUI from '@/shared/components/LoadingUI';
+import LoadingUI from '@/shared/components/ui/Loading';
 import { useFormStore } from '@/app/(modules)/(game)/stores/Form';
 
 import styles from './styles.module.scss';

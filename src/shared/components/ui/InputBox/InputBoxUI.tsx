@@ -7,6 +7,7 @@ import styles from './styles.module.scss';
 interface InputBoxProps {
   variant: InputBoxVariant;
   isActiveRow?: boolean;
+  isHidden?: boolean;
   handleFocus?: () => void;
   defaultValue?: string;
   className?: string;
@@ -14,7 +15,14 @@ interface InputBoxProps {
 
 const InputBoxUI = forwardRef<HTMLInputElement, InputBoxProps>(
   (
-    { isActiveRow = true, variant, handleFocus, defaultValue, className = '' },
+    {
+      isActiveRow = true,
+      isHidden = false,
+      variant,
+      handleFocus,
+      defaultValue,
+      className = '',
+    },
     ref
   ) => {
     return (
@@ -28,6 +36,7 @@ const InputBoxUI = forwardRef<HTMLInputElement, InputBoxProps>(
         maxLength={1}
         disabled={!isActiveRow}
         data-variant={variant}
+        data-hidden={isHidden}
         pattern="[a-zA-Z]"
         onFocus={handleFocus}
         translate="no"
