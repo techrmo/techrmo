@@ -38,11 +38,11 @@
       "no-descending-specificity": null
     }
   },
-  "colorize.colorized_variables": [
-    "SASS"
-  ],
+  "colorize.colorized_variables": ["SASS"],
   "sonarlint.connectedMode.project": {
     "connectionId": "techrmo",
     "projectKey": "techrmo"
   },
+  "npm.packageManager": "npm",
+  "testing.automaticallyOpenPeekView": "never"
 }
