@@ -14,6 +14,7 @@
 
   border-radius: 25px;
   z-index: 10;
+  transition: all 1s;
 
   $buttons-sizes: (
     small: 1.125rem,
@@ -58,8 +59,13 @@
   }
 
   &[data-variant="contained-green"] {
-    background: $color-green-800;
+    background: $color-green-900;
+
     color: $color-gray-900;
+
+    &:hover {
+      border: 1px solid $color-green-800;
+    }
   }
 
   &[data-variant="contained-yellow"] {

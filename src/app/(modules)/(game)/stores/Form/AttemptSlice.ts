@@ -8,6 +8,7 @@ import { inputSchema } from '../../validators/input';
 import { verifyWordService } from '../../services/verifyWordService';
 import { useKeysStore } from '../KeysStore';
 import { useResultStore } from '../ResultStore';
+import { useFinishedDialogStore } from '../DialogFinishedStore';
 
 import type { GetFormState, SetFormState } from '.';
 
@@ -100,6 +101,7 @@ export const createAttemptSlice = (
           response: resultOfAttempt.map((result) => result.value).join(''),
           explanations,
         });
+        useFinishedDialogStore.setState({ isOpen: true });
         resetState();
       }
     } catch (error) {

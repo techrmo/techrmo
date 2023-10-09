@@ -24,8 +24,6 @@ export const useScreenshot = <T extends HTMLElement>(mounted: boolean) => {
 
         const image = canvas.toDataURL('image/png', 1);
 
-        console.log(image);
-
         const response = await axios.get<Blob>(image, {
           responseType: 'blob',
         });

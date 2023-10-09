@@ -24,10 +24,7 @@ const initialState: State = {
 export const useResultStore = createWithEqualityFn<ResultStore>(
   (set) => ({
     ...initialState,
-    changeResult: (data: State) => {
-      useFinishedDialogStore.setState({ isOpen: true });
-      set(data);
-    },
+    changeResult: (data: State) => set(data),
   }),
   Object.is
 );
