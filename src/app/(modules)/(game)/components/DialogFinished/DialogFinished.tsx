@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
+import { getAuth } from 'firebase/auth';
 
 import { Dialog } from '@/shared/components/core/Dialog';
 
@@ -15,12 +16,16 @@ import { DialogFooterButtons } from './DialogFooterButtons';
 import styles from './styles.module.scss';
 
 export const DialogFinished = () => {
+  const { currentUser } = getAuth();
   const [mounted, setMounted] = useState(false);
   const [isExplanation, setIsExplanation] = useState(false);
 
+  const userName = currentUser?.displayName;
   const status = useResultStore((store) => store.status);
   const isOpen = useFinishedDialogStore((store) => store.isOpen);
-  const { file, ref } = useScreenshot<HTMLDivElement>(mounted && isOpen);
+  const { file, ref } = useScreenshot<HTMLDivElement>(
+    mounted && isOpen && !!userName
+  );
 
   useEffect(() => {
     setMounted(true);
@@ -42,13 +47,13 @@ export const DialogFinished = () => {
     return '';
   };
 
-  if (!mounted || !isOpen) {
+  if (!mounted || !isOpen || !userName) {
     return null;
   }
 
   return (
     <>
-      <ShareComponent ref={ref} />
+      <ShareComponent ref={ref} userName={userName} />
       <Dialog
         useDialogStore={useFinishedDialogStore}
         title={getTitle()}
