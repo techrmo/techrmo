@@ -13,6 +13,7 @@ import { useOnboardingStore } from '@/shared/stores/onboardingStore';
 
 import { useFormStore } from '../../stores/Form';
 import { useKeysStore } from '../../stores/KeysStore';
+import { useResultStore } from '../../stores/ResultStore';
 
 import InputStep from './Steps/Input';
 import InputStep2 from './Steps/Input2';
@@ -36,6 +37,13 @@ const Onboarding = () => {
       setFormOnboarding: store.setFormOnboarding,
       resetValuesOnboarding: store.resetValuesOnboarding,
       setValuesBackupOnboarding: store.setValuesBackupOnboarding,
+    }),
+    shallow
+  );
+  const { resetResultOnboarding, setResultBackupOnboarding } = useResultStore(
+    (store) => ({
+      resetResultOnboarding: store.resetResultOnboarding,
+      setResultBackupOnboarding: store.setResultBackupOnboarding,
     }),
     shallow
   );
@@ -139,6 +147,7 @@ const Onboarding = () => {
     if (isOpenOnboarding) {
       setUsedKeysBackupOnboarding();
       setValuesBackupOnboarding();
+      setResultBackupOnboarding();
       setDisableAllKeys(true);
       return;
     }
@@ -174,6 +183,7 @@ const Onboarding = () => {
       openOnboarding();
       resetKeyboardOnboarding();
       resetValuesOnboarding();
+      resetResultOnboarding();
       setDisableAllKeys(false);
     }
   };
