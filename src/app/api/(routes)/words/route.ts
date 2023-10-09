@@ -80,6 +80,7 @@ async function POST(request: NextRequest) {
     results,
     status,
     explanations: status !== 'PLAYING' ? secretWord.explanations : [],
+    ...(status !== 'PLAYING' ? { response: secretWord.value } : {}),
   });
 }
 

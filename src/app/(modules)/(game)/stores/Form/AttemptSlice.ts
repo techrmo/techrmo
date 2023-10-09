@@ -90,15 +90,16 @@ export const createAttemptSlice = (
         results: resultOfAttempt,
         status: resultStatus,
         explanations,
+        response,
       } = await verifyWordService(parsedValues);
 
       setUsedKeys(resultOfAttempt);
       setResultsOfAttempts(resultOfAttempt);
 
-      if (resultStatus !== 'PLAYING' && explanations) {
+      if (resultStatus !== 'PLAYING' && explanations && response) {
         useResultStore.getState().changeResult({
           status: resultStatus,
-          response: resultOfAttempt.map((result) => result.value).join(''),
+          response,
           explanations,
         });
         useFinishedDialogStore.setState({ isOpen: true });
