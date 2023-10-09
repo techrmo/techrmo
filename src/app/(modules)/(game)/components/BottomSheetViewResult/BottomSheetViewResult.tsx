@@ -16,7 +16,7 @@ export const BottomSheetViewResult = () => {
   return (
     <div className={styles.container}>
       <p>
-        Voce já jogou a <br /> palavra de hoje!
+        Você já jogou a <br /> palavra de hoje!
       </p>
 
       <Button

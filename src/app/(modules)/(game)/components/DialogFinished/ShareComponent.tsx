@@ -6,7 +6,7 @@ import styles from './styles.module.scss';
 
 import { Logo } from '@/shared/assets/icons/Logo';
 
-export const ShareComponent = forwardRef<HTMLDivElement>((props, ref) => {
+export const ShareComponent = forwardRef<HTMLDivElement>((_props, ref) => {
   return (
     <div id="screenshot" ref={ref} className={styles.shareComponent}>
       <Logo />
