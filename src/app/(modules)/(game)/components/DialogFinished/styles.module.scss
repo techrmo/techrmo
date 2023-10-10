@@ -83,12 +83,10 @@
   }
 
   button:nth-child(1) {
-    display: block;
     overflow: hidden;
     text-align: center;
     padding: 0;
     width: 200px;
-
     border: 1px solid $color-green-800;
     transition: 0.2s;
   }
@@ -102,15 +100,11 @@
     margin-left: 60px;
   }
 
-  & button span:nth-child(1) {
-    margin-top: 9.5px;
-  }
-
   button span:nth-child(2) {
-    position: relative;
+    position: absolute;
     width: 200px;
     height: 100px;
-    margin-top: -88px;
+    margin-top: -50px;
     background: linear-gradient(
       180deg,
       #000 0%,
