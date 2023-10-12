@@ -36,6 +36,7 @@
     }
   },
   "rules": {
+    "@typescript-eslint/unbound-method": "off",
     "import/default": "off",
     "linebreak-style": "off",
     "prettier/prettier": [
@@ -67,31 +68,31 @@
     "object-shorthand": "error",
     "no-console": "warn",
     "import/order": [
-      1, 
-      { 
+      1,
+      {
         "newlines-between": "always",
         "groups": [
-          "external", 
-          "builtin", 
-          "internal", 
-          "parent", 
+          "external",
+          "builtin",
+          "internal",
+          "parent",
           "index",
           "sibling"
         ],
         "pathGroups": [
-          { 
-            "pattern": "react", 
+          {
+            "pattern": "react",
             "group": "builtin",
-            "position": "before" 
-          }, 
-          { 
-            "pattern": "*/components", 
-            "group": "internal" 
-          }, 
-          { 
-            "pattern": "@/shared/assets/**", 
-            "group": "sibling", 
-            "position": "after" 
+            "position": "before"
+          },
+          {
+            "pattern": "*/components",
+            "group": "internal"
+          },
+          {
+            "pattern": "@/shared/assets/**",
+            "group": "sibling",
+            "position": "after"
           }
         ]
       }

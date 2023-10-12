@@ -4,8 +4,8 @@ import { requestGraphQl } from '../hygraph';
 
 interface UpsertPlayerData {
   image?: string;
+  name?: string;
   email: string;
-  name: string;
 }
 
 export const upsertPlayer = async (data: UpsertPlayerData) => {
@@ -21,7 +21,6 @@ export const upsertPlayer = async (data: UpsertPlayerData) => {
             }
             update: {
               profileImage: "${data.image}",
-              name: "${data.name}"
             }
           }
           where: { email: "${data.email}" }

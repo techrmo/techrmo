@@ -9,7 +9,6 @@ import { AuthError } from '../../(errors)/AuthError';
 
 async function POST() {
   const authorization = headers().get('Authorization');
-
   if (!authorization?.startsWith('Bearer ')) {
     throw new AuthError('Usuário não autorizado', 401);
   }
@@ -46,21 +45,21 @@ async function GET() {
   const session = cookies().get('session')?.value;
 
   if (!session) {
-    return NextResponse.json({ isLogged: false }, { status: 401 });
+    throw new AuthError('Usuário não autorizado', 401);
   }
 
   const decodedClaims = await auth().verifySessionCookie(session, true);
 
   if (!decodedClaims) {
-    throw new AppError('Usuário não autorizado', 401);
+    throw new AuthError('Usuário não autorizado', 401);
   }
 
   const { uid } = decodedClaims;
 
   const user = await auth().getUser(uid);
 
-  if (!user.email || !user.displayName) {
-    throw new AppError('Usuário não autorizado', 401);
+  if (!user.email) {
+    throw new AuthError('Usuário não autorizado', 401);
   }
 
   upsertPlayer({
@@ -70,7 +69,7 @@ async function GET() {
   })
     .then(() => console.log(`Usuário ${uid} criado/atualizado`))
     .catch((error) =>
-      console.error(`Não foi criar/atualizar o usuário ${uid}`, error)
+      console.error(`Não foi possível criar/atualizar o usuário ${uid}`, error)
     );
 
   return NextResponse.json({ isLogged: true }, { status: 200 });

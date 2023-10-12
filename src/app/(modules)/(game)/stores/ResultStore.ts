@@ -36,7 +36,7 @@ export const useResultStore = createWithEqualityFn<ResultStore>(
     setResultBackupOnboarding: () =>
       set({
         statusBackup: get().status,
-        status: 'PLAYING',
+        status: 'ONBOARDING',
       }),
   }),
   Object.is

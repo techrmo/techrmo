@@ -17,19 +17,12 @@ import styles from './styles.module.scss';
 
 export const DialogFinished = () => {
   const { currentUser } = getAuth();
-  const [mounted, setMounted] = useState(false);
   const [isExplanation, setIsExplanation] = useState(false);
 
   const userName = currentUser?.displayName;
   const status = useResultStore((store) => store.status);
   const isOpen = useFinishedDialogStore((store) => store.isOpen);
-  const { file, ref } = useScreenshot<HTMLDivElement>(
-    mounted && isOpen && !!userName
-  );
-
-  useEffect(() => {
-    setMounted(true);
-  }, []);
+  const { file, ref } = useScreenshot<HTMLDivElement>(isOpen && !!userName);
 
   const getTitle = () => {
     if (isExplanation) {
@@ -47,13 +40,13 @@ export const DialogFinished = () => {
     return '';
   };
 
-  if (!mounted || !isOpen || !userName) {
+  if (!isOpen) {
     return null;
   }
 
   return (
     <>
-      <ShareComponent ref={ref} userName={userName} />
+      {userName && <ShareComponent ref={ref} userName={userName} />}
       <Dialog
         useDialogStore={useFinishedDialogStore}
         title={getTitle()}

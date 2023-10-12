@@ -2,13 +2,15 @@ import useStore from '@/shared/hooks/useStore';
 
 import { useFormStore } from '../stores/Form';
 import { RowColumnIndex } from '../stores/Form/FormSlice';
+import { useResultStore } from '../stores/ResultStore';
 
 export type InputBoxVariant =
   | 'inactive'
   | 'active'
   | 'incorrect'
   | 'correct'
-  | 'bad-position';
+  | 'bad-position'
+  | 'onboarding';
 
 interface UseInputVariantProps {
   columnIndex: RowColumnIndex;
@@ -23,8 +25,9 @@ const useInputVariant = ({
 }: UseInputVariantProps): InputBoxVariant => {
   const resultOfAttempt = useStore(
     useFormStore,
-    (state) => state.resultsOfAttempts
+    (store) => store.resultsOfAttempts
   );
+  const status = useStore(useResultStore, (store) => store.status);
   const currentRow = resultOfAttempt?.at(rowIndex);
   const currentBox = currentRow?.at(columnIndex);
 
@@ -32,7 +35,10 @@ const useInputVariant = ({
     return currentBox;
   }
 
-  // @todo verificar se o input atual tbm é vazio
+  if (status === 'ONBOARDING' && rowIndex === 0) {
+    return 'onboarding';
+  }
+
   if (!isActiveRow) {
     return 'inactive';
   }

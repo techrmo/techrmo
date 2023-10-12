@@ -9,10 +9,14 @@ interface DialogFooterButtonsProps {
   file: File | null;
 }
 
+type CanShare = ((data?: ShareData | undefined) => boolean) | undefined;
+
 export const DialogFooterButtons = ({
   file,
   goToExplanation,
 }: DialogFooterButtonsProps) => {
+  const canShare = navigator.canShare as CanShare;
+
   const share = () => {
     if (!file) {
       return;
@@ -27,17 +31,20 @@ export const DialogFooterButtons = ({
 
   return (
     <div className={styles.dialogFooterButtons}>
-      <Button
-        onClick={share}
-        type="button"
-        variant="contained-green"
-        size="small"
-      >
-        <span>Compartilhar</span>
-        <span>
-          <ShareIcon fontSize={26} />
-        </span>
-      </Button>
+      {
+        <Button
+          onClick={share}
+          type="button"
+          variant="contained-green"
+          size="small"
+          id={styles.shareButton}
+        >
+          <span>Compartilhar</span>
+          <span>
+            <ShareIcon fontSize={26} />
+          </span>
+        </Button>
+      }
       <Button type="button" size="small" onClick={goToExplanation}>
         Ver explicação
       </Button>

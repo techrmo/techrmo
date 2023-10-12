@@ -1,4 +1,4 @@
-import { ComponentProps, ReactNode, forwardRef } from 'react';
+import { type ComponentProps, type ReactNode, forwardRef } from 'react';
 
 import styles from './styles.module.scss';
 
