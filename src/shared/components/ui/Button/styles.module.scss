@@ -17,6 +17,7 @@
   transition: all 1s;
 
   $buttons-sizes: (
+    extra-small: 0.875rem,
     small: 1.125rem,
     medium: 1.5rem,
     large: 1.875rem,
@@ -58,6 +59,21 @@
     }
   }
 
+  &[data-variant="outlined-red"] {
+    border: 2px solid $color-red-800;
+
+    &:before {
+      background: linear-gradient(
+        45deg,
+        $color-red-800,
+        #ffffff,
+        #de2b17,
+        #6c1d0f,
+        #e02522
+      );
+    }
+  }
+
   &[data-variant="contained-green"] {
     background: $color-green-900;
 
@@ -69,7 +85,13 @@
   }
 
   &[data-variant="contained-yellow"] {
-    background: $color-yellow-800;
+    background: $color-yellow-900;
+
+    color: $color-gray-900;
+
+    &:hover {
+      border: 1px solid $color-yellow-800;
+    }
   }
 
   &[data-variant="text-green"] {
@@ -89,7 +111,8 @@
   }
 
   &[data-variant="outlined-yellow"],
-  &[data-variant="outlined-green"] {
+  &[data-variant="outlined-green"],
+  &[data-variant="outlined-red"] {
     &:before {
       content: "";
       position: absolute;

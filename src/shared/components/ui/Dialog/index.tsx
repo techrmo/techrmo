@@ -5,7 +5,7 @@ import * as Dialog from '@radix-ui/react-dialog';
 
 import styles from './styles.module.scss';
 
-import { IcTwotoneClose } from '@/shared/assets/icons/CloseIcon';
+import { CloseIcon } from '@/shared/assets/icons/CloseIcon';
 
 export interface DialogUIProps {
   contentClassName: string;
@@ -34,7 +34,7 @@ const DialogUI = forwardRef<HTMLDivElement, DialogUIProps>(
               className={styles.close}
               onClick={close}
             >
-              <IcTwotoneClose />
+              <CloseIcon />
             </Dialog.Close>
           </Dialog.Content>
         </Dialog.Overlay>

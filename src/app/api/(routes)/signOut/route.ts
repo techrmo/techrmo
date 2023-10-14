@@ -3,7 +3,7 @@ import { NextResponse } from 'next/server';
 
 import { apiHandler } from '../../helpers/apiHandler';
 
-function POST() {
+function DestroySession() {
   const options = {
     name: 'session',
     value: '',
@@ -14,4 +14,4 @@ function POST() {
   return NextResponse.json({}, { status: 200 });
 }
 
-module.exports = apiHandler({ POST });
+export const { POST } = apiHandler({ POST: DestroySession });

@@ -2,16 +2,19 @@ import { type ComponentProps, type ReactNode, forwardRef } from 'react';
 
 import styles from './styles.module.scss';
 
+export type ButtonVariant =
+  | 'outlined-green'
+  | 'outlined-yellow'
+  | 'outlined-red'
+  | 'contained-green'
+  | 'contained-yellow'
+  | 'text-green'
+  | 'text-yellow';
+
 interface ButtonProps extends ComponentProps<'button'> {
   children: ReactNode;
-  size?: 'small' | 'medium' | 'large';
-  variant?:
-    | 'outlined-green'
-    | 'outlined-yellow'
-    | 'contained-green'
-    | 'contained-yellow'
-    | 'text-green'
-    | 'text-yellow';
+  size?: 'extra-small' | 'small' | 'medium' | 'large';
+  variant?: ButtonVariant;
 }
 
 const Button = forwardRef<HTMLButtonElement, ButtonProps>(
@@ -20,13 +23,14 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
       children,
       variant = 'outlined-green',
       size = 'medium',
+      className,
       ...rest
     }: ButtonProps,
     ref
   ) => (
     <button
       ref={ref}
-      className={styles.container}
+      className={`${className || ''} ${styles.container} `}
       data-variant={variant}
       data-size={size}
       {...rest}

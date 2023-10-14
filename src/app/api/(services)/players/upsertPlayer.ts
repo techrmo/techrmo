@@ -8,26 +8,30 @@ interface UpsertPlayerData {
   email: string;
 }
 
-export const upsertPlayer = async (data: UpsertPlayerData) => {
+export const upsertPlayer = async ({
+  name,
+  email,
+  image,
+}: UpsertPlayerData) => {
   try {
     const query = gql`
       mutation {
         upsertPlayer(
           upsert: {
             create: { 
-              profileImage: "${data.image}", 
-              name: "${data.name}", 
-              email: "${data.email}" 
+              email: "${email}",
+              profileImage: "${image}", 
+              ${name ? `name: "${name}"` : ''} 
             }
             update: {
-              profileImage: "${data.image}",
+              profileImage: "${image}",
             }
           }
-          where: { email: "${data.email}" }
+          where: { email: "${email}" }
         ) {
           id
         }
-        publishPlayer(where: {email: "${data.email}"}) {
+        publishPlayer(where: {email: "${email}"}) {
           id
         }
       }

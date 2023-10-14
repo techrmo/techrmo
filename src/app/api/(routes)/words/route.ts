@@ -13,7 +13,7 @@ import { letterResult } from '../../(services)/attempts/validators/attemptValues
 import { apiHandler } from '../../helpers/apiHandler';
 import { AppError } from '../../(errors)/AppError';
 
-async function POST(request: NextRequest) {
+async function VerifyWord(request: NextRequest) {
   const user = await getCurrentUser();
 
   if (!user) {
@@ -84,4 +84,4 @@ async function POST(request: NextRequest) {
   });
 }
 
-module.exports = apiHandler({ POST });
+export const { POST } = apiHandler({ POST: VerifyWord });

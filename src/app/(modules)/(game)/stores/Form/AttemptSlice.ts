@@ -1,4 +1,7 @@
+import { ZodError } from 'zod';
+
 import { delay } from '@/shared/helpers/delay';
+import { useToastStore } from '@/shared/stores/toastStore';
 
 import type {
   LetterResult,
@@ -106,7 +109,30 @@ export const createAttemptSlice = (
         resetState();
       }
     } catch (error) {
-      console.error(error);
+      const { addToast } = useToastStore.getState();
+
+      if (error instanceof ZodError) {
+        addToast({
+          title: 'Opa, vamos com calma!',
+          description:
+            'Você precisa digitar as 5 letras para realizar uma tentativa',
+          variant: 'warning',
+          duration: 5000,
+        });
+
+        return;
+      }
+
+      addToast({
+        title: 'Poxa, ocorreu um erro ao realizar a tentativa. ',
+        description:
+          'Tente atualizar a página e realizar a tentativa novamente.',
+        variant: 'error',
+        duration: 5000,
+      });
+      throw new Error('Algo de errado aconteceu na tentativa', {
+        cause: error,
+      });
     } finally {
       set({ isLoading: false, isBlockSend: false });
     }

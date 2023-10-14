@@ -43,6 +43,6 @@
     "connectionId": "techrmo",
     "projectKey": "techrmo"
   },
-  "npm.packageManager": "npm",
+  "npm.packageManager": "pnpm",
   "testing.automaticallyOpenPeekView": "never"
 }

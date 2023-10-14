@@ -3,11 +3,10 @@ import { cookies, headers } from 'next/headers';
 import { auth } from 'firebase-admin';
 
 import { apiHandler } from '../../helpers/apiHandler';
-import { AppError } from '../../(errors)/AppError';
 import { upsertPlayer } from '../../(services)/players';
 import { AuthError } from '../../(errors)/AuthError';
 
-async function POST() {
+async function CreateSession() {
   const authorization = headers().get('Authorization');
   if (!authorization?.startsWith('Bearer ')) {
     throw new AuthError('Usuário não autorizado', 401);
@@ -41,7 +40,7 @@ async function POST() {
   return NextResponse.json({}, { status: 200 });
 }
 
-async function GET() {
+async function VerifyUserSession() {
   const session = cookies().get('session')?.value;
 
   if (!session) {
@@ -75,4 +74,7 @@ async function GET() {
   return NextResponse.json({ isLogged: true }, { status: 200 });
 }
 
-module.exports = apiHandler({ POST, GET });
+export const { GET, POST } = apiHandler({
+  POST: CreateSession,
+  GET: VerifyUserSession,
+});
