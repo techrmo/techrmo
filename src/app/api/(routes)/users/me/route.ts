@@ -11,6 +11,8 @@ import { getPlayerByEmail } from '../../../(services)';
 async function ShowUserLogged() {
   const user = await getCurrentUserInSession();
 
+  console.log('ShowUserLogged', user);
+
   if (!user) {
     throw new AuthError('Usuário não autenticado', 401);
   }

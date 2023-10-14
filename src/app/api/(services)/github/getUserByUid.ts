@@ -1,6 +1,5 @@
-import axios from 'axios';
-
 import { githubUserSchema } from './validators/githubUser';
+import { githubApi } from './githubApi';
 
 export const getUserByUid = async (uid: string | undefined) => {
   if (!uid) {
@@ -8,7 +7,7 @@ export const getUserByUid = async (uid: string | undefined) => {
   }
 
   try {
-    const response = await axios.get(`https://api.github.com/user/${uid}`);
+    const response = await githubApi.get(`/user/${uid}`);
 
     const data = githubUserSchema.parse(response.data);
 

@@ -23,8 +23,6 @@ const LoginButton = () => {
     try {
       const response = await signInWithPopup(auth, provider);
 
-      console.log(response);
-
       await api.post(
         'login',
         {},

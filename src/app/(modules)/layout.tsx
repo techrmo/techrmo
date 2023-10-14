@@ -70,9 +70,7 @@ export default function RootLayout({
         <GoogleAnalytics />
       </head>
       <body className={`${poppins.variable} ${roboto.variable}`}>
-        <UserProvider>
-          <ToastProvider>{children}</ToastProvider>
-        </UserProvider>
+        <ToastProvider>{children}</ToastProvider>
       </body>
     </html>
   );

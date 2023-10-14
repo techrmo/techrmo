@@ -17,6 +17,7 @@ export const getCurrentUserInSession = async () => {
 
     return decodedClaims;
   } catch (error) {
+    console.error('eai', error);
     return null;
   }
 };
