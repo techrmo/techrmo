@@ -9,7 +9,7 @@ export const BottomSheetViewResult = () => {
   const open = useFinishedDialogStore((store) => store.open);
   const status = useResultStore((store) => store.status);
 
-  if (status === 'PLAYING') {
+  if (['PLAYING', 'ONBOARDING'].includes(status)) {
     return null;
   }
 
