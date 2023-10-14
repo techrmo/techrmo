@@ -1,4 +1,4 @@
-import { createWithEqualityFn } from 'zustand/traditional';
+import { create } from 'zustand';
 
 interface State {
   isOpenOnboarding: boolean;
@@ -10,14 +10,11 @@ interface Actions {
 
 type OnboardingStore = Actions & State;
 
-const initialState = {
+const initialState: State = {
   isOpenOnboarding: false,
 };
 
-export const useOnboardingStore = createWithEqualityFn<OnboardingStore>(
-  (set, get) => ({
-    ...initialState,
-    openOnboarding: () => set({ isOpenOnboarding: !get().isOpenOnboarding }),
-  }),
-  Object.is
-);
+export const useOnboardingStore = create<OnboardingStore>((set, get) => ({
+  ...initialState,
+  openOnboarding: () => set({ isOpenOnboarding: !get().isOpenOnboarding }),
+}));

@@ -1,4 +1,4 @@
-import { createWithEqualityFn } from 'zustand/traditional';
+import { create } from 'zustand';
 
 import type { LetterResult } from '../validators/responseWords';
 import type { Keys } from '../../../../shared/constants/Keys';
@@ -31,34 +31,31 @@ const initialState: KeysStoreStates = {
   disableAllKeys: false,
 };
 
-export const useKeysStore = createWithEqualityFn<KeysStore>(
-  (set, get) => ({
-    ...initialState,
-    setDisableAllKeys: (disableAllKeys: boolean) => set({ disableAllKeys }),
-    resetKeyboardOnboarding: () =>
-      set({
-        usedKeys: get().usedKeysBackupOnboarding,
-        usedKeysBackupOnboarding: {},
-      }),
-    setUsedKeysBackupOnboarding: () =>
-      set({
-        usedKeysBackupOnboarding: get().usedKeys,
-        usedKeys: {},
-      }),
-    setKeyboardOnboarding: (usedKeys: UsedKeysType = {}) => set({ usedKeys }),
-    setUsedKeys: (values: KeyResult[]) => {
-      const { usedKeys } = get();
+export const useKeysStore = create<KeysStore>((set, get) => ({
+  ...initialState,
+  setDisableAllKeys: (disableAllKeys: boolean) => set({ disableAllKeys }),
+  resetKeyboardOnboarding: () =>
+    set({
+      usedKeys: get().usedKeysBackupOnboarding,
+      usedKeysBackupOnboarding: {},
+    }),
+  setUsedKeysBackupOnboarding: () =>
+    set({
+      usedKeysBackupOnboarding: get().usedKeys,
+      usedKeys: {},
+    }),
+  setKeyboardOnboarding: (usedKeys: UsedKeysType = {}) => set({ usedKeys }),
+  setUsedKeys: (values: KeyResult[]) => {
+    const { usedKeys } = get();
 
-      const usedKeysParsed = values.reduce(
-        (previous, current) => ({
-          ...previous,
-          [current.value]: current.result,
-        }),
-        usedKeys
-      );
+    const usedKeysParsed = values.reduce(
+      (previous, current) => ({
+        ...previous,
+        [current.value]: current.result,
+      }),
+      usedKeys
+    );
 
-      set(() => ({ usedKeys: usedKeysParsed }));
-    },
-  }),
-  Object.is
-);
+    set(() => ({ usedKeys: usedKeysParsed }));
+  },
+}));

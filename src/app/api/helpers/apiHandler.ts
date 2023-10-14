@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 
 import { AppError } from '../(errors)/AppError';
-import { customInitApp } from '../(services)/frebaseAdmin/firebaseAdmin';
+import { customInitApp } from '../(services)/firebaseAdmin/firebaseAdmin';
 import { AuthError } from '../(errors)/AuthError';
 
 const httpMethods = ['GET', 'POST', 'PUT', 'PATCH', 'DELETE'] as const;

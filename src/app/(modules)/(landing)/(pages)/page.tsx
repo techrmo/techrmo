@@ -3,7 +3,7 @@ import Link from 'next/link';
 import { redirect } from 'next/navigation';
 
 import InputBoxUI from '@/shared/components/ui/InputBox';
-import { getCurrentUser } from '@/shared/services/getCurrentUser';
+import { getCurrentUserInSession } from '@/shared/services/getCurrentUserInSession';
 
 import LoginButton from '../components/LoginButton';
 
@@ -17,7 +17,7 @@ import FeInstagram from '@/shared/assets/icons/FeInstagram';
 import FormkitYoutube from '@/shared/assets/icons/FormkitYoutube';
 
 const Home = async () => {
-  const user = await getCurrentUser();
+  const user = await getCurrentUserInSession();
 
   if (user) {
     redirect('/game');

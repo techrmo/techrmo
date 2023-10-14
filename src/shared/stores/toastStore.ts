@@ -10,14 +10,23 @@ export interface Toast {
   variant: ToastVariant;
 }
 
-interface ToastStore {
+interface State {
   toasts: Toast[];
+}
+
+interface Actions {
   addToast: (toast: Omit<Toast, 'id'>) => void;
   removeToast: (id: string) => void;
 }
 
-export const useToastStore = create<ToastStore>((set, get) => ({
+interface ToastStore extends State, Actions {}
+
+const initialState: State = {
   toasts: [],
+};
+
+export const useToastStore = create<ToastStore>((set, get) => ({
+  ...initialState,
   addToast: (toast: Omit<Toast, 'id'>) =>
     set({
       toasts: [

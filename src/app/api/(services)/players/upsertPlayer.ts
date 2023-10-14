@@ -25,6 +25,7 @@ export const upsertPlayer = async ({
             }
             update: {
               profileImage: "${image}",
+              ${name ? `name: "${name}"` : ''} 
             }
           }
           where: { email: "${email}" }

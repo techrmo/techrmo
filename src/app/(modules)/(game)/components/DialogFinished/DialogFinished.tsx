@@ -1,9 +1,9 @@
 'use client';
 
-import { useEffect, useState } from 'react';
-import { getAuth } from 'firebase/auth';
+import { useState } from 'react';
 
 import { Dialog } from '@/shared/components/core/Dialog';
+import { useUserStore } from '@/shared/stores/userStore';
 
 import { useFinishedDialogStore } from '../../stores/DialogFinishedStore';
 import { useResultStore } from '../../stores/ResultStore';
@@ -16,13 +16,12 @@ import { DialogFooterButtons } from './DialogFooterButtons';
 import styles from './styles.module.scss';
 
 export const DialogFinished = () => {
-  const { currentUser } = getAuth();
   const [isExplanation, setIsExplanation] = useState(false);
 
-  const userName = currentUser?.displayName;
+  const user = useUserStore((store) => store.user);
   const status = useResultStore((store) => store.status);
   const isOpen = useFinishedDialogStore((store) => store.isOpen);
-  const { file, ref } = useScreenshot<HTMLDivElement>(isOpen && !!userName);
+  const { file, ref } = useScreenshot<HTMLDivElement>(isOpen && !!user?.name);
 
   const getTitle = () => {
     if (isExplanation) {
@@ -44,16 +43,20 @@ export const DialogFinished = () => {
     return null;
   }
 
+  if (!user) {
+    return null;
+  }
+
   return (
     <>
-      {userName && <ShareComponent ref={ref} userName={userName} />}
+      <ShareComponent ref={ref} userName={user.name} />
       <Dialog
         useDialogStore={useFinishedDialogStore}
         title={getTitle()}
         contentClassName={styles.content}
         titleClassName={styles.title}
       >
-        <DialogResponse />
+        <DialogResponse isExplanation={isExplanation} />
         {isExplanation ? (
           <DialogExplanations backToResult={() => setIsExplanation(false)} />
         ) : (

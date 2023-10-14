@@ -4,6 +4,7 @@ import { Poppins, Roboto } from 'next/font/google';
 import '@/shared/scss/main.scss';
 import GoogleAnalytics from '@/shared/components/core/GoogleAnalytics';
 import { ToastProvider } from '@/shared/components/core/ToastProvider';
+import { UserProvider } from '@/shared/components/core/UserProvider';
 
 const poppins = Poppins({
   weight: ['300', '500', '800'],
@@ -69,7 +70,9 @@ export default function RootLayout({
         <GoogleAnalytics />
       </head>
       <body className={`${poppins.variable} ${roboto.variable}`}>
-        <ToastProvider>{children}</ToastProvider>
+        <UserProvider>
+          <ToastProvider>{children}</ToastProvider>
+        </UserProvider>
       </body>
     </html>
   );

@@ -8,7 +8,6 @@ import { auth } from '@/shared/services/firebase';
 import { api } from '@/shared/services/api';
 import Button from '@/shared/components/ui/Button';
 import { useToastStore } from '@/shared/stores/toastStore';
-import { description } from '@/shared/components/ui/Toast/styles.module.scss';
 
 import MdiGithub from '@/shared/assets/icons/MdiGithub';
 
@@ -23,6 +22,8 @@ const LoginButton = () => {
     setButtonText('Carregando...');
     try {
       const response = await signInWithPopup(auth, provider);
+
+      console.log(response);
 
       await api.post(
         'login',

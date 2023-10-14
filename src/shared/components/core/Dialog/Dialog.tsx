@@ -1,6 +1,5 @@
-import { UseBoundStoreWithEqualityFn } from 'zustand/traditional';
-import { StoreApi } from 'zustand';
-import { shallow } from 'zustand/shallow';
+import { useShallow } from 'zustand/react/shallow';
+import type { StoreApi, UseBoundStore } from 'zustand';
 import { forwardRef } from 'react';
 
 import { DialogStore } from '@/shared/stores/dialogStore';
@@ -8,17 +7,16 @@ import { DialogStore } from '@/shared/stores/dialogStore';
 import DialogUI, { type DialogUIProps } from '../../ui/Dialog';
 
 interface DialogProps extends Omit<DialogUIProps, 'isOpen' | 'close'> {
-  useDialogStore: UseBoundStoreWithEqualityFn<StoreApi<DialogStore>>;
+  useDialogStore: UseBoundStore<StoreApi<DialogStore>>;
 }
 
 export const Dialog = forwardRef<HTMLDivElement, DialogProps>(
   ({ useDialogStore, ...rest }, ref) => {
     const { isOpen, close } = useDialogStore(
-      (store) => ({
+      useShallow((store) => ({
         isOpen: store.isOpen,
         close: store.close,
-      }),
-      shallow
+      }))
     );
 
     return <DialogUI ref={ref} isOpen={isOpen} close={close} {...rest} />;

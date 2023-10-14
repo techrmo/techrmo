@@ -15,6 +15,10 @@ export const DialogExplanations = ({
 }: DialogExplanationsProps) => {
   const [step, setStep] = useState(0);
   const explanations = useResultStore((store) => store.explanations);
+  const status = useResultStore((store) => store.status);
+  const isWin = status === 'WIN';
+
+  const buttonVariant = isWin ? 'green' : 'yellow';
 
   const showNextButton = explanations.length > step + 1;
 
@@ -34,14 +38,18 @@ export const DialogExplanations = ({
       <div>
         <Button
           size="small"
-          variant="text-green"
+          variant={`text-${buttonVariant}`}
           onClick={() => changeStep('PREVIOUS')}
         >
           Voltar
         </Button>
 
         {showNextButton && (
-          <Button size="small" onClick={() => changeStep('NEXT')}>
+          <Button
+            size="small"
+            variant={`outlined-${buttonVariant}`}
+            onClick={() => changeStep('NEXT')}
+          >
             Próximo
           </Button>
         )}

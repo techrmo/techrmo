@@ -2,11 +2,11 @@
 
 import * as DropdownMenu from '@radix-ui/react-dropdown-menu';
 import { useRouter } from 'next/navigation';
-import { getAuth, signOut } from 'firebase/auth';
-import { useEffect, useState } from 'react';
+import { signOut } from 'firebase/auth';
 
 import { auth as AuthFirebase } from '@/shared/services/firebase';
 import { api } from '@/shared/services/api';
+import { useUserStore } from '@/shared/stores/userStore';
 
 import styles from './styles.module.scss';
 
@@ -14,20 +14,13 @@ import defaultProfile from '@/shared/assets/defaultProfile.png';
 
 const Profile = () => {
   const router = useRouter();
-  const auth = getAuth();
-  const [user, setUser] = useState(auth.currentUser);
-
-  useEffect(() => {
-    const unsub = AuthFirebase.onAuthStateChanged((response) => {
-      setUser(response);
-    });
-
-    return () => unsub();
-  }, []);
+  const user = useUserStore((store) => store.user);
+  const setUser = useUserStore((store) => store.setUser);
 
   const handleSignOut = async () => {
     await signOut(AuthFirebase);
     await api.post('signOut');
+    setUser(null);
 
     router.push('/');
   };
@@ -41,8 +34,8 @@ const Profile = () => {
       <DropdownMenu.Trigger asChild>
         <button type="button" className={styles.container}>
           <img
-            src={user.photoURL || defaultProfile.src}
-            alt={`Perfil do ${user.displayName || ''}`}
+            src={user.profileImage || defaultProfile.src}
+            alt={`Perfil do ${user.name}`}
           />
         </button>
       </DropdownMenu.Trigger>
@@ -55,7 +48,7 @@ const Profile = () => {
           align="end"
         >
           <DropdownMenu.Label className={styles.dropdownMenuLabel}>
-            Logado como {user.displayName}
+            Logado como {user.name}
           </DropdownMenu.Label>
 
           <DropdownMenu.Item className={styles.dropdownMenuItem} disabled>

@@ -1,22 +1,11 @@
-import { auth } from 'firebase-admin';
-import { cookies } from 'next/headers';
+import { userSchema } from '../schema/userSchema';
 
-import { customInitApp } from '@/app/api/(services)/frebaseAdmin/firebaseAdmin';
-
-customInitApp();
+import { api } from './api';
 
 export const getCurrentUser = async () => {
-  const session = cookies().get('session')?.value;
+  const response = await api.get('users/me');
 
-  if (!session) {
-    return null;
-  }
+  const user = userSchema.parse(response.data);
 
-  try {
-    const decodedClaims = await auth().verifySessionCookie(session, true);
-
-    return decodedClaims;
-  } catch (error) {
-    return null;
-  }
+  return user;
 };

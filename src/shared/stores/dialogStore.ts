@@ -1,17 +1,23 @@
-import { createWithEqualityFn } from 'zustand/traditional';
+import { create } from 'zustand';
 
-export interface DialogStore {
+interface State {
   isOpen: boolean;
+}
+
+interface Actions {
   close: () => void;
   open: () => void;
 }
 
+export interface DialogStore extends State, Actions {}
+
+const initialState: State = {
+  isOpen: false,
+};
+
 export const createDialogStore = () =>
-  createWithEqualityFn<DialogStore>(
-    (set) => ({
-      isOpen: false,
-      close: () => set({ isOpen: false }),
-      open: () => set({ isOpen: true }),
-    }),
-    Object.is
-  );
+  create<DialogStore>((set) => ({
+    ...initialState,
+    close: () => set({ isOpen: false }),
+    open: () => set({ isOpen: true }),
+  }));

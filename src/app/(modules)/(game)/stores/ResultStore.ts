@@ -1,4 +1,4 @@
-import { createWithEqualityFn } from 'zustand/traditional';
+import { create } from 'zustand';
 
 import type { GameStatus } from '@/shared/constants/GameStatus';
 
@@ -24,20 +24,17 @@ const initialState: State = {
   response: null,
 };
 
-export const useResultStore = createWithEqualityFn<ResultStore>(
-  (set, get) => ({
-    ...initialState,
-    changeResult: (data: Omit<State, 'statusBackup'>) => set(data),
-    resetResultOnboarding: () =>
-      set({
-        statusBackup: 'PLAYING',
-        status: get().statusBackup,
-      }),
-    setResultBackupOnboarding: () =>
-      set({
-        statusBackup: get().status,
-        status: 'ONBOARDING',
-      }),
-  }),
-  Object.is
-);
+export const useResultStore = create<ResultStore>((set, get) => ({
+  ...initialState,
+  changeResult: (data: Omit<State, 'statusBackup'>) => set(data),
+  resetResultOnboarding: () =>
+    set({
+      statusBackup: 'PLAYING',
+      status: get().statusBackup,
+    }),
+  setResultBackupOnboarding: () =>
+    set({
+      statusBackup: get().status,
+      status: 'ONBOARDING',
+    }),
+}));

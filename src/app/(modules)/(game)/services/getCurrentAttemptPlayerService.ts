@@ -1,7 +1,7 @@
 import { getCurrentAttemptPlayer } from '@/app/api/(services)/attempts';
 import { getCurrentWord } from '@/app/api/(services)/words';
 import type { GameStatus } from '@/shared/constants/GameStatus';
-import { getCurrentUser } from '@/shared/services/getCurrentUser';
+import { getCurrentUserInSession } from '@/shared/services/getCurrentUserInSession';
 
 import { allowedRowIndexes } from '../stores/Form/FormSlice';
 
@@ -28,7 +28,7 @@ const getCurrentRowIndex = (
 };
 
 export const getCurrentAttemptPlayerService = async () => {
-  const user = await getCurrentUser();
+  const user = await getCurrentUserInSession();
 
   if (!user) {
     return;

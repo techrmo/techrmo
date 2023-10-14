@@ -1,5 +1,4 @@
-import { StoreApi } from 'zustand';
-import { createWithEqualityFn } from 'zustand/traditional';
+import { StoreApi, create } from 'zustand';
 
 import { ResultStore, useResultStore } from '../ResultStore';
 import { KeyResult, useKeysStore } from '../KeysStore';
@@ -28,7 +27,7 @@ interface UseFormStoreActions {
 export type SetFormState = StoreApi<UseForm>['setState'];
 export type GetFormState = StoreApi<UseForm>['getState'];
 
-export const useFormStore = createWithEqualityFn<UseForm & UseFormStoreActions>(
+export const useFormStore = create<UseForm & UseFormStoreActions>(
   (set, get) => ({
     ...createInputSlice(set, get),
     ...createFormSlice(set, get),
@@ -50,6 +49,5 @@ export const useFormStore = createWithEqualityFn<UseForm & UseFormStoreActions>(
 
       set(store);
     },
-  }),
-  Object.is
+  })
 );

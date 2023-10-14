@@ -7,7 +7,7 @@ import ReactJoyride, {
   ACTIONS,
   LIFECYCLE,
 } from 'react-joyride';
-import { shallow } from 'zustand/shallow';
+import { useShallow } from 'zustand/react/shallow';
 
 import { useOnboardingStore } from '@/shared/stores/onboardingStore';
 
@@ -33,19 +33,17 @@ const Onboarding = () => {
     resetValuesOnboarding,
     setValuesBackupOnboarding,
   } = useFormStore(
-    (store) => ({
+    useShallow((store) => ({
       setFormOnboarding: store.setFormOnboarding,
       resetValuesOnboarding: store.resetValuesOnboarding,
       setValuesBackupOnboarding: store.setValuesBackupOnboarding,
-    }),
-    shallow
+    }))
   );
   const { resetResultOnboarding, setResultBackupOnboarding } = useResultStore(
-    (store) => ({
+    useShallow((store) => ({
       resetResultOnboarding: store.resetResultOnboarding,
       setResultBackupOnboarding: store.setResultBackupOnboarding,
-    }),
-    shallow
+    }))
   );
   const {
     setKeyboardOnboarding,
@@ -53,20 +51,18 @@ const Onboarding = () => {
     setUsedKeysBackupOnboarding,
     setDisableAllKeys,
   } = useKeysStore(
-    (store) => ({
+    useShallow((store) => ({
       setKeyboardOnboarding: store.setKeyboardOnboarding,
       resetKeyboardOnboarding: store.resetKeyboardOnboarding,
       setUsedKeysBackupOnboarding: store.setUsedKeysBackupOnboarding,
       setDisableAllKeys: store.setDisableAllKeys,
-    }),
-    shallow
+    }))
   );
   const { isOpenOnboarding, openOnboarding } = useOnboardingStore(
-    (store) => ({
+    useShallow((store) => ({
       isOpenOnboarding: store.isOpenOnboarding,
       openOnboarding: store.openOnboarding,
-    }),
-    shallow
+    }))
   );
 
   const [steps] = useState<Step[]>([

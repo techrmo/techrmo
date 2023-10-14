@@ -5,6 +5,7 @@ import { auth } from 'firebase-admin';
 import { apiHandler } from '../../helpers/apiHandler';
 import { upsertPlayer } from '../../(services)/players';
 import { AuthError } from '../../(errors)/AuthError';
+import { getUserByUid } from '../../(services)/github/getUserByUid';
 
 async function CreateSession() {
   const authorization = headers().get('Authorization');
@@ -61,10 +62,12 @@ async function VerifyUserSession() {
     throw new AuthError('Usuário não autorizado', 401);
   }
 
+  const resonse = await getUserByUid(user.providerData.at(0)?.uid);
+
   upsertPlayer({
     email: user.email,
     image: user.photoURL,
-    name: user.displayName,
+    name: resonse?.login,
   })
     .then(() => console.log(`Usuário ${uid} criado/atualizado`))
     .catch((error) =>

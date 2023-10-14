@@ -1,7 +1,7 @@
 import { NextResponse, NextRequest } from 'next/server';
 
 import { getStatus } from '@/shared/helpers/getStatusAttempt';
-import { getCurrentUser } from '@/shared/services/getCurrentUser';
+import { getCurrentUserInSession } from '@/shared/services/getCurrentUserInSession';
 
 import { getCurrentWord } from '../../(services)/words';
 import { wordValidationRequest } from '../../(services)/words/validators';
@@ -12,16 +12,17 @@ import {
 import { letterResult } from '../../(services)/attempts/validators/attemptValues';
 import { apiHandler } from '../../helpers/apiHandler';
 import { AppError } from '../../(errors)/AppError';
+import { AuthError } from '../../(errors)/AuthError';
 
 async function VerifyWord(request: NextRequest) {
-  const user = await getCurrentUser();
+  const user = await getCurrentUserInSession();
 
   if (!user) {
-    throw new AppError('Usuário não autenticado', 401);
+    throw new AuthError('Usuário não autenticado', 401);
   }
 
   if (!user.email) {
-    throw new AppError('Usuário não autenticado', 401);
+    throw new AuthError('Usuário não autenticado', 401);
   }
 
   const secretWord = await getCurrentWord();

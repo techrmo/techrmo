@@ -1,5 +1,7 @@
 import Button from '@/shared/components/ui/Button';
 
+import { useResultStore } from '../../stores/ResultStore';
+
 import styles from './styles.module.scss';
 
 import { ShareIcon } from '@/shared/assets/icons/ShareIcon';
@@ -15,7 +17,10 @@ export const DialogFooterButtons = ({
   file,
   goToExplanation,
 }: DialogFooterButtonsProps) => {
-  const canShare = navigator.canShare as CanShare;
+  const status = useResultStore((store) => store.status);
+  const isWin = status === 'WIN';
+  const variant = status === 'WIN' ? 'outlined-green' : 'outlined-yellow';
+  const canShare = (navigator.canShare as CanShare) && isWin;
 
   const share = () => {
     if (!file) {
@@ -31,7 +36,7 @@ export const DialogFooterButtons = ({
 
   return (
     <div className={styles.dialogFooterButtons}>
-      {
+      {canShare && (
         <Button
           onClick={share}
           type="button"
@@ -44,8 +49,13 @@ export const DialogFooterButtons = ({
             <ShareIcon fontSize={26} />
           </span>
         </Button>
-      }
-      <Button type="button" size="small" onClick={goToExplanation}>
+      )}
+      <Button
+        type="button"
+        size="small"
+        variant={variant}
+        onClick={goToExplanation}
+      >
         Ver explicação
       </Button>
     </div>
