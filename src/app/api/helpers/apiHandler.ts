@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
+import { cookies } from 'next/headers';
 
 import { AppError } from '../(errors)/AppError';
 import { customInitApp } from '../(services)/firebaseAdmin/firebaseAdmin';
@@ -30,6 +31,13 @@ export function apiHandler(handler: APIRequests) {
         console.error(error);
 
         if (error instanceof AuthError) {
+          const options = {
+            name: 'session',
+            value: '',
+            maxAge: -1,
+          };
+
+          cookies().set(options);
           return NextResponse.redirect(new URL('/', request.url));
         }
 

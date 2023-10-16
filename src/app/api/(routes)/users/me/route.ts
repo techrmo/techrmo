@@ -1,6 +1,4 @@
 import { NextResponse } from 'next/server';
-import { cookies } from 'next/headers';
-import { auth } from 'firebase-admin';
 
 import { getCurrentUserInSession } from '@/shared/services/getCurrentUserInSession';
 
@@ -10,8 +8,6 @@ import { getPlayerByEmail } from '../../../(services)';
 
 async function ShowUserLogged() {
   const user = await getCurrentUserInSession();
-
-  console.log('ShowUserLogged', user);
 
   if (!user) {
     throw new AuthError('Usuário não autenticado', 401);
