@@ -16,7 +16,6 @@ export const useScreenshot = <T extends HTMLElement>(triggered: boolean) => {
         const canvas = await html2canvas(ref.current, {
           useCORS: true,
           allowTaint: true,
-          scale: 1,
           onclone: (_document, element) => {
             element.style.display = 'flex';
           },
@@ -28,18 +27,14 @@ export const useScreenshot = <T extends HTMLElement>(triggered: boolean) => {
               return;
             }
 
-            const newfile = new File([blob], 'picture.png', {
-              type: 'image/png',
+            const newfile = new File([blob], 'picture.jpeg', {
+              type: 'image/jpeg',
             });
             setFile(newfile);
           },
           'image/png',
           1
         );
-
-        // const response = await axios.get<Blob>(image, {
-        //   responseType: 'blob',
-        // });
       } catch (error) {
         console.error(error);
       }
