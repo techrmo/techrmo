@@ -33,7 +33,7 @@ export const useScreenshot = <T extends HTMLElement>(triggered: boolean) => {
             });
             setFile(newfile);
           },
-          ' image/png',
+          'image/png',
           1
         );
 
