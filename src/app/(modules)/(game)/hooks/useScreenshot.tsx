@@ -21,6 +21,8 @@ export const useScreenshot = <T extends HTMLElement>(triggered: boolean) => {
           },
         });
 
+        console.log(canvas.toDataURL());
+
         canvas.toBlob(
           (blob) => {
             if (!blob) {
