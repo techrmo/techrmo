@@ -1,19 +1,18 @@
 name: WorkFlow Pull Request
-on: 
+on:
   pull_request:
   push:
     branches:
       - development
+      - beta
 
 jobs:
-  # unit-test:
-  #   uses: ./.github/workflows/unit-test.yaml
-  # sonar:
-  #   secrets: inherit
-  #   uses: ./.github/workflows/sonar.yaml
+  unit-test:
+    uses: ./.github/workflows/unit-test.yaml
+  sonar:
+    secrets: inherit
+    uses: ./.github/workflows/sonar.yaml
   deploy-dev:
-    # needs: [unit-test, sonar]
+    needs: [unit-test, sonar]
     secrets: inherit
     uses: ./.github/workflows/deploy-dev.yaml
-   
-     

@@ -39,3 +39,7 @@ public/docs/*
 dist/*
 
 .env
+
+words.json
+# Sentry Config File
+.sentryclirc

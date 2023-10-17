@@ -1,0 +1,59 @@
+@use "abstracts" as *;
+
+.container {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  width: 100%;
+
+  & > div {
+    display: flex;
+    align-items: center;
+  }
+}
+
+.helpButton {
+  background: none;
+  width: 24px;
+  height: 24px;
+  perspective: 1000px;
+
+  border: none;
+  margin-left: 5px;
+
+  color: $color-yellow-800;
+
+  & div {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    transition: transform 1.6s;
+    transform-style: preserve-3d;
+  }
+
+  & svg {
+    left: 0;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    backface-visibility: hidden;
+  }
+
+  & svg:nth-child(2) {
+    transform: rotateY(180deg);
+  }
+
+  &:hover div,
+  &:active div {
+    animation: rotateYSvg 1.5s infinite;
+  }
+}
+
+@keyframes rotateYSvg {
+  from {
+    transform: rotateY(0deg);
+  }
+  to {
+    transform: rotateY(360deg);
+  }
+}

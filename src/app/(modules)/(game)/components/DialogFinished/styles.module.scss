@@ -1,0 +1,194 @@
+@use "abstracts" as *;
+
+.content {
+  transition: all;
+  position: relative;
+  display: flex;
+  gap: 10px;
+  justify-content: space-between;
+  align-items: center;
+  flex-direction: column;
+  border-radius: 4px;
+  border-radius: 4px;
+  border: 2px solid var(--gray-700, #2b2b2b);
+  background: #000;
+
+  inset: 0;
+  max-width: 350px;
+  min-width: 350px;
+  height: 410px;
+  padding: 26px 15px;
+
+  .title {
+    font-size: 2.5rem;
+    font-weight: 500;
+    color: $color-gray-100;
+  }
+}
+
+.wordContainer {
+  display: flex;
+  flex-direction: column;
+
+  input {
+    width: 55px;
+    height: 55px;
+    font-size: 2.8125rem;
+    text-transform: uppercase;
+  }
+
+  div {
+    justify-content: center;
+    display: flex;
+    gap: 10px;
+  }
+
+  svg {
+    margin-right: 5px;
+  }
+
+  p {
+    color: $color-gray-100;
+    text-align: center;
+    margin-bottom: 10px;
+  }
+}
+
+.explanationContainer {
+  flex: 1;
+  display: flex;
+  justify-content: space-around;
+  flex-direction: column;
+
+  > div {
+    align-self: flex-end;
+    display: flex;
+  }
+
+  .explanation {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    color: $color-gray-100;
+    text-align: center;
+    font-weight: 400;
+    font-size: 1.25rem;
+  }
+}
+
+.dialogFooterButtons {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  gap: 10px;
+
+  button {
+    height: 40px;
+  }
+
+  button#shareButton {
+    overflow: hidden;
+    text-align: center;
+    padding: 0;
+    width: 200px;
+    border: 1px solid $color-green-800;
+    transition: 0.2s;
+
+    span {
+      display: block;
+      transition: 0.3s;
+    }
+
+    &:hover span:nth-child(1) {
+      margin-left: 60px;
+    }
+
+    span:nth-child(2) {
+      position: absolute;
+      width: 200px;
+      height: 100px;
+      margin-top: -50px;
+      background: linear-gradient(
+        180deg,
+        #000 0%,
+        #c0ff7c 38.97%,
+        #40db69 99.99%,
+        #04f845 100%
+      );
+      left: -250px;
+      display: flex;
+      justify-content: flex-end;
+      align-items: flex-end;
+      padding: 12px 28px;
+      border-radius: 50px;
+      color: $color-gray-900;
+    }
+
+    &:hover span:nth-child(2) {
+      left: -130px;
+    }
+  }
+}
+
+.shareComponent {
+  height: 100vh;
+  width: 100vw;
+
+  background: linear-gradient(
+    180deg,
+    #000 0%,
+    #000 38.97%,
+    #027b22 99.99%,
+    #04f845 100%
+  );
+
+  display: none;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  text-align: center;
+
+  color: $color-gray-100;
+
+  p {
+    font-size: 2.25rem;
+    font-weight: 600;
+    text-align: center;
+
+    span {
+      text-transform: capitalize;
+      color: $color-green-800;
+    }
+  }
+
+  & > div > div {
+    display: flex;
+
+    $sizes: (
+      1: 8px,
+      2: 14px,
+      3: 22px,
+    );
+
+    @each $item, $size in $sizes {
+      &:nth-child(#{$item}) {
+        margin-left: #{$size};
+      }
+    }
+
+    &:last-of-type {
+      button:last-of-type {
+        max-width: fit-content;
+        padding: 8px;
+      }
+    }
+  }
+
+  svg {
+    margin: 0 auto;
+    width: 250px;
+    height: 100px;
+  }
+}

@@ -1,0 +1,169 @@
+@use "abstracts" as *;
+
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-evenly;
+
+  padding: 20px;
+
+  width: 100vw;
+  height: 100svh;
+
+  background: url('../../../../shared/assets/backgroundLanding.svg');
+  background-repeat: no-repeat;
+  background-size: cover;
+  backdrop-filter: inherit;
+
+  & section {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    flex: 1;
+    width: 100%;
+  }
+
+  h1 {
+    color: $color-gray-100;
+    font-size: max(40px, 5vw);
+    font-weight: 500;
+    text-align: center;
+    margin-bottom: 50px;
+
+    span {
+      line-height: 50px;
+      font-weight: 700;
+      font-size: max(80px, 7vw);
+      font-family: var(--font-roboto);
+    }
+  }
+
+  h2 {
+    color: $color-gray-100;
+    text-align: center;
+    font-weight: 400;
+    font-size: clamp(18px, 5vw, 24px);
+    margin-bottom: 30px;
+    inline-size:75%; 
+  }
+
+}
+
+.header {
+  text-align: center;
+  flex: 1;
+}
+
+.footer {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: center;
+
+  font-size: 0.875rem;
+  color: $color-gray-100;
+  text-align: center;
+  width: 100%;
+  
+  p {
+    width: 80%;
+    padding-top: 15px;
+    border-top: 1px solid rgba(255, 255, 255, 0.3);
+  }
+
+  div {
+    margin-top: 15px;
+    display: flex;
+    justify-content: center;
+    gap: 40px;
+  }
+
+  ul {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    list-style: none;
+
+    img {
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+    }
+
+    li svg {
+      width: 20px;
+      height: auto;
+      fill: $color-yellow-900
+    }
+  }
+}
+
+.inputContainer {
+  display: flex;
+  gap: 6px;
+}
+
+.lines {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 100%;
+  margin: auto;
+  width: 90vw;
+
+  & .line {
+    position: absolute;
+    width: 1px;
+    height: 100%;
+    top: 0;
+    left: 50%;
+    background: rgba(255, 255, 255, 0.1);
+    overflow: hidden;
+
+    &::after {
+      content: '';
+      display: block;
+      position: absolute;
+      height: 15vh;
+      width: 100%;
+      top: -50%;
+      left: 0;
+      background: $color-yellow-900;
+      animation: drop 7s 0s infinite;
+      animation-fill-mode: forwards;
+      animation-timing-function: cubic-bezier(0.4, 0.26, 0, 0.97);
+    }
+    
+    &:nth-child(1) {
+      margin-left: -25%;
+  
+      &::after {
+        animation-delay: 2s;
+      }
+    }
+    
+    &:nth-child(3) {
+      margin-left: 25%;
+  
+      &::after{
+        animation-delay: 2.5s
+  
+      }
+  
+    }
+  }
+
+}
+  
+@keyframes drop {
+  0% {
+    top: -50%
+  }
+  100% {
+    top: 110%
+  }
+}

@@ -16,7 +16,8 @@
   "less.validate": false,
   "scss.validate": false,
   "editor.codeActionsOnSave": {
-    "source.fixAll.stylelint": true
+    "source.fixAll.stylelint": true,
+    "source.fixAll.eslint": true
   },
   "files.autoSaveDelay": 500,
   "stylelint.config": {
@@ -37,11 +38,11 @@
       "no-descending-specificity": null
     }
   },
-  "colorize.colorized_variables": [
-    "SASS"
-  ],
+  "colorize.colorized_variables": ["SASS"],
   "sonarlint.connectedMode.project": {
     "connectionId": "techrmo",
     "projectKey": "techrmo"
   },
+  "npm.packageManager": "pnpm",
+  "testing.automaticallyOpenPeekView": "never"
 }

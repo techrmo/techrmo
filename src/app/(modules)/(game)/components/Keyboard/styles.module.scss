@@ -1,0 +1,20 @@
+@use "abstracts" as *;
+
+.container div {
+  margin: 4px;
+  display: flex;
+
+  $sizes: (1:8px, 2:14px, 3:22px);
+
+  @each $item, $size in $sizes {
+    &:nth-child(#{$item}) {
+      margin-left: #{$size};
+    }
+  }
+
+  &:last-of-type {
+    button:last-of-type {
+     max-width: fit-content;
+    }
+  }
+}
