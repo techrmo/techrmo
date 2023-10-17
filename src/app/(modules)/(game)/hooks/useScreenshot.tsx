@@ -22,16 +22,24 @@ export const useScreenshot = <T extends HTMLElement>(triggered: boolean) => {
           },
         });
 
-        const image = canvas.toDataURL('image/png', 1);
+        canvas.toBlob(
+          (blob) => {
+            if (!blob) {
+              return;
+            }
 
-        const response = await axios.get<Blob>(image, {
-          responseType: 'blob',
-        });
+            const newfile = new File([blob], 'picture.png', {
+              type: 'image/png',
+            });
+            setFile(newfile);
+          },
+          ' image/png',
+          1
+        );
 
-        const newfile = new File([response.data], 'picture.png', {
-          type: 'image/png',
-        });
-        setFile(newfile);
+        // const response = await axios.get<Blob>(image, {
+        //   responseType: 'blob',
+        // });
       } catch (error) {
         console.error(error);
       }
