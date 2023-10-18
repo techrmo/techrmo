@@ -1,4 +1,5 @@
-import { type ComponentProps, type ReactNode, forwardRef } from 'react';
+import type { ComponentProps, ReactNode } from 'react';
+import { Slot } from '@radix-ui/react-slot';
 
 import styles from './styles.module.scss';
 
@@ -11,33 +12,30 @@ export type ButtonVariant =
   | 'text-green'
   | 'text-yellow';
 
-interface ButtonProps extends ComponentProps<'button'> {
+interface ButtonProps extends Omit<ComponentProps<'button'>, 'ref'> {
   children: ReactNode;
+  asChild?: boolean;
   size?: 'extra-small' | 'small' | 'medium' | 'large';
   variant?: ButtonVariant;
 }
 
-const Button = forwardRef<HTMLButtonElement, ButtonProps>(
-  (
-    {
-      children,
-      variant = 'outlined-green',
-      size = 'medium',
-      className,
-      ...rest
-    }: ButtonProps,
-    ref
-  ) => (
-    <button
-      ref={ref}
-      className={`${className || ''} ${styles.container} `}
+const Button = ({
+  className,
+  asChild = false,
+  variant = 'outlined-green',
+  size = 'medium',
+  ...rest
+}: ButtonProps) => {
+  const Component = asChild ? Slot : 'button';
+
+  return (
+    <Component
+      className={`${className || ''} ${styles.container}`}
       data-variant={variant}
       data-size={size}
       {...rest}
-    >
-      {children}
-    </button>
-  )
-);
+    />
+  );
+};
 
 export default Button;

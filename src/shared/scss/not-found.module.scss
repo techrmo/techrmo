@@ -1,0 +1,51 @@
+@use "abstracts" as *;
+
+.container {
+  padding: 36px;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  flex-direction: column;
+
+  height: 100svh;
+
+  color: $color-gray-100;
+
+  h1 {
+    text-align: center;
+    font-size: clamp(2rem, 4vw, 4rem);
+  }
+
+  h2 {
+    font-size: clamp(1.375rem, 7vw, 2rem);
+    text-align: center;
+    margin-top: 18px;
+  }
+
+  strong {
+    font-weight: bold;
+  }
+
+  section {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
+  input {
+    width: clamp(55px, 20vw, 100px);
+    height: clamp(55px, 20vw, 100px);
+    font-size: clamp(3.125rem, 10vw, 5rem);
+    margin: 5px;
+  }
+
+  img {
+    width: clamp(230px, 30vw, 350px);
+    height: clamp(40px, 12vw, 80px);
+  }
+
+  a[data-size="medium"] {
+    font-size: clamp(1.3rem, 4vw, 1.5rem);
+  }
+}
