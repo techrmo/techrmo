@@ -12,9 +12,11 @@ const schema = z.object({
     z.string().url(),
     'http://localhost:3000/api'
   ),
+  NEXT_PUBLIC_GOOGLE_ANALYTICS: z.string(),
 });
 
 export const publicEnvs = schema.parse({
   NEXT_PUBLIC_API_URL: process.env['NEXT_PUBLIC_API_URL'],
   NEXT_PUBLIC_GRAPHCMS_URL: process.env['NEXT_PUBLIC_GRAPHCMS_URL'],
+  NEXT_PUBLIC_GOOGLE_ANALYTICS: process.env['NEXT_PUBLIC_GOOGLE_ANALYTICS'],
 });
