@@ -43,9 +43,11 @@ const LoginButton = () => {
     } catch (error) {
       console.error('error', error);
       addToast({
-        title: 'Algo deu errado no login!',
-        description: 'Tente novamente.',
+        title: 'Calma, Calma!',
+        description:
+          'Você poderá jogar após a live de sexta, 20/10 às 19h no canal tsu.node',
         variant: 'success',
+        duration: 10000,
       });
       setButtonText(defaultButtonText);
     }

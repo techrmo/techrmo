@@ -1,5 +1,4 @@
 import { useEffect, useRef, useState } from 'react';
-import axios from 'axios';
 import html2canvas from 'html2canvas';
 
 export const useScreenshot = <T extends HTMLElement>(triggered: boolean) => {
@@ -20,8 +19,6 @@ export const useScreenshot = <T extends HTMLElement>(triggered: boolean) => {
             element.style.display = 'flex';
           },
         });
-
-        console.log(canvas.toDataURL());
 
         canvas.toBlob(
           (blob) => {
