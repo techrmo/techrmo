@@ -9,7 +9,6 @@ import VerifySession from '../components/VerifySession';
 import styles from './styles.module.scss';
 
 import ProfileTsunode from '@/shared/assets/profileTsunode.png';
-import ProfileAlves from '@/shared/assets/profileAlves.png';
 import SimpleIconsTwitter from '@/shared/assets/icons/SimpleIconsTwitter';
 import UiwLinkedin from '@/shared/assets/icons/UiwLinkedin';
 import FeInstagram from '@/shared/assets/icons/FeInstagram';
@@ -49,7 +48,7 @@ const Home = () => {
         </section>
 
         <footer className={styles.footer}>
-          <p>Segue a gente lá</p>
+          <p>Segue lá</p>
 
           <div>
             <ul>
@@ -57,38 +56,23 @@ const Home = () => {
                 <Image src={ProfileTsunode} alt="Perfil do Tsunode" />
               </li>
               <li>
-                <Link href="#">
+                <Link href="https://twitter.com/tsu_node">
                   <SimpleIconsTwitter gradientColor="green" />
                 </Link>
               </li>
               <li>
-                <Link href="#">
+                <Link href="https://www.linkedin.com/in/tsunode/">
                   <UiwLinkedin gradientColor="green" />
                 </Link>
               </li>
               <li>
-                <Link href="#">
+                <Link href="https://www.instagram.com/tsu.node/">
                   <FeInstagram gradientColor="green" />
                 </Link>
               </li>
               <li>
-                <Link href="#">
+                <Link href="https://www.youtube.com/tsunode">
                   <FormkitYoutube gradientColor="green" />
-                </Link>
-              </li>
-            </ul>
-            <ul>
-              <li>
-                <Image src={ProfileAlves} alt="Perfil do Tsunode" />
-              </li>
-              <li>
-                <Link href="#">
-                  <SimpleIconsTwitter gradientColor="yellow" />
-                </Link>
-              </li>
-              <li>
-                <Link href="#">
-                  <UiwLinkedin gradientColor="yellow" />
                 </Link>
               </li>
             </ul>
