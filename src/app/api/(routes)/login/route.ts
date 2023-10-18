@@ -31,7 +31,6 @@ async function CreateSession() {
       name: 'session',
       value: sessionCookie,
       maxAge: expiresIn,
-      httpOnly: true,
       secure: true,
     };
 

@@ -45,7 +45,7 @@ const LoginButton = () => {
       addToast({
         title: 'Algo deu errado no login!',
         description: 'Tente novamente.',
-        variant: 'success',
+        variant: 'error',
       });
       setButtonText(defaultButtonText);
     }
