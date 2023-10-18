@@ -66,9 +66,9 @@ export default function RootLayout({
         <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#64b447" />
 
         <meta name="msapplication-TileColor" content="#000000" />
-        <GoogleAnalytics />
       </head>
       <body className={`${poppins.variable} ${roboto.variable}`}>
+        <GoogleAnalytics />
         <ToastProvider>{children}</ToastProvider>
       </body>
     </html>
