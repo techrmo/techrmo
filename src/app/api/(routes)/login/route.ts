@@ -64,6 +64,7 @@ async function VerifyUserSession() {
   const resonse = await getUserByUid(user.providerData.at(0)?.uid);
 
   upsertPlayer({
+    uid,
     email: user.email,
     image: user.photoURL,
     name: resonse?.login,

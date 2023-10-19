@@ -1,30 +1,28 @@
 import { gql } from 'graphql-request';
 
 import { requestGraphQl } from '../hygraph';
+import { getCollection } from '../firebaseAdmin/firestore';
 
 import { getCurrentAttemptPlayerSchema } from './validators';
 
-export const getCurrentAttemptPlayer = async (playerEmail: string) => {
-  const query = gql`
-    query {
-      attempts(
-        where: {
-          word: { isCurrent: true }
-          players_some: { email: "${playerEmail}" }
-        }
-      ) {
-        id
-        values
-        statusAttempt
-      }
-    }
-  `;
+interface GetCurrentAttempData {
+  word: string;
+  userUid: string;
+}
 
-  const response = await requestGraphQl(query);
+export const getCurrentAttemptPlayer = async ({
+  word,
+  userUid,
+}: GetCurrentAttempData) => {
+  const response = await getCollection('attemps')
+    .doc(`${word}-${userUid}`)
+    .get();
 
-  const {
-    attempts: [firstAttempt],
-  } = getCurrentAttemptPlayerSchema.parse(response);
+  if (!response.exists) {
+    return;
+  }
 
-  return firstAttempt;
+  const attempt = getCurrentAttemptPlayerSchema.parse(response.data());
+
+  return attempt;
 };

@@ -1,44 +1,35 @@
 import { gql } from 'graphql-request';
+import {
+  type CollectionReference,
+  type UpdateData,
+  getFirestore,
+} from 'firebase-admin/firestore';
+
+import app from '@/shared/services/firebase';
 
 import { requestGraphQl } from '../hygraph';
+import { getCollection } from '../firebaseAdmin/firestore';
 
 interface UpsertPlayerData {
   image?: string;
   name?: string;
   email: string;
+  uid: string;
 }
 
 export const upsertPlayer = async ({
   name,
   email,
   image,
+  uid,
 }: UpsertPlayerData) => {
   try {
-    const query = gql`
-      mutation {
-        upsertPlayer(
-          upsert: {
-            create: { 
-              email: "${email}",
-              profileImage: "${image}", 
-              ${name ? `name: "${name}"` : ''} 
-            }
-            update: {
-              profileImage: "${image}",
-              ${name ? `name: "${name}"` : ''} 
-            }
-          }
-          where: { email: "${email}" }
-        ) {
-          id
-        }
-        publishPlayer(where: {email: "${email}"}) {
-          id
-        }
-      }
-    `;
-
-    await requestGraphQl(query);
+    await getCollection('players').doc(uid).set({
+      name,
+      email,
+      profileImage: image,
+      uid,
+    });
 
     return true;
   } catch (error) {

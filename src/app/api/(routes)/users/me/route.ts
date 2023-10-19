@@ -4,7 +4,7 @@ import { getCurrentUserInSession } from '@/shared/services/getCurrentUserInSessi
 
 import { apiHandler } from '../../../helpers/apiHandler';
 import { AuthError } from '../../../(errors)/AuthError';
-import { getPlayerByEmail } from '../../../(services)';
+import { getPlayerByUid } from '../../../(services)';
 
 async function ShowUserLogged() {
   const user = await getCurrentUserInSession();
@@ -13,11 +13,7 @@ async function ShowUserLogged() {
     throw new AuthError('Usuário não autenticado', 401);
   }
 
-  if (!user.email) {
-    throw new AuthError('Usuário não autenticado', 401);
-  }
-
-  const userLogged = await getPlayerByEmail(user.email);
+  const userLogged = await getPlayerByUid(user.uid);
 
   return NextResponse.json(userLogged, { status: 200 });
 }
