@@ -7,12 +7,21 @@ const nextConfig = {
     includePaths: [path.join(__dirname, 'src', 'shared', 'scss')],
   },
   trailingSlash: true,
+  async redirects() {
+    return[
+      {
+        source: '/game',
+        destination: '/',
+        permanent: true
+      }
+    ]
+  },
   async rewrites() {
     return [
       {
         source: '/docs',
         destination: '/docs/index.html',
-      },
+      }
     ];
   },
   images: {
@@ -35,6 +44,7 @@ module.exports = nextConfig;
 // Injected content via Sentry wizard below
 
 const { withSentryConfig } = require("@sentry/nextjs");
+const { redirect } = require('next/dist/server/api-utils');
 
 module.exports = withSentryConfig(
   module.exports,
