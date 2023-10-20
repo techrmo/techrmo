@@ -56,7 +56,10 @@ export const DialogFinished = () => {
         contentClassName={styles.content}
         titleClassName={styles.title}
       >
-        <DialogResponse isExplanation={isExplanation} />
+        <DialogResponse
+          isExplanation={isExplanation}
+          backToResult={() => setIsExplanation(false)}
+        />
         {isExplanation ? (
           <DialogExplanations backToResult={() => setIsExplanation(false)} />
         ) : (

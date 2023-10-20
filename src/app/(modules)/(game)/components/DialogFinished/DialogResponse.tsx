@@ -2,6 +2,7 @@ import { useShallow } from 'zustand/react/shallow';
 
 import stylesBox from '@/shared/components/ui/InputBox/styles.module.scss';
 import InputBoxUI from '@/shared/components/ui/InputBox/InputBoxUI';
+import Button from '@/shared/components/ui/Button';
 
 import { useConfetti } from '../../hooks/useConffetti';
 import { useResultStore } from '../../stores/ResultStore';
@@ -10,9 +11,13 @@ import styles from './styles.module.scss';
 
 interface DialogResponseProps {
   isExplanation: boolean;
+  backToResult: () => void;
 }
 
-export const DialogResponse = ({ isExplanation }: DialogResponseProps) => {
+export const DialogResponse = ({
+  isExplanation,
+  backToResult,
+}: DialogResponseProps) => {
   const { response, status } = useResultStore(
     useShallow((store) => ({
       response: store.response,
@@ -24,6 +29,7 @@ export const DialogResponse = ({ isExplanation }: DialogResponseProps) => {
 
   const isWin = status === 'WIN';
   const variant = isWin ? 'correct' : 'bad-position';
+  const buttonVariant = isWin ? 'green' : 'yellow';
   const showMessage = !isWin && !isExplanation;
 
   if (!response) {
@@ -44,6 +50,15 @@ export const DialogResponse = ({ isExplanation }: DialogResponseProps) => {
           />
         ))}
       </div>
+      {isExplanation && (
+        <Button
+          size="small"
+          variant={`text-${buttonVariant}`}
+          onClick={backToResult}
+        >
+          Voltar para o resultado
+        </Button>
+      )}
     </div>
   );
 };
