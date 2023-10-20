@@ -9,7 +9,7 @@ export default function NotFound() {
   return (
     <main className={styles.container}>
       <Image
-        src="/logo-medium.svg"
+        src="https://techrmo.storage.googleapis.com/logo-medium.svg"
         alt="Logo techrmo"
         width={150}
         height={50}

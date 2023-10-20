@@ -12,7 +12,7 @@ const schema = z.object({
     z.string().url(),
     'http://localhost:3000/api'
   ),
-  NEXT_PUBLIC_GOOGLE_ANALYTICS: z.string(),
+  NEXT_PUBLIC_GOOGLE_ANALYTICS: withDevDefault(z.string(), 'no-tag'),
 });
 
 export const publicEnvs = schema.parse({

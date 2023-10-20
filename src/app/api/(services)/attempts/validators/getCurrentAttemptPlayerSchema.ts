@@ -14,14 +14,15 @@ export const responseWord = z.object({
   results: z.array(resultsValidation).length(5),
 });
 
+const valuesAttempt = z.record(
+  z.string(),
+  z.array(resultsValidation).length(5)
+);
+
 export const getCurrentAttemptPlayerSchema = z.object({
-  attempts: z.array(
-    z.object({
-      id: z.string(),
-      values: z.array(z.array(resultsValidation).length(5)),
-      statusAttempt: z.enum(GAME_STATUS),
-    })
-  ),
+  values: valuesAttempt,
+  status: z.enum(GAME_STATUS),
 });
 
 export type ResultValidation = z.infer<typeof resultsValidation>;
+export type ValuesAttempt = z.infer<typeof valuesAttempt>;

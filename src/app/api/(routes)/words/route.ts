@@ -37,7 +37,10 @@ async function VerifyWord(request: NextRequest) {
 
   const secretWordArray = secretWord.value.toUpperCase().split('');
 
-  const currentAttempt = await getCurrentAttemptPlayer(user.email);
+  const currentAttempt = await getCurrentAttemptPlayer({
+    word: secretWord.value,
+    userUid: user.uid,
+  });
 
   const results = parsedValues.map((letter, index) => {
     if (letter === secretWordArray[index]) {
@@ -60,21 +63,25 @@ async function VerifyWord(request: NextRequest) {
     };
   });
 
+  const numberOfAttempts = currentAttempt
+    ? Object.keys(currentAttempt.values).length
+    : 0;
+  const actualAttempt = numberOfAttempts + 1;
+
   const resultOfAttempt = currentAttempt
-    ? [...currentAttempt.values, results]
-    : [results];
+    ? { ...currentAttempt.values, [actualAttempt]: results }
+    : { [actualAttempt]: results };
 
   const isWinner = results.every((result) => result.result === 'correct');
-  const isLost = !isWinner && resultOfAttempt.length === 7; // @todo deixar número de tentativa em env ou banco
+  const isLost = !isWinner && actualAttempt === 7; // @todo deixar número de tentativa em env ou banco
 
   const status = getStatus(isWinner, isLost);
 
   await upsertAttempt({
-    email: user.email,
+    userUid: user.uid,
     status,
     word: secretWord.value,
     values: resultOfAttempt,
-    id: currentAttempt?.id,
   });
 
   return NextResponse.json({

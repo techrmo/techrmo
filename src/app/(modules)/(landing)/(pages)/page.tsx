@@ -25,7 +25,12 @@ const Home = () => {
           <div className={styles.line} />
         </div>
         <header className={styles.header}>
-          <Image src="./logo.svg" alt="Logo techrmo" width={250} height={100} />
+          <Image
+            src="https://techrmo.storage.googleapis.com/logo-medium.svg"
+            alt="Logo techrmo"
+            width={250}
+            height={100}
+          />
         </header>
 
         <section>

@@ -2,8 +2,28 @@ import { getCurrentAttemptPlayer } from '@/app/api/(services)/attempts';
 import { getCurrentWord } from '@/app/api/(services)/words';
 import type { GameStatus } from '@/shared/constants/GameStatus';
 import { getCurrentUserInSession } from '@/shared/services/getCurrentUserInSession';
+import type {
+  ValuesAttempt,
+  ResultValidation,
+} from '@/app/api/(services)/attempts/validators';
 
 import { allowedRowIndexes } from '../stores/Form/FormSlice';
+
+function mapAttemptByField<T extends 'value' | 'result'>(
+  attemptsNumbers: string[],
+  currentAttempt: ValuesAttempt,
+  field: T
+): ResultValidation[T][][] {
+  return attemptsNumbers.map((key) => {
+    const current = currentAttempt[key];
+
+    if (!current) {
+      return [];
+    }
+
+    return current.map((item) => item[field]);
+  });
+}
 
 const getResult = async (status: GameStatus) => {
   if (['LOST', 'WIN'].includes(status)) {
@@ -38,7 +58,16 @@ export const getCurrentAttemptPlayerService = async () => {
     return;
   }
 
-  const attempt = await getCurrentAttemptPlayer(user.email);
+  const secretWord = await getCurrentWord();
+
+  if (!secretWord) {
+    return;
+  }
+
+  const attempt = await getCurrentAttemptPlayer({
+    userUid: user.uid,
+    word: secretWord?.value,
+  });
 
   if (!attempt) {
     return;
@@ -46,31 +75,33 @@ export const getCurrentAttemptPlayerService = async () => {
 
   const { values: currentAttempt } = attempt;
 
-  const resultsOfAttempts = currentAttempt.map((current) =>
-    current.map((item) => item.result)
+  const attemptsNumbers = Object.keys(currentAttempt);
+
+  const resultsOfAttempts = mapAttemptByField(
+    attemptsNumbers,
+    currentAttempt,
+    'result'
   );
 
-  const values = currentAttempt.map((current) =>
-    current.map((item) => item.value)
-  );
+  const values = mapAttemptByField(attemptsNumbers, currentAttempt, 'value');
 
-  const keyResult = currentAttempt.reduce(
+  const keyResult = Object.values(currentAttempt).reduce(
     (accumulator, current) => [...accumulator, ...current],
     []
   );
 
-  const result = await getResult(attempt.statusAttempt);
+  const result = await getResult(attempt.status);
 
   return {
     keyResult,
     response: result?.value || '',
     explanations: result?.explanations || [],
-    status: attempt.statusAttempt,
+    status: attempt.status,
     resultsOfAttempts,
     values: [...values, []],
     currentRowIndex: getCurrentRowIndex(
       resultsOfAttempts.length,
-      attempt.statusAttempt
+      attempt.status
     ),
   };
 };
