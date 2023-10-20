@@ -14,8 +14,10 @@ export const getCurrentAttemptPlayer = async ({
   word,
   userUid,
 }: GetCurrentAttempData) => {
-  const response = await getCollection('attemps')
-    .doc(`${word}-${userUid}`)
+  const response = await getCollection('attempts')
+    .doc(word)
+    .collection('players')
+    .doc(userUid)
     .get();
 
   if (!response.exists) {

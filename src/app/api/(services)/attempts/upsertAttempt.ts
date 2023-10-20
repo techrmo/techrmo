@@ -19,13 +19,17 @@ export const upsertAttempt = async ({
   values,
   status,
 }: AttemptData) => {
-  await getCollection('attemps').doc(`${word}-${userUid}`).set(
-    {
-      values,
-      status,
-      word,
-      userUid,
-    },
-    { merge: true }
-  );
+  await getCollection('attempts')
+    .doc(word)
+    .collection('players')
+    .doc(userUid)
+    .set(
+      {
+        values,
+        status,
+        word,
+        userUid,
+      },
+      { merge: true }
+    );
 };
