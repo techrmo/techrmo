@@ -1,4 +1,4 @@
-import { NextResponse } from 'next/server';
+import { NextRequest, NextResponse } from 'next/server';
 import { cookies, headers } from 'next/headers';
 import { auth } from 'firebase-admin';
 
@@ -7,7 +7,9 @@ import { upsertPlayer } from '../../(services)/players';
 import { AuthError } from '../../(errors)/AuthError';
 import { getUserByUid } from '../../(services)/github/getUserByUid';
 
-async function CreateSession() {
+import { createSessionSchema } from './createSessionValidator';
+
+async function CreateSession(request: NextRequest) {
   const authorization = headers().get('Authorization');
   if (!authorization?.startsWith('Bearer ')) {
     throw new AuthError('Usuário não autorizado', 401);
@@ -20,6 +22,10 @@ async function CreateSession() {
   }
 
   const decodedToken = await auth().verifyIdToken(idToken);
+
+  if (!decodedToken.email) {
+    throw new AuthError('Usuário não autorizado', 401);
+  }
 
   if (decodedToken) {
     const expiresIn = 60 * 60 * 24 * 5 * 1000;
@@ -37,6 +43,24 @@ async function CreateSession() {
     cookies().set(options);
   }
 
+  const data = createSessionSchema.parse(await request.json());
+
+  const resonse = await getUserByUid(data.githubId);
+
+  upsertPlayer({
+    uid: decodedToken.uid,
+    email: decodedToken.email,
+    image: decodedToken.picture,
+    name: resonse?.login,
+  })
+    .then(() => console.log(`Usuário ${decodedToken.uid} criado/atualizado`))
+    .catch((error) =>
+      console.error(
+        `Não foi possível criar/atualizar o usuário ${decodedToken.uid}`,
+        error
+      )
+    );
+
   return NextResponse.json({}, { status: 200 });
 }
 
@@ -52,27 +76,6 @@ async function VerifyUserSession() {
   if (!decodedClaims) {
     throw new AuthError('Usuário não autorizado', 401);
   }
-
-  const { uid } = decodedClaims;
-
-  const user = await auth().getUser(uid);
-
-  if (!user.email) {
-    throw new AuthError('Usuário não autorizado', 401);
-  }
-
-  const resonse = await getUserByUid(user.providerData.at(0)?.uid);
-
-  upsertPlayer({
-    uid,
-    email: user.email,
-    image: user.photoURL,
-    name: resonse?.login,
-  })
-    .then(() => console.log(`Usuário ${uid} criado/atualizado`))
-    .catch((error) =>
-      console.error(`Não foi possível criar/atualizar o usuário ${uid}`, error)
-    );
 
   return NextResponse.json({ isLogged: true }, { status: 200 });
 }

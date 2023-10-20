@@ -25,7 +25,9 @@ const LoginButton = () => {
 
       await api.post(
         'login',
-        {},
+        {
+          githubId: response.user.providerData.at(0)?.uid,
+        },
         {
           headers: {
             Authorization: `Bearer ${await response.user.getIdToken()}`,
@@ -39,7 +41,7 @@ const LoginButton = () => {
         description: 'Estamos te redirecionando para o jogo!',
         variant: 'success',
       });
-      router.push('game');
+      router.refresh();
     } catch (error) {
       console.error('error', error);
       addToast({

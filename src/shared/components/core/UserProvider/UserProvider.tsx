@@ -1,6 +1,7 @@
 'use client';
 
 import { ReactNode, useEffect } from 'react';
+import { useRouter } from 'next/navigation';
 
 import { useUserStore } from '@/shared/stores/userStore';
 import { getCurrentUser } from '@/shared/services/getCurrentUser';
@@ -12,6 +13,7 @@ interface UserProviderProps {
 
 export const UserProvider = ({ children }: UserProviderProps) => {
   const store = useUserStore();
+  const router = useRouter();
 
   useEffect(() => {
     if (store.user) {
@@ -24,6 +26,7 @@ export const UserProvider = ({ children }: UserProviderProps) => {
 
         store.setUser(user);
       } catch (error) {
+        router.refresh();
         console.error(error);
       }
     };

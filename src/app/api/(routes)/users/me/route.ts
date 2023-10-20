@@ -13,9 +13,12 @@ async function ShowUserLogged() {
     throw new AuthError('Usuário não autenticado', 401);
   }
 
-  const userLogged = await getPlayerByUid(user.uid);
-
-  return NextResponse.json(userLogged, { status: 200 });
+  try {
+    const userLogged = await getPlayerByUid(user.uid);
+    return NextResponse.json(userLogged, { status: 200 });
+  } catch (error) {
+    throw new AuthError('Usuário não autenticado', 401);
+  }
 }
 
 export const { GET } = apiHandler({

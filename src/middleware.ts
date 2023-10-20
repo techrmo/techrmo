@@ -6,7 +6,7 @@ export async function middleware(request: NextRequest) {
   const session = request.cookies.get('session');
 
   if (!session) {
-    return NextResponse.redirect(new URL('/', request.url));
+    return NextResponse.rewrite(new URL('/', request.url));
   }
 
   const responseAPI = await fetch(`${publicEnvs.NEXT_PUBLIC_API_URL}/login`, {
@@ -16,12 +16,21 @@ export async function middleware(request: NextRequest) {
   });
 
   if (responseAPI.status !== 200) {
-    return NextResponse.redirect(new URL('/', request.url));
+    return NextResponse.rewrite(new URL('/', request.url));
   }
 
-  return NextResponse.next();
+  return NextResponse.rewrite(new URL('/game', request.url));
 }
 
 export const config = {
-  matcher: ['/game'],
+  matcher: [
+    /*
+     * Match all request paths except for the ones starting with:
+     * - api (API routes)
+     * - _next/static (static files)
+     * - _next/image (image optimization files)
+     * - favicon.ico (favicon file)
+     */
+    '/((?!api|_next/static|_next/image|favicon.ico|manifest.webmanifest|.*.png|.*.svg|browserconfig.xml).*)',
+  ],
 };

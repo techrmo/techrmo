@@ -17,8 +17,9 @@ const roboto = Roboto({
 });
 
 export const metadata: Metadata = {
-  title: 'Techrmo',
-  description: 'Todos os dias uma nova palavra para você jogar e aprender.',
+  title: 'Techrmo | Um termo técnico por dia',
+  description:
+    'Explore um novo termo técnico a cada dia para aprimorar suas habilidades e conhecimento. Desperte a sua curiosidade com nossa coleção de termos técnicos diários, perfeita para jogadores e entusiastas em constante busca por aprendizado.',
   appleWebApp: true,
   viewport: {
     width: 'device-width',
@@ -29,7 +30,30 @@ export const metadata: Metadata = {
     userScalable: false,
   },
   openGraph: {
+    title: 'Techrmo | Um termo técnico por dia',
+    description:
+      'Explore um novo termo técnico a cada dia para aprimorar suas habilidades e conhecimento. Desperte a sua curiosidade com nossa coleção de termos técnicos diários, perfeita para jogadores e entusiastas em constante busca por aprendizado.',
     siteName: 'Techrmo',
+    url: 'https://techrmo.app',
+    type: 'website',
+    images: [
+      {
+        url: 'https://storage.googleapis.com/techrmo/opengraph.jpg',
+        alt: 'Techrmo | Um novo termo técnico por dia',
+      },
+    ],
+  },
+  twitter: {
+    title: 'Techrmo | Um termo técnico por dia',
+    description:
+      'Explore um novo termo técnico a cada dia para aprimorar suas habilidades e conhecimento. Desperte a sua curiosidade com nossa coleção de termos técnicos diários, perfeita para jogadores e entusiastas em constante busca por aprendizado.',
+    site: 'Techrmo',
+    images: [
+      {
+        url: 'https://storage.googleapis.com/techrmo/opengraph.jpg',
+        alt: 'Techrmo | Um termo técnico por dia',
+      },
+    ],
   },
   themeColor: '#000000',
 };
