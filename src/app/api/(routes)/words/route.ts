@@ -42,6 +42,10 @@ async function VerifyWord(request: NextRequest) {
     userUid: user.uid,
   });
 
+  if (currentAttempt && currentAttempt.status !== 'PLAYING') {
+    throw new AppError('Você já jogou hoje :/');
+  }
+
   const results = parsedValues.map((letter, index) => {
     if (letter === secretWordArray[index]) {
       return {
