@@ -39,7 +39,7 @@ const LoginButton = () => {
         description: 'Estamos te redirecionando para o jogo!',
         variant: 'success',
       });
-      router.push('game');
+      router.push('');
     } catch (error) {
       console.error('error', error);
       addToast({

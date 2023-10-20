@@ -26,7 +26,7 @@ const nextConfig = {
           hostname: 'techrmo.storage.googleapis.com',
         },
     ],  
-  }
+  },
 };
 
 module.exports = nextConfig;
