@@ -29,8 +29,6 @@ app.prepare().then(() => {
       const { pathname } = parse(req.url, true);
       const basePath = '/__/auth';
 
-      console.log(pathname, pathname?.startsWith(basePath));
-
       if (pathname?.startsWith(basePath)) {
         const file = pathname.replace(basePath, '');
         if (file === '/') {
