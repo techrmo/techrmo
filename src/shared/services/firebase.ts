@@ -3,7 +3,7 @@ import { getAuth } from 'firebase/auth';
 
 const firebaseConfig = {
   apiKey: 'AIzaSyAVs3uxSRXfhxPw-URkB5W3e0vhze6okCM',
-  authDomain: 'techrmo.firebaseapp.com',
+  authDomain: 'auth.techrmo.app',
   projectId: 'techrmo',
   storageBucket: 'techrmo.appspot.com',
   messagingSenderId: '1091190775141',
