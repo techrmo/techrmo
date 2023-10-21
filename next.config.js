@@ -27,6 +27,10 @@ const nextConfig = {
         destination: '/auth/handler.html',
       },
       {
+        source: '/__/auth/iframe',
+        destination: '/auth/iframe.html',
+      },
+      {
         source: '/__/auth/:path*',
         destination: '/auth/:path*',
       },
