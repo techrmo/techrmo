@@ -8,7 +8,7 @@ const nextConfig = {
   },
   trailingSlash: true,
   async redirects() {
-    return[
+    return [
       {
         source: '/game',
         destination: '/',
@@ -21,7 +21,15 @@ const nextConfig = {
       {
         source: '/docs',
         destination: '/docs/index.html',
-      }
+      },
+      {
+        source: '/__/auth/handler',
+        destination: '/auth/handler.html',
+      },
+      {
+        source: '/__/auth/:path*',
+        destination: '/auth/:path*',
+      },
     ];
   },
   images: {
