@@ -31,6 +31,6 @@ export const config = {
      * - _next/image (image optimization files)
      * - favicon.ico (favicon file)
      */
-    '/((?!api|_next/static|_next/image|favicon.ico|manifest.webmanifest|.*.png|.*.svg|browserconfig.xml).*)',
+    '/((?!api|_next/static|_next/image|favicon.ico|manifest.webmanifest|.*.png|.*.svg|browserconfig.xml|__/auth).*)',
   ],
 };
