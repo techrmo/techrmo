@@ -9,11 +9,13 @@ import InputBox from './InputRow/InputBox';
 import InputRow from './InputRow';
 import styles from './styles.module.scss';
 
-const InputGroup = () => {
-  const numberOfInputs = 5;
+interface InputGroupProps {
+  inputSize: number;
+}
 
+const InputGroup = ({ inputSize }: InputGroupProps) => {
   const inputsBox = (rowIndex: RowColumnIndex) =>
-    Array.from({ length: numberOfInputs }).map((_, index) => (
+    Array.from({ length: inputSize }).map((_, index) => (
       <InputBox
         key={index}
         columnIndex={index as RowColumnIndex}

@@ -84,17 +84,17 @@ export const createAttemptSlice = (
       return;
     }
 
-    const { currentValues, setResultsOfAttempts, resetState } = get();
+    const { currentValues, setResultsOfAttempts, resetState, wordSize } = get();
     try {
       const { setUsedKeys } = useKeysStore.getState();
 
-      const parsedValues = inputSchema.parse(currentValues());
+      const parsedValues = inputSchema(wordSize).parse(currentValues());
       const {
         results: resultOfAttempt,
         status: resultStatus,
         explanations,
         response,
-      } = await verifyWordService(parsedValues);
+      } = await verifyWordService(parsedValues, wordSize);
 
       setUsedKeys(resultOfAttempt);
       setResultsOfAttempts(resultOfAttempt);

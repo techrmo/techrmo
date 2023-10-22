@@ -1,3 +1,5 @@
+import { getCurrentWord } from '@/app/api/(services)';
+
 import {
   Keyboard,
   InputGroup,
@@ -12,14 +14,20 @@ import styles from './styles.module.scss';
 export const dynamic = 'force-dynamic';
 
 const Home = async () => {
-  const initialStore = await getCurrentAttemptPlayerService();
+  const secretWord = await getCurrentWord();
+  const initialStore = await getCurrentAttemptPlayerService(secretWord);
+
+  const secretWordSize = secretWord?.value.length || 5;
 
   return (
     <main className={styles.container}>
-      <StoreInitializer initialStore={initialStore} />
+      <StoreInitializer
+        initialUserStore={initialStore}
+        secretWordSize={secretWordSize}
+      />
       <Onboarding />
       <Header />
-      <InputGroup />
+      <InputGroup inputSize={secretWordSize} />
       <Keyboard />
     </main>
   );

@@ -10,10 +10,11 @@ export type DirectionInputToMove = 'NEXT' | 'PREVIOUS';
 
 export interface FormSliceStates {
   currentRowIndex: RowIndex;
-  currentColumnIndex: RowColumnIndex;
+  currentColumnIndex: number;
   values: (Keys | '')[][];
   valuesOnboardingBackup: (Keys | '')[][];
   currentRowIndexBackup: RowIndex;
+  wordSize: number;
 }
 export interface FormSliceActions {
   setCurrentRowIndex: (value: RowColumnIndex) => void;
@@ -26,12 +27,10 @@ export interface FormSliceActions {
   currentValues: () => void;
   setValuesBackupOnboarding: () => void;
   resetValuesOnboarding: () => void;
+  allowedColumnIndexes: () => number[];
 }
 export type FormSlice = FormSliceStates & FormSliceActions;
 
-export const allowedColumnIndexes = Object.freeze<RowColumnIndex[]>([
-  0, 1, 2, 3, 4,
-]);
 export const allowedRowIndexes = Object.freeze<RowIndex[]>([
   0, 1, 2, 3, 4, 5, 6,
 ]);
@@ -41,6 +40,7 @@ const directionMapping = Object.freeze({
 });
 
 const initialState: FormSliceStates = {
+  wordSize: 5,
   currentRowIndex: 0,
   currentColumnIndex: 0,
   currentRowIndexBackup: 0,
@@ -53,6 +53,11 @@ export const createFormSlice = (
   get: GetFormState
 ): FormSlice => ({
   ...initialState,
+  allowedColumnIndexes: () => {
+    const { wordSize } = get();
+
+    return Array.from({ length: wordSize }, (_value, index) => index);
+  },
   currentValues: () => {
     const { values, currentRowIndex } = get();
 
@@ -82,7 +87,12 @@ export const createFormSlice = (
     value: Keys | '',
     directionInputToMove?: DirectionInputToMove
   ) => {
-    const { currentRowIndex, currentColumnIndex, values } = get();
+    const {
+      currentRowIndex,
+      currentColumnIndex,
+      values,
+      allowedColumnIndexes,
+    } = get();
 
     const newValue = [...values];
     const currentRow = newValue[currentRowIndex];
@@ -102,7 +112,7 @@ export const createFormSlice = (
       ...(updateColumnIndex !== undefined
         ? {
             currentColumnIndex:
-              allowedColumnIndexes[updateColumnIndex] ?? currentColumnIndex,
+              allowedColumnIndexes()[updateColumnIndex] ?? currentColumnIndex,
           }
         : {}),
     }));

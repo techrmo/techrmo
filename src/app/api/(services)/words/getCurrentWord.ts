@@ -3,6 +3,12 @@ import { requestGraphQl } from '../hygraph';
 import { getCurrentWordSchema } from './validators/getCurrentWord';
 
 export const getCurrentWord = async () => {
+  return {
+    id: '',
+    value: 'devfast',
+    explanations: [],
+  };
+
   const query = `
     query Words {
       words(where: { isCurrent: true }) {

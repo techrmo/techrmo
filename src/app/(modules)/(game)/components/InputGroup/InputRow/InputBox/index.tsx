@@ -20,6 +20,7 @@ const InputBox = ({ columnIndex, rowIndex, onboarding }: InputBoxProps) => {
   );
   const currentRowIndex = useFormStore((state) => state.currentRowIndex);
   const values = useFormStore((state) => state.values);
+  const wordSize = useFormStore((state) => state.wordSize);
   const status = useStore(useResultStore, (store) => store.status);
   const isActiveRow = currentRowIndex === rowIndex && status === 'PLAYING';
   const classOnboarding = onboarding ? `input-box-${columnIndex}` : '';
@@ -60,6 +61,7 @@ const InputBox = ({ columnIndex, rowIndex, onboarding }: InputBoxProps) => {
 
   return (
     <InputBoxUI
+      wordSize={wordSize}
       defaultValue={getDefaultValue()}
       handleFocus={handleFocus}
       isActiveRow={isActiveRow}

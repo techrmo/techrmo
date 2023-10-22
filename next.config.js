@@ -21,19 +21,7 @@ const nextConfig = {
       {
         source: '/docs',
         destination: '/docs/index.html',
-      },
-      {
-        source: '/__/auth/handler',
-        destination: '/auth/handler.html',
-      },
-      {
-        source: '/__/auth/iframe',
-        destination: '/auth/iframe.html',
-      },
-      {
-        source: '/__/auth/:path*',
-        destination: '/auth/:path*',
-      },
+      }
     ];
   },
   images: {

@@ -16,6 +16,7 @@ export const stringValidation = z
     throw new Error('Could not interpret value as valid key');
   });
 
-export const inputSchema = z.array(stringValidation).length(5);
+export const inputSchema = (wordSize: number) =>
+  z.array(stringValidation).length(wordSize);
 
-export type FormFields = z.infer<typeof inputSchema>;
+export type FormFields = z.infer<ReturnType<typeof inputSchema>>;
