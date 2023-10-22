@@ -10,6 +10,7 @@ import ReactJoyride, {
 import { useShallow } from 'zustand/react/shallow';
 
 import { useOnboardingStore } from '@/shared/stores/onboardingStore';
+import { Keys } from '@/shared/constants/Keys';
 
 import { useFormStore } from '../../stores/Form';
 import { useKeysStore } from '../../stores/KeysStore';
@@ -27,16 +28,28 @@ import KeyStep3 from './Steps/Key3';
 import Key from './Steps/Key';
 import FinalStep from './Steps/FinalStep';
 
+const valuesOnboarding = [
+  'incorrect',
+  'correct',
+  'incorrect',
+  'bad-position',
+  'incorrect',
+  'incorrect',
+  'incorrect',
+] as const;
+
 const Onboarding = () => {
   const {
     setFormOnboarding,
     resetValuesOnboarding,
     setValuesBackupOnboarding,
+    wordSize,
   } = useFormStore(
     useShallow((store) => ({
       setFormOnboarding: store.setFormOnboarding,
       resetValuesOnboarding: store.resetValuesOnboarding,
       setValuesBackupOnboarding: store.setValuesBackupOnboarding,
+      wordSize: store.wordSize,
     }))
   );
   const { resetResultOnboarding, setResultBackupOnboarding } = useResultStore(
@@ -146,6 +159,11 @@ const Onboarding = () => {
       setResultBackupOnboarding();
       setDisableAllKeys(true);
       return;
+    } else if (mounted) {
+      resetKeyboardOnboarding();
+      resetValuesOnboarding();
+      resetResultOnboarding();
+      setDisableAllKeys(false);
     }
   }, [isOpenOnboarding]);
 
@@ -153,26 +171,29 @@ const Onboarding = () => {
     return null;
   }
 
+  const wordOnboarding = Array.from({ length: wordSize }, (_, index) =>
+    String.fromCharCode(65 + index)
+  ) as Keys[];
+
   const handleJoyrideCallback = (data: CallBackProps) => {
     const { index, action, lifecycle } = data;
 
     if (lifecycle === LIFECYCLE.TOOLTIP && index >= 2) {
-      setFormOnboarding(
-        ['R', 'E', 'A', 'C', 'T'],
-        ['incorrect', 'correct', 'incorrect', 'bad-position', 'incorrect']
+      setFormOnboarding(wordOnboarding, valuesOnboarding.slice(0, wordSize));
+      setKeyboardOnboarding(
+        wordOnboarding.reduce(
+          (acumulator, current, indexWord) => ({
+            ...acumulator,
+            [current]: valuesOnboarding[indexWord],
+          }),
+          {}
+        )
       );
-      setKeyboardOnboarding({
-        R: 'incorrect',
-        E: 'correct',
-        A: 'incorrect',
-        C: 'bad-position',
-        T: 'incorrect',
-      });
       return;
     }
 
     if (lifecycle === LIFECYCLE.TOOLTIP && index === 1) {
-      setFormOnboarding(['R', 'E', 'A', 'C', 'T']);
+      setFormOnboarding(wordOnboarding);
     }
 
     if (action === ACTIONS.CLOSE || action === ACTIONS.RESET) {
