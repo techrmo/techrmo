@@ -32,6 +32,12 @@
 
   input {
     text-transform: uppercase;
+
+    &[data-word-size="7"] {
+      width: 35px;
+      height: 35px;
+      font-size: 22px;
+    }
   }
 
   div {
