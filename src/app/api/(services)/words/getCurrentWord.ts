@@ -5,7 +5,7 @@ import { getCurrentWordSchema } from './validators/getCurrentWord';
 export const getCurrentWord = async () => {
   return {
     id: '',
-    value: 'devfast',
+    value: 'devfest',
     explanations: [],
   };
 
