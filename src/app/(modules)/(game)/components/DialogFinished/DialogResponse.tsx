@@ -6,6 +6,7 @@ import Button from '@/shared/components/ui/Button';
 
 import { useConfetti } from '../../hooks/useConffetti';
 import { useResultStore } from '../../stores/ResultStore';
+import { useFormStore } from '../../stores/Form';
 
 import styles from './styles.module.scss';
 
@@ -24,6 +25,7 @@ export const DialogResponse = ({
       status: store.status,
     }))
   );
+  const wordSize = useFormStore((store) => store.wordSize);
 
   useConfetti(response);
 
@@ -42,6 +44,7 @@ export const DialogResponse = ({
       <div>
         {response.split('').map((value, index) => (
           <InputBoxUI
+            wordSize={wordSize}
             key={index}
             isActiveRow={false}
             defaultValue={value}

@@ -4,9 +4,9 @@
 .container {
   cursor: text;
 
-  width: 35px;
-  height: 35px;
-  font-size: 20px;
+  width: 45px;
+  height: 45px;
+  font-size: 25px;
 
   padding: 10px;
   color: $color-gray-800;
@@ -38,7 +38,7 @@
   );
 
   $word-7: (
-    font-size: 20px,
+    font-size: 22px,
     width: 35px,
     height: 35px,
   );
@@ -50,11 +50,13 @@
     7: $word-7,
   );
 
-  @each $size, $word-style in $word-size {
-    &[data-word-size="#{$size}"] {
-      width: map.get($word-style, "width");
-      height: map.get($word-style, "height");
-      font-size: map.get($word-style, "font-size");
+  @media (max-width: 465px) {
+    @each $size, $word-style in $word-size {
+      &[data-word-size="#{$size}"] {
+        width: map.get($word-style, "width");
+        height: map.get($word-style, "height");
+        font-size: map.get($word-style, "font-size");
+      }
     }
   }
 
