@@ -29,4 +29,23 @@
   & p:nth-of-type(2) {
     font-size: 14px;
   }
+
+  ul {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    list-style: none;
+
+    img {
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+    }
+
+    li svg {
+      width: 20px;
+      height: auto;
+      fill: $color-yellow-900;
+    }
+  }
 }

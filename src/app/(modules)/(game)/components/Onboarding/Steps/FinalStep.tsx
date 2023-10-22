@@ -24,22 +24,22 @@ const FinalStep = () => {
             <Image src={ProfileTsunode} alt="Perfil do Tsunode" />
           </li>
           <li>
-            <Link href="https://twitter.com/tsu_node">
+            <Link href="https://twitter.com/tsu_node" target="_blank">
               <SimpleIconsTwitter gradientColor="green" />
             </Link>
           </li>
           <li>
-            <Link href="https://www.linkedin.com/in/tsunode/">
+            <Link href="https://www.linkedin.com/in/tsunode/" target="_blank">
               <UiwLinkedin gradientColor="green" />
             </Link>
           </li>
           <li>
-            <Link href="https://www.instagram.com/tsu.node/">
+            <Link href="https://www.instagram.com/tsu.node/" target="_blank">
               <FeInstagram gradientColor="green" />
             </Link>
           </li>
           <li>
-            <Link href="https://www.youtube.com/tsunode">
+            <Link href="https://www.youtube.com/tsunode" target="_blank">
               <FormkitYoutube gradientColor="green" />
             </Link>
           </li>
