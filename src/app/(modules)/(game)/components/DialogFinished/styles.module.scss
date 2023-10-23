@@ -31,10 +31,13 @@
   flex-direction: column;
 
   input {
-    width: 55px;
-    height: 55px;
-    font-size: 2.8125rem;
     text-transform: uppercase;
+
+    &[data-word-size="7"] {
+      width: 35px;
+      height: 35px;
+      font-size: 22px;
+    }
   }
 
   div {

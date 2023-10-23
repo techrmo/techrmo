@@ -25,16 +25,13 @@ const resultsValidation = z.object({
   result: letterResult,
 });
 
-export const responseWord = z.object({
-  results: z.array(resultsValidation).length(5),
-  status: z.enum(GAME_STATUS),
-  explanations: z.array(z.string()),
-  response: z.string().optional(),
-});
-
-export const responseCookieAttempt = z.array(
-  z.array(resultsValidation).length(5)
-);
+export const responseWord = (wordSize: number) =>
+  z.object({
+    results: z.array(resultsValidation).length(wordSize),
+    status: z.enum(GAME_STATUS),
+    explanations: z.array(z.string()),
+    response: z.string().optional(),
+  });
 
 export type LetterResult = z.infer<typeof letterResult>;
-export type ResponseWord = z.infer<typeof responseWord>;
+export type ResponseWord = z.infer<ReturnType<typeof responseWord>>;

@@ -16,8 +16,9 @@ export const stringValidation = z
     throw new Error('Could not interpret value as valid key');
   });
 
-export const wordValidationRequest = z.object({
-  values: z.array(stringValidation).length(5),
-});
+export const wordValidationRequest = (wordSize: number) =>
+  z.object({
+    values: z.array(stringValidation).length(wordSize),
+  });
 
-export type WordValidation = z.infer<typeof wordValidationRequest>;
+export type WordValidation = z.infer<ReturnType<typeof wordValidationRequest>>;

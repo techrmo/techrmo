@@ -27,13 +27,13 @@ async function VerifyWord(request: NextRequest) {
 
   const secretWord = await getCurrentWord();
 
-  const { values: parsedValues } = wordValidationRequest.parse(
-    await request.json()
-  );
-
   if (!secretWord) {
     throw new AppError('Palavra não encontrada.', 400);
   }
+
+  const { values: parsedValues } = wordValidationRequest(
+    secretWord.value.length
+  ).parse(await request.json());
 
   const secretWordArray = secretWord.value.toUpperCase().split('');
 

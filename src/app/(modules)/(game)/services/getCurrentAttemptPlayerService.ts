@@ -1,11 +1,11 @@
 import { getCurrentAttemptPlayer } from '@/app/api/(services)/attempts';
-import { getCurrentWord } from '@/app/api/(services)/words';
 import type { GameStatus } from '@/shared/constants/GameStatus';
 import { getCurrentUserInSession } from '@/shared/services/getCurrentUserInSession';
 import type {
   ValuesAttempt,
   ResultValidation,
 } from '@/app/api/(services)/attempts/validators';
+import { SecretWord } from '@/app/api/(services)/words/validators';
 
 import { allowedRowIndexes } from '../stores/Form/FormSlice';
 
@@ -25,9 +25,9 @@ function mapAttemptByField<T extends 'value' | 'result'>(
   });
 }
 
-const getResult = async (status: GameStatus) => {
+const getResult = (status: GameStatus, word: SecretWord) => {
   if (['LOST', 'WIN'].includes(status)) {
-    return getCurrentWord();
+    return word;
   }
 
   return {
@@ -47,7 +47,9 @@ const getCurrentRowIndex = (
   return allowedRowIndexes[resultsOfAttemptsLength] ?? 0;
 };
 
-export const getCurrentAttemptPlayerService = async () => {
+export const getCurrentAttemptPlayerService = async (
+  secretWord?: SecretWord
+) => {
   const user = await getCurrentUserInSession();
 
   if (!user) {
@@ -57,8 +59,6 @@ export const getCurrentAttemptPlayerService = async () => {
   if (!user.email) {
     return;
   }
-
-  const secretWord = await getCurrentWord();
 
   if (!secretWord) {
     return;
@@ -90,7 +90,7 @@ export const getCurrentAttemptPlayerService = async () => {
     []
   );
 
-  const result = await getResult(attempt.status);
+  const result = getResult(attempt.status, secretWord);
 
   return {
     keyResult,

@@ -5,6 +5,7 @@ import type { InputBoxVariant } from '@/app/(modules)/(game)/hooks/useInputVaria
 import styles from './styles.module.scss';
 
 interface InputBoxProps {
+  wordSize?: number;
   variant: InputBoxVariant;
   isActiveRow?: boolean;
   isHidden?: boolean;
@@ -21,6 +22,7 @@ const InputBoxUI = forwardRef<HTMLInputElement, InputBoxProps>(
       variant,
       handleFocus,
       defaultValue,
+      wordSize,
       className = '',
     },
     ref
@@ -37,6 +39,7 @@ const InputBoxUI = forwardRef<HTMLInputElement, InputBoxProps>(
         disabled={!isActiveRow}
         data-variant={variant}
         data-hidden={isHidden}
+        data-word-size={wordSize}
         pattern="[a-zA-Z]"
         onFocus={handleFocus}
         translate="no"

@@ -8,7 +8,7 @@ const nextConfig = {
   },
   trailingSlash: true,
   async redirects() {
-    return[
+    return [
       {
         source: '/game',
         destination: '/',

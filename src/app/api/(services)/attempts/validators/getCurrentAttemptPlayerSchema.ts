@@ -11,13 +11,10 @@ const resultsValidation = z.object({
 });
 
 export const responseWord = z.object({
-  results: z.array(resultsValidation).length(5),
+  results: z.array(resultsValidation),
 });
 
-const valuesAttempt = z.record(
-  z.string(),
-  z.array(resultsValidation).length(5)
-);
+const valuesAttempt = z.record(z.string(), z.array(resultsValidation));
 
 export const getCurrentAttemptPlayerSchema = z.object({
   values: valuesAttempt,

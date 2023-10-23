@@ -1,14 +1,16 @@
 import { initializeApp } from 'firebase/app';
 import { getAuth } from 'firebase/auth';
 
+import { publicEnvs } from '../config/envs/publicEnvs';
+
 const firebaseConfig = {
-  apiKey: 'AIzaSyAVs3uxSRXfhxPw-URkB5W3e0vhze6okCM',
-  authDomain: 'auth.techrmo.app',
-  projectId: 'techrmo',
-  storageBucket: 'techrmo.appspot.com',
-  messagingSenderId: '1091190775141',
-  appId: '1:1091190775141:web:63f61d6c83ba11f866958c',
-  measurementId: 'G-ZMB5VYM9YW',
+  apiKey: publicEnvs.NEXT_PUBLIC_FIREBASE_API_KEY,
+  authDomain: publicEnvs.NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN,
+  projectId: publicEnvs.NEXT_PUBLIC_FIREBASE_PROJECT_ID,
+  storageBucket: publicEnvs.NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET,
+  messagingSenderId: publicEnvs.NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID,
+  appId: publicEnvs.NEXT_PUBLIC_FIREBASE_APP_ID,
+  measurementId: publicEnvs.NEXT_PUBLIC_FIREBASE_MEASUREMENT_ID,
 };
 
 const app = initializeApp(firebaseConfig);

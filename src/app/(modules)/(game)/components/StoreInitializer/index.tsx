@@ -8,14 +8,26 @@ import {
 } from '@/app/(modules)/(game)/stores/Form';
 
 interface StoreInitializerProps {
-  initialStore?: InitialStoreForm;
+  initialUserStore?: InitialStoreForm;
+  secretWordSize: number;
 }
 
-const StoreInitializer = ({ initialStore }: StoreInitializerProps) => {
+const StoreInitializer = ({
+  initialUserStore,
+  secretWordSize,
+}: StoreInitializerProps) => {
   const initialized = useRef(false);
 
-  if (!initialized.current && initialStore) {
-    useFormStore.getState().setInitialState(initialStore);
+  if (initialized.current) {
+    return null;
+  }
+
+  if (secretWordSize) {
+    useFormStore.setState({ wordSize: secretWordSize });
+  }
+
+  if (initialUserStore) {
+    useFormStore.getState().setInitialState(initialUserStore);
     initialized.current = true;
   }
 
