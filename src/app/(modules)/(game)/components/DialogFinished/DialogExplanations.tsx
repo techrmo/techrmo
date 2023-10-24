@@ -34,7 +34,14 @@ export const DialogExplanations = ({
 
   return (
     <div className={styles.explanationContainer}>
-      <p className={styles.explanation}>{explanations[step]}</p>
+      <div>
+        <p
+          className={styles.explanation}
+          dangerouslySetInnerHTML={{
+            __html: explanations[step] || '',
+          }}
+        />
+      </div>
       <div>
         <Button
           size="small"

@@ -26,5 +26,11 @@ export const createInputSlice = (
       set({ currentInputElement: input });
     }
   },
-  resetState: () => set(initialState),
+  resetState: () => {
+    const { currentInputElement } = get();
+
+    currentInputElement?.removeAttribute('data-focused');
+
+    set(initialState);
+  },
 });
