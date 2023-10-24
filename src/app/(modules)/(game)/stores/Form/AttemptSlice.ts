@@ -2,6 +2,7 @@ import { ZodError } from 'zod';
 
 import { delay } from '@/shared/helpers/delay';
 import { useToastStore } from '@/shared/stores/toastStore';
+import { blacklist } from '@/shared/data/blacklist';
 
 import type {
   LetterResult,
@@ -79,6 +80,7 @@ export const createAttemptSlice = (
   },
   handleAttempt: async () => {
     const status = useResultStore.getState().status;
+    const { addToast } = useToastStore.getState();
 
     if (status !== 'PLAYING') {
       return;
@@ -89,6 +91,22 @@ export const createAttemptSlice = (
       const { setUsedKeys } = useKeysStore.getState();
 
       const parsedValues = inputSchema(wordSize).parse(currentValues());
+
+      const isIncludeBlacklistWord = blacklist.some((word) =>
+        parsedValues.join('').includes(word)
+      );
+
+      if (isIncludeBlacklistWord) {
+        addToast({
+          title: 'Opa, essa tentativa não é válida!',
+          description: `Evite usar letras sequenciais ou termos inexistentes.`,
+          variant: 'warning',
+          duration: 5000,
+        });
+
+        return;
+      }
+
       const {
         results: resultOfAttempt,
         status: resultStatus,
@@ -109,8 +127,6 @@ export const createAttemptSlice = (
         resetState();
       }
     } catch (error) {
-      const { addToast } = useToastStore.getState();
-
       if (error instanceof ZodError) {
         addToast({
           title: 'Opa, vamos com calma!',
