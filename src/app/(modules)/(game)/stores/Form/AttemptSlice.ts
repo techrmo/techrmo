@@ -114,8 +114,7 @@ export const createAttemptSlice = (
       if (error instanceof ZodError) {
         addToast({
           title: 'Opa, vamos com calma!',
-          description:
-            'Você precisa digitar as 5 letras para realizar uma tentativa',
+          description: `Você precisa digitar as ${wordSize} letras para realizar uma tentativa`,
           variant: 'warning',
           duration: 5000,
         });
