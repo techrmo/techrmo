@@ -72,12 +72,14 @@
     display: flex;
   }
 
-  .explanation {
+  > div:nth-child(1) {
     flex: 1;
     display: flex;
     justify-content: center;
     align-items: center;
+  }
 
+  .explanation {
     color: $color-gray-100;
     text-align: center;
     font-weight: 400;
