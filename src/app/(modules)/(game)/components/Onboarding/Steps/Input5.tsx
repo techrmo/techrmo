@@ -8,7 +8,7 @@ const InputStep5 = () => {
       <p>
         Aqui é aquilo, né? Você chegou na área, mas chutou para fora. &#127773;
       </p>
-      <InputBoxUI variant="bad-position" defaultValue="C" />
+      <InputBoxUI variant="bad-position" defaultValue="D" />
       <p>
         Amarelo significa que a palavra secreta tem essa letra, mas ela está na
         posição incorreta.

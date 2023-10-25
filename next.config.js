@@ -44,7 +44,6 @@ module.exports = nextConfig;
 // Injected content via Sentry wizard below
 
 const { withSentryConfig } = require("@sentry/nextjs");
-const { redirect } = require('next/dist/server/api-utils');
 
 module.exports = withSentryConfig(
   module.exports,
