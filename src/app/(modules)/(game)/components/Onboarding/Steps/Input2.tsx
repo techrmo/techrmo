@@ -8,7 +8,7 @@ const InputStep2 = () => {
       <p>
         Os quadrados brancos são <br /> o seu momento de brilhar &#10024;.
       </p>
-      <InputBoxUI variant="active" defaultValue="A" />
+      <InputBoxUI variant="active" defaultValue="C" />
       <p>
         Insira uma letra em cada um para formatar a palavra que você irá chutar
         e assim que finalizar é só pressionar o <kbd>Enter</kbd>.

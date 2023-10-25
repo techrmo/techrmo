@@ -10,11 +10,11 @@ const InputStep3 = () => {
         (ou não) &#128064;!
       </p>
       <div>
-        <InputBoxUI variant="incorrect" defaultValue="R" />
-        <InputBoxUI variant="correct" defaultValue="E" />
         <InputBoxUI variant="incorrect" defaultValue="A" />
-        <InputBoxUI variant="bad-position" defaultValue="C" />
-        <InputBoxUI variant="incorrect" defaultValue="T" />
+        <InputBoxUI variant="correct" defaultValue="B" />
+        <InputBoxUI variant="incorrect" defaultValue="C" />
+        <InputBoxUI variant="bad-position" defaultValue="D" />
+        <InputBoxUI variant="incorrect" defaultValue="E" />
       </div>
       <p>Mas não se preocupe, vamos entender o que cada cor signifca!</p>
     </Container>

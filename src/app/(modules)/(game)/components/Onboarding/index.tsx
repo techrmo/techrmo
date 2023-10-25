@@ -22,9 +22,6 @@ import InputStep3 from './Steps/Input3';
 import InputStep4 from './Steps/Input4';
 import InputStep5 from './Steps/Input5';
 import InputStep6 from './Steps/Input6';
-import KeyStep1 from './Steps/Key1';
-import KeyStep2 from './Steps/Key2';
-import KeyStep3 from './Steps/Key3';
 import Key from './Steps/Key';
 import FinalStep from './Steps/FinalStep';
 
@@ -121,21 +118,6 @@ const Onboarding = () => {
       offset: -5,
     },
     {
-      target: '.key-C',
-      content: <KeyStep1 />,
-      offset: -5,
-    },
-    {
-      target: '.key-E',
-      content: <KeyStep2 />,
-      offset: -5,
-    },
-    {
-      target: '.key-A',
-      content: <KeyStep3 />,
-      offset: -5,
-    },
-    {
       target: 'body',
       content: <FinalStep />,
       placement: 'center',
@@ -160,6 +142,7 @@ const Onboarding = () => {
       setDisableAllKeys(true);
       return;
     } else if (mounted) {
+      console.log('opa');
       resetKeyboardOnboarding();
       resetValuesOnboarding();
       resetResultOnboarding();
@@ -198,10 +181,6 @@ const Onboarding = () => {
 
     if (action === ACTIONS.CLOSE || action === ACTIONS.RESET) {
       openOnboarding();
-      resetKeyboardOnboarding();
-      resetValuesOnboarding();
-      resetResultOnboarding();
-      setDisableAllKeys(false);
     }
   };
 
