@@ -84,6 +84,11 @@
     text-align: center;
     font-weight: 400;
     font-size: 1.25rem;
+
+    a {
+      color: $color-green-800;
+      text-decoration: underline;
+    }
   }
 }
 
