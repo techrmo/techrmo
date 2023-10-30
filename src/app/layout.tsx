@@ -4,6 +4,7 @@ import { Poppins, Roboto } from 'next/font/google';
 import '@/shared/scss/main.scss';
 import GoogleAnalytics from '@/shared/components/core/GoogleAnalytics';
 import { ToastProvider } from '@/shared/components/core/ToastProvider';
+import { generateSchema } from '@/shared/services/generateSchema';
 
 const poppins = Poppins({
   weight: ['300', '500', '800'],
@@ -63,6 +64,8 @@ export default function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
+  const schema = generateSchema();
+
   return (
     <html lang="en">
       <head>
@@ -90,6 +93,10 @@ export default function RootLayout({
         <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#64b447" />
 
         <meta name="msapplication-TileColor" content="#000000" />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
+        />
       </head>
       <body className={`${poppins.variable} ${roboto.variable}`}>
         <GoogleAnalytics />
