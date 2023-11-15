@@ -54,6 +54,47 @@ async function VerifyWord(request: NextRequest) {
       };
     }
 
+    const countLetter = secretWordArray.filter(
+      (secretLetter) => letter === secretLetter
+    );
+
+    const countLetterInput = parsedValues.filter(
+      (secretLetter) => letter === secretLetter
+    );
+
+    const otherLetterPosition = parsedValues.findIndex(
+      (secretLatter) => secretLatter === letter
+    );
+
+    if (countLetter < countLetterInput) {
+      const indexesLetters = parsedValues.reduce<number[]>(
+        (prev, current, indexLetter) => {
+          return current === letter ? [...prev, indexLetter] : prev;
+        },
+        []
+      );
+
+      const hasCorrectInNextLetters = indexesLetters.some(
+        (indexLetter) => secretWordArray[indexLetter] === letter
+      );
+
+      if (
+        secretWordArray.includes(letter) &&
+        index === otherLetterPosition &&
+        !hasCorrectInNextLetters
+      ) {
+        return {
+          value: letter,
+          result: letterResult.Values['bad-position'],
+        };
+      }
+
+      return {
+        value: letter,
+        result: letterResult.Values.incorrect,
+      };
+    }
+
     if (secretWordArray.includes(letter)) {
       return {
         value: letter,
